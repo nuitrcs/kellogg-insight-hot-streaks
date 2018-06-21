@@ -1,5 +1,5 @@
 //'streak_end'
-tilde.current_sorting = 'streak_middle'
+tilde.current_sorting = 'unsorted'
 tilde.setData = function() {
 	//if (tilde.viewing < Math.floor(tilde.top_viewable))
 	tilde.sortData[tilde.current_sorting](false)
@@ -9,6 +9,21 @@ tilde.setData = function() {
 tilde.sortData = {}
 
 tilde.sortData.streak_middle = function(reverse) {
+	/*
+	tilde.data.sort(function(a,b){
+		var out = a.
+		if (reverse) {
+
+		}
+		return 
+	})*/
+}
+
+tilde.sortData.unsorted = function() {
+
+}
+
+tilde.sortData.shuffled = function() {
 	
 }
 
