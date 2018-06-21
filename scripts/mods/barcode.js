@@ -32,10 +32,17 @@ tilde.initView = function() {
 			return tilde.bar.height
 		})
 		.attr("fill",function(d,i){
-			var fill = tilde.barFill(d.i)
-			if (d.y || d.t) {
-				fill = tilde.streakFill(d.i)
-			}
+			var fill;
+			if (tilde.global_fill) {
+				fill = tilde.barFill(d.i)
+				if (d.y || d.t) {
+					fill = tilde.streakFill(d.i)
+				}
+			} /* else {
+				var pd = d3.select(this.parentNode).data()[0]
+
+			}*/
+			
 			return fill
 		})
 		.attr("width",function(d,i){

@@ -18,6 +18,8 @@ tilde.maximum = {
 //hybrid
 tilde.dimensions = tilde.hybrid
 
+tilde.global_fill = true
+
 tilde.bar = {}
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length

@@ -1,6 +1,6 @@
 tilde.export = function(){
-	var svgString = getSVGString(d3.select("#tilde-container").node());
-	svgString2Image( svgString, tilde.chartwidth,tilde.chartheight, 'png', save ); // passes Blob and filesize String to the callback
+	var svgString = getSVGString(d3.select("#tilde-chart").node());
+	svgString2Image( svgString, tilde.dimensions.width,tilde.dimensions.height, 'png', save ); // passes Blob and filesize String to the callback
 
 	function save( dataBlob, filesize ){
 		saveAs( dataBlob, 'hot_streak_'+tilde.version+'_'+tilde.current_sorting+'.png' ); // FileSaver.js function
