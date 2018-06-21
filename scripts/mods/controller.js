@@ -3,13 +3,28 @@ tilde.minimum = {
 	height : 900
 }
 
+tilde.hybrid = {
+	width : 650,
+	height : 3093
+}
+
 tilde.maximum = {
 	width : 3700,
 	height : 30930
 }
 
-//tilde.dimensions = tilde.minimum
-tilde.dimensions = tilde.maximum
+//minimum
+//maximum
+//hybrid
+tilde.dimensions = tilde.hybrid
+
+tilde.bar = {}
+tilde.bar.width = function(data_length) {
+	return tilde.dimensions.chartWidth/data_length
+}
+tilde.bar.height = 1
+tilde.bar.bottomPadding = 0
+tilde.allow_focus = true
 
 tilde.widthUnits = function(num) {
 	return (tilde.dimensions.width/130)*num
@@ -81,27 +96,38 @@ tilde.dimensions.elements = {
 tilde.plots_per_view = 1 + Math.floor(tilde.heightUnits(94)/10)
 tilde.percent_in_view = round((tilde.plots_per_view/tilde.data.length)*100,2)
 
-tilde.bar = {}
-tilde.bar.width = function(data_length) {
-	return tilde.dimensions.chartWidth/data_length
-}
-tilde.bar.height = 9
-tilde.bar.bottomPadding = 1
-
 tilde.viewing = 0
-
-tilde.allow_focus = true
 
 tilde.positions = {}
 
 tilde.stats = tilde.statistics[tilde.version]
 
-tilde.barFill = d3.scaleLinear()
+tilde.colors = {}
+
+tilde.colors.white_to_black = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
 	.range(['#FFFFFF',"#DFDFDF","#808080","#202020","#000000"])
 	.interpolate(d3.interpolateRgb)
 
-tilde.streakFill = d3.scaleLinear()
+tilde.colors.yellow_to_red = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
 	.range(['#FFFFBE',"#E9CC98","#C9805F","#A83326","#920000"])
 	.interpolate(d3.interpolateRgb)
+
+tilde.colors.purple_to_pink = d3.scaleLinear()
+	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+	.range(['#0E0065',"#0E0065","#5C0F98","#A91DCB","#F92CFF"]) //0/0/33/66/100 - 'darker shift'
+	.interpolate(d3.interpolateRgb)
+
+tilde.colors.darkorange_to_yellow = d3.scaleLinear()
+	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+	.range(['#AF1300',"#C95D3E","#E4A67C","#FFF2BC","#FFFFFF"]) //0/33/66/100/white - 'brighter shift'
+	.interpolate(d3.interpolateRgb)
+
+tilde.test = d3.scaleLinear()
+	.domain([0,100])
+	.range(['#94281A',"#FFEEA6"])
+	.interpolate(d3.interpolateRgb)
+
+tilde.barFill = tilde.colors.purple_to_pink
+tilde.streakFill = tilde.colors.darkorange_to_yellow
