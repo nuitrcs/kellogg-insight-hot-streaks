@@ -5,12 +5,12 @@ tilde.minimum = {
 
 tilde.hybrid = {
 	width : 650,
-	height : 3093
+	height : 3679
 }
 
 tilde.maximum = {
-	width : 3700,
-	height : 30930
+	width : 4000,
+	height : 36790
 }
 
 //minimum
@@ -18,14 +18,30 @@ tilde.maximum = {
 //hybrid
 tilde.dimensions = tilde.hybrid
 
+tilde.dynamic_height = true
+tilde.dynamic_height_multiplier = 1
+tilde.flexible_bar_height = false
 tilde.global_fill = true
+
+if (tilde.dynamic_height) {
+	tilde.dimensions.height = tilde.data.length*tilde.dynamic_height_multiplier
+}
 
 tilde.bar = {}
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
 }
+
 tilde.bar.height = 1
 tilde.bar.bottomPadding = 0
+
+if (tilde.flexible_bar_height) {
+	tilde.bar.height = tilde.dimensions.height/tilde.data.length
+	if (tilde.bar.height > tilde.bar.bottomPadding) {
+		tilde.bar.height -= tilde.bar.bottomPadding
+	}
+}
+
 tilde.allow_focus = true
 
 tilde.widthUnits = function(num) {
