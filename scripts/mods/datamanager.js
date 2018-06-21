@@ -9,13 +9,7 @@ tilde.setData = function() {
 tilde.sortData = {}
 
 tilde.sortData.streak_middle = function(reverse) {
-	tilde.data.sort(function(a,b){
-		var out = a.
-		if (reverse) {
-
-		}
-		return 
-	})
+	
 }
 
 tilde.sortData.streak_beginning = function(reverse) {
