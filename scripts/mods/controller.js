@@ -21,7 +21,7 @@ tilde.dimensions = tilde.hybrid
 tilde.dynamic_height = true
 tilde.dynamic_height_multiplier = 1
 tilde.flexible_bar_height = false
-tilde.global_fill = true
+tilde.global_fill = false
 
 if (tilde.dynamic_height) {
 	tilde.dimensions.height = tilde.data.length*tilde.dynamic_height_multiplier
@@ -132,20 +132,31 @@ tilde.colors.yellow_to_red = d3.scaleLinear()
 	.range(['#FFFFBE',"#E9CC98","#C9805F","#A83326","#920000"])
 	.interpolate(d3.interpolateRgb)
 
-tilde.colors.purple_to_pink = d3.scaleLinear()
+tilde.colors.deepblue_to_darkpink = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#0E0065',"#0E0065","#5C0F98","#A91DCB","#F92CFF"]) //0/0/33/66/100 - 'darker shift'
+	.range(['#03003A',"#03003A","#310B7F","#8D3DD3","#EC7EEE"]) //0/0/33/66/100 - 'darker shift'
 	.interpolate(d3.interpolateRgb)
 
-tilde.colors.darkorange_to_yellow = d3.scaleLinear()
+tilde.colors.subtle_greyscale = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#AF1300',"#C95D3E","#E4A67C","#FFF2BC","#FFFFFF"]) //0/33/66/100/white - 'brighter shift'
+	.range(['#141428',"#141428","#44474D","#82706D","#B49A99"]) //0/0/33/66/100 - 'darker shift'
+	.interpolate(d3.interpolateRgb)
+
+tilde.colors.greyscale = d3.scaleLinear()
+	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+	.range(['#191919',"#282828","#5D5D5D","#9A9A9A","#B9B9B9"]) //0/25/50/75/100 - 'normal shift'
+	.interpolate(d3.interpolateRgb)
+
+tilde.colors.darkred_to_yellow = d3.scaleLinear()
+	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+	.range(['#540000',"#B63B14","#F1973D","#FFF999","#FFFFFF"]) //0/33/66/100/white - 'brighter shift'
 	.interpolate(d3.interpolateRgb)
 
 tilde.test = d3.scaleLinear()
 	.domain([0,100])
-	.range(['#94281A',"#FFEEA6"])
+	.range(['#202020',"#C4C4C4"])
 	.interpolate(d3.interpolateRgb)
 
-tilde.barFill = tilde.colors.purple_to_pink
-tilde.streakFill = tilde.colors.darkorange_to_yellow
+tilde.barFill = tilde.colors.greyscale
+tilde.streakFill = tilde.colors.darkred_to_yellow
+d3.select('body').attr('style','background:'+tilde.barFill.range()[0])

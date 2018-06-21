@@ -15,6 +15,23 @@ tilde.initView = function() {
 		.enter()
 		.append("g")
 		.attr("id",function(d,i){
+			var br = tilde.barFill.range(),
+				sr = tilde.streakFill.range(),
+				domain_array = [
+					d.min,
+					(d.mean - d.min)*.01 + d.min,
+					(d.max - d.mean)*.1 + d.mean,
+					(d.max - d.mean)*.99 + d.mean,
+					d.max
+				]
+			d.barFill = d3.scaleLinear()
+				.domain(domain_array)
+				.range(br)//.range([br[0],br[2],br[4]]) //0/0/33/66/100 - 'darker shift'
+				.interpolate(d3.interpolateRgb)
+			d.streakFill = d3.scaleLinear()
+				.domain(domain_array)
+				.range(sr)//.range([sr[0],sr[2],sr[3]/*,"#FFFFFF"*/]) //0/33/66/100/white - 'brighter shift'
+				.interpolate(d3.interpolateRgb)
 			return "tilde-slot-"+i
 		})
 		.attr("transform",function(d,i){
@@ -38,10 +55,13 @@ tilde.initView = function() {
 				if (d.y || d.t) {
 					fill = tilde.streakFill(d.i)
 				}
-			} /* else {
+			} else {
 				var pd = d3.select(this.parentNode).data()[0]
-
-			}*/
+				fill = pd.barFill(d.i)
+				if (d.y || d.t) {
+					fill = pd.streakFill(d.i)
+				}
+			}
 			
 			return fill
 		})
