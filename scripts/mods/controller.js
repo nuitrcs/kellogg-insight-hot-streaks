@@ -17,7 +17,8 @@ tilde.maximum = {
 //maximum
 //hybrid
 tilde.dimensions = tilde.hybrid
-tilde.current_sorting = 'streak_length'//'unsorted'
+tilde.current_sorting = 'career_length'
+//unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
 tilde.sorting_direction = false
 tilde.subset = false
 tilde.gradient_view = true

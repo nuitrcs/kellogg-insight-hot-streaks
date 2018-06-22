@@ -47,25 +47,87 @@ tilde.sortData.shuffled = function() {
 
 tilde.sortData.streak_length = function(reverse) {
 	tilde.data.sort(function(a,b) {
-		var b_reverse = b.streak_count/b.c,
-			a_reverse = a.streak_count/a.c
+		var b_length = b.streak_count/b.c,
+			a_length = a.streak_count/a.c
 		if (reverse) {
-			return b_reverse - a_reverse
+			return b_length - a_length
 		}
-		return a_reverse - b_reverse
+		return a_length - b_length
 	})
 }
 
-tilde.sortData.streak_peak = function(reverse) {
-	
+tilde.sortData.time_to_first_peak = function(reverse) {
+	tilde.data.sort(function(a,b) {
+		var a_peak = 0,
+			b_peak = 0,
+			j = a.i.length,
+			index;
+		for (index = 0; index < j; index++) {
+			if (a.i[index].i === a.max) {
+				a_peak = index
+				break
+			}
+		}
+		j = b.i.length
+		for (index = 0; index < j; index++) {
+			if (b.i[index].i === b.max) {
+				b_peak = index
+				break
+			}
+		}
+		if (reverse) {
+			return b_peak/b.c - a_peak/a.c
+		}
+		return a_peak/a.c - b_peak/b.c
+	})
 }
 
-tilde.sortData.career_peak = function(reverse) {
-	
+tilde.sortData.time_to_peak_by_streak_length = function(reverse) {
+	tilde.data.sort(function(a,b) {
+		var a_peak = 0,
+			b_peak = 0,
+			j = a.i.length,
+			index;
+		for (index = 0; index < j; index++) {
+			if (a.i[index].i === a.max) {
+				a_peak = index
+				break
+			}
+		}
+		j = b.i.length
+		for (index = 0; index < j; index++) {
+			if (b.i[index].i === b.max) {
+				b_peak = index
+				break
+			}
+		}
+		a_peak = (a_peak/a.c)/(a.streak_count/a.c)
+		b_peak = (b_peak/b.c)/(b.streak_count/b.c)
+		if (reverse) {
+			return b_peak - a_peak
+		}
+		return a_peak - b_peak
+	})
+}
+
+tilde.sortData.global_peak = function(reverse) {
+	tilde.data.sort(function(a,b) {
+		var a_peak = a.max/tilde.statistics[tilde.version].max,
+			b_peak = b.max/tilde.statistics[tilde.version].max
+		if (reverse) {
+			return b_peak - a_peak
+		}
+		return a_peak - b_peak
+	})
 }
 
 tilde.sortData.career_length = function(reverse) {
-	
+	tilde.data.sort(function(a,b) {
+		if (reverse) {
+			return b.c - a.c
+		}
+		return a.c - b.c
+	})
 }
 
 tilde.setData()
