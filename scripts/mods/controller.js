@@ -17,24 +17,18 @@ tilde.maximum = {
 //maximum
 //hybrid
 tilde.dimensions = tilde.hybrid
-
+tilde.allow_focus = true
 tilde.dynamic_height = true
-tilde.dynamic_height_multiplier = 1
 tilde.flexible_bar_height = false
 tilde.global_fill = false
 
-if (tilde.dynamic_height) {
-	tilde.dimensions.height = tilde.data.length*tilde.dynamic_height_multiplier
-}
 
 tilde.bar = {}
+tilde.bar.height = 20
+tilde.bar.bottomPadding = 0
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
 }
-
-tilde.bar.height = 1
-tilde.bar.bottomPadding = 0
-
 if (tilde.flexible_bar_height) {
 	tilde.bar.height = tilde.dimensions.height/tilde.data.length
 	if (tilde.bar.height > tilde.bar.bottomPadding) {
@@ -42,7 +36,10 @@ if (tilde.flexible_bar_height) {
 	}
 }
 
-tilde.allow_focus = true
+tilde.row_height = tilde.bar.height + tilde.bar.bottomPadding
+if (tilde.dynamic_height) {
+	tilde.dimensions.height = tilde.data.length*(tilde.row_height)
+}
 
 tilde.widthUnits = function(num) {
 	return (tilde.dimensions.width/130)*num
@@ -152,11 +149,21 @@ tilde.colors.darkred_to_yellow = d3.scaleLinear()
 	.range(['#540000',"#B63B14","#F1973D","#FFF999","#FFFFFF"]) //0/33/66/100/white - 'brighter shift'
 	.interpolate(d3.interpolateRgb)
 
+tilde.colors.three_phase_dark = d3.scaleLinear()
+	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+	.range(['#271414',"#421A12","#7C3A10","#D7720D","#FFFF99"]) //0/33/66/100/white - 'brighter shift'
+	.interpolate(d3.interpolateRgb)
+
+tilde.colors.dark_greyscale = d3.scaleLinear()
+	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+	.range(['#151520',"#141428","#2D3039","#837C7C","#ABA4A4"]) //0/0/33/66/100 - 'darker shift'
+	.interpolate(d3.interpolateRgb)
+
 tilde.test = d3.scaleLinear()
 	.domain([0,100])
 	.range(['#202020',"#C4C4C4"])
 	.interpolate(d3.interpolateRgb)
 
-tilde.barFill = tilde.colors.greyscale
+tilde.barFill = tilde.colors.subtle_greyscale
 tilde.streakFill = tilde.colors.darkred_to_yellow
 d3.select('body').attr('style','background:'+tilde.barFill.range()[0])

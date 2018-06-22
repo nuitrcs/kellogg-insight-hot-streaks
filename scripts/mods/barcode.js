@@ -8,7 +8,45 @@ tilde.initView = function() {
 		.attr('height',function() {
 			return tilde.dimensions.height
 		})
-
+	tilde.defs = tilde.chart.append('defs')
+		.attr('id','tilde-defs')
+	tilde.slots = tilde.chart
+		.selectAll("rect")
+		.data(tilde.current_data)
+		.enter()
+		.append("rect")
+		.attr("id",function(d,i){
+			var me = this
+			var br = tilde.barFill.range(),
+				sr = tilde.streakFill.range(),
+				domain_array = [
+					d.min,
+					(d.mean - d.min)*.01 + d.min,
+					(d.max - d.mean)*.1 + d.mean,
+					(d.max - d.mean)*.99 + d.mean,
+					d.max
+				]
+			d.barFill = d3.scaleLinear()
+				.domain(domain_array)
+				.range(br)
+				.interpolate(d3.interpolateRgb)
+			d.streakFill = d3.scaleLinear()
+				.domain(domain_array)
+				.range(sr)
+				.interpolate(d3.interpolateRgb)
+			tilde.buildGradientDef(me)
+			return "tilde-slot-"+i
+		})
+		.attr('height',function(){
+			return tilde.bar.height
+		})
+		.attr('width',function(){
+			return tilde.dimensions.chartWidth
+		})
+		.attr("transform",function(d,i){
+			return "translate(0,"+i*(tilde.bar.height + tilde.bar.bottomPadding)+")"
+		})
+/*
 	tilde.slots = tilde.chart
 		.selectAll("g")
 		.data(tilde.current_data)
@@ -26,11 +64,11 @@ tilde.initView = function() {
 				]
 			d.barFill = d3.scaleLinear()
 				.domain(domain_array)
-				.range(br)//.range([br[0],br[2],br[4]]) //0/0/33/66/100 - 'darker shift'
+				.range(br)
 				.interpolate(d3.interpolateRgb)
 			d.streakFill = d3.scaleLinear()
 				.domain(domain_array)
-				.range(sr)//.range([sr[0],sr[2],sr[3]/*,"#FFFFFF"*/]) //0/33/66/100/white - 'brighter shift'
+				.range(sr)
 				.interpolate(d3.interpolateRgb)
 			return "tilde-slot-"+i
 		})
@@ -72,10 +110,15 @@ tilde.initView = function() {
 		.attr("x",function(d,i){
 			return i*d.width
 		})
-
+*/
 }
 
 tilde.initView()
+
+tilde.buildGradientDef = function(source) {
+	tilde.defs
+		.append('linearGradient')
+}
 
 tilde.drawBarcode = function(position,datum) {
 	tilde.positions['n'+position] = d3.select('#tilde-slot-'+position)
