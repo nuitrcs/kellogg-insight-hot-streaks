@@ -17,6 +17,9 @@ tilde.maximum = {
 //maximum
 //hybrid
 tilde.dimensions = tilde.hybrid
+tilde.current_sorting = 'streak_length'//'unsorted'
+tilde.sorting_direction = false
+tilde.subset = false
 tilde.gradient_view = true
 tilde.allow_focus = true
 tilde.dynamic_height = true

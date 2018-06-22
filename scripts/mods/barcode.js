@@ -120,7 +120,7 @@ tilde.initView = function() {
 }
 
 tilde.buildGradientDef = function(data,num) {
-	var endpoint = {i:tilde.statistics[tilde.version].min}
+	var endpoint = {i:data.min}
 	var items = [endpoint,endpoint]
 	data.i.forEach(function(d){
 		items.push(d)
