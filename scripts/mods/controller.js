@@ -9,22 +9,20 @@ tilde.hybrid = {
 }
 
 tilde.maximum = {
-	width : 4000,
-	height : 36790
+	width : 10200,
+	height : 13200
 }
 
-//minimum
-//maximum
-//hybrid
-tilde.dimensions = tilde.hybrid
-tilde.current_sorting = 'career_length'
+tilde.dimensions = tilde.maximum
+//minimum maximum hybrid
+tilde.current_sorting = 'streak_length'
 //unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
 tilde.sorting_direction = false
 tilde.subset = false
 tilde.gradient_view = true
 tilde.allow_focus = true
-tilde.dynamic_height = true
-tilde.flexible_bar_height = false
+tilde.dynamic_height = false
+tilde.flexible_bar_height = true
 tilde.global_fill = false
 
 
@@ -124,51 +122,33 @@ tilde.stats = tilde.statistics[tilde.version]
 
 tilde.colors = {}
 
-tilde.colors.white_to_black = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#FFFFFF',"#DFDFDF","#808080","#202020","#000000"])
-	.interpolate(d3.interpolateRgb)
-
-tilde.colors.yellow_to_red = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#FFFFBE',"#E9CC98","#C9805F","#A83326","#920000"])
-	.interpolate(d3.interpolateRgb)
-
-tilde.colors.deepblue_to_darkpink = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#03003A',"#03003A","#310B7F","#8D3DD3","#EC7EEE"]) //0/0/33/66/100 - 'darker shift'
-	.interpolate(d3.interpolateRgb)
-
 tilde.colors.subtle_greyscale = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
 	.range(['#141428',"#141428","#44474D","#82706D","#B49A99"]) //0/0/33/66/100 - 'darker shift'
 	.interpolate(d3.interpolateRgb)
-
-tilde.colors.greyscale = d3.scaleLinear()
+tilde.colors.dark_greyscale = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#191919',"#282828","#5D5D5D","#9A9A9A","#B9B9B9"]) //0/25/50/75/100 - 'normal shift'
-	.interpolate(d3.interpolateRgb)
-
-tilde.colors.darkred_to_yellow = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#540000',"#B63B14","#F1973D","#FFF999","#FFFFFF"]) //0/33/66/100/white - 'brighter shift'
+	.range(['#151520',"#141428","#2D3039","#837C7C","#ABA4A4"]) //0/0/33/66/100 - 'darker shift'
 	.interpolate(d3.interpolateRgb)
 
 tilde.colors.three_phase_dark = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
 	.range(['#271414',"#421A12","#7C3A10","#D7720D","#FFFF99"]) //0/33/66/100/white - 'brighter shift'
 	.interpolate(d3.interpolateRgb)
-
-tilde.colors.dark_greyscale = d3.scaleLinear()
+tilde.colors.modified = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#151520',"#141428","#2D3039","#837C7C","#ABA4A4"]) //0/0/33/66/100 - 'darker shift'
+	.range(['#151520',"#141428","#553525","#FFB919","#FFFFCD"]) //0/33/66/100/white - 'brighter shift'
+	.interpolate(d3.interpolateRgb)
+tilde.colors.minimal = d3.scaleLinear()
+	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+	.range(['#151520',"#141428","#2D3039","#FFB919","#FFFFCD"]) //0/33/66/100/white - 'brighter shift'
 	.interpolate(d3.interpolateRgb)
 
 tilde.test = d3.scaleLinear()
 	.domain([0,100])
-	.range(['#202020',"#C4C4C4"])
+	.range(['#7C3A10',"#2D3039"])
 	.interpolate(d3.interpolateRgb)
 
 tilde.barFill = tilde.colors.dark_greyscale
-tilde.streakFill = tilde.colors.three_phase_dark
+tilde.streakFill = tilde.colors.modified
 d3.select('body').attr('style','background:'+tilde.barFill.range()[0])

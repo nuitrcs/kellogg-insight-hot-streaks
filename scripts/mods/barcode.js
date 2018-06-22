@@ -45,7 +45,7 @@ tilde.initView = function() {
 				return tilde.bar.height
 			})
 			.attr('width',function(){
-				return tilde.dimensions.chartWidth
+				return tilde.dimensions.width
 			})
 			.attr("y",function(d,i){
 				return i*(tilde.bar.height + tilde.bar.bottomPadding)
