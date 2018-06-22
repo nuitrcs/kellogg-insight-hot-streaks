@@ -3,8 +3,8 @@ tilde.current_sorting = 'unsorted'
 tilde.setData = function() {
 	//if (tilde.viewing < Math.floor(tilde.top_viewable))
 	tilde.sortData[tilde.current_sorting](false)
-	tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+80)
-	//tilde.current_data = tilde.data
+	//tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+80)
+	tilde.current_data = tilde.data
 }
 tilde.sortData = {}
 

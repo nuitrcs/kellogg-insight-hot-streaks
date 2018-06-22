@@ -17,6 +17,7 @@ tilde.maximum = {
 //maximum
 //hybrid
 tilde.dimensions = tilde.hybrid
+tilde.gradient_view = true
 tilde.allow_focus = true
 tilde.dynamic_height = true
 tilde.flexible_bar_height = false
@@ -24,7 +25,7 @@ tilde.global_fill = false
 
 
 tilde.bar = {}
-tilde.bar.height = 20
+tilde.bar.height = 1
 tilde.bar.bottomPadding = 0
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
@@ -164,6 +165,6 @@ tilde.test = d3.scaleLinear()
 	.range(['#202020',"#C4C4C4"])
 	.interpolate(d3.interpolateRgb)
 
-tilde.barFill = tilde.colors.subtle_greyscale
-tilde.streakFill = tilde.colors.darkred_to_yellow
+tilde.barFill = tilde.colors.dark_greyscale
+tilde.streakFill = tilde.colors.three_phase_dark
 d3.select('body').attr('style','background:'+tilde.barFill.range()[0])
