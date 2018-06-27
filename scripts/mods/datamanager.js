@@ -3,7 +3,8 @@ tilde.setData = function() {
 	tilde.sortData[tilde.current_sorting](tilde.sorting_direction)
 	tilde.current_data = tilde.data
 	if (tilde.subset) {
-		tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+subset)
+		console.log("subsetting")
+		tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
 	}
 	
 }

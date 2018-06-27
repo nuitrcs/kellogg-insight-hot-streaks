@@ -4,7 +4,7 @@ tilde.minimum = {
 }
 
 tilde.hybrid = {
-	width : 650,
+	width : 1050,
 	height : 3679
 }
 
@@ -13,22 +13,23 @@ tilde.maximum = {
 	height : 13200
 }
 
-tilde.dimensions = tilde.maximum
+tilde.dimensions = tilde.hybrid
 //minimum maximum hybrid
-tilde.current_sorting = 'streak_length'
+tilde.current_sorting = 'streak_middle'
 //unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
 tilde.sorting_direction = false
-tilde.subset = false
+tilde.subset = false//3
+tilde.viewing = 0//107
+tilde.all_lines = true
 tilde.gradient_view = true
 tilde.allow_focus = true
-tilde.dynamic_height = false
-tilde.flexible_bar_height = true
+tilde.dynamic_height = true
+tilde.flexible_bar_height = false
 tilde.global_fill = false
 
-
 tilde.bar = {}
-tilde.bar.height = 1
-tilde.bar.bottomPadding = 0
+tilde.bar.height = 2
+tilde.bar.bottomPadding = 1
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
 }
@@ -114,34 +115,28 @@ tilde.dimensions.elements = {
 tilde.plots_per_view = 1 + Math.floor(tilde.heightUnits(94)/10)
 tilde.percent_in_view = round((tilde.plots_per_view/tilde.data.length)*100,2)
 
-tilde.viewing = 0
-
 tilde.positions = {}
 
 tilde.stats = tilde.statistics[tilde.version]
 
 tilde.colors = {}
 
-tilde.colors.subtle_greyscale = d3.scaleLinear()
+// color scheme B
+// streak:
+tilde.colors.autumn = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#141428',"#141428","#44474D","#82706D","#B49A99"]) //0/0/33/66/100 - 'darker shift'
+	.range(['#151520',"#281426","#453830","#d05c11","#fff789"]) //0/33/66/100/white - 'brighter shift'
 	.interpolate(d3.interpolateRgb)
-tilde.colors.dark_greyscale = d3.scaleLinear()
+// bars:
+tilde.colors.winter = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#151520',"#141428","#2D3039","#837C7C","#ABA4A4"]) //0/0/33/66/100 - 'darker shift'
+	.range(['#0a0b0d',"#1c1e20","#282b31","#3b434a","#a6a1a5"]) //0/0/33/66/100 - 'darker shift'
 	.interpolate(d3.interpolateRgb)
 
-tilde.colors.three_phase_dark = d3.scaleLinear()
+// optional streak scheme
+tilde.colors.stars = d3.scaleLinear()
 	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#271414',"#421A12","#7C3A10","#D7720D","#FFFF99"]) //0/33/66/100/white - 'brighter shift'
-	.interpolate(d3.interpolateRgb)
-tilde.colors.modified = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#151520',"#141428","#553525","#FFB919","#FFFFCD"]) //0/33/66/100/white - 'brighter shift'
-	.interpolate(d3.interpolateRgb)
-tilde.colors.minimal = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#151520',"#141428","#2D3039","#FFB919","#FFFFCD"]) //0/33/66/100/white - 'brighter shift'
+	.range(['#0a0b0d',"#1c1e20","#282b31","#FFB919","#FFFFCD"]) //0/33/66/100/white - 'brighter shift'
 	.interpolate(d3.interpolateRgb)
 
 tilde.test = d3.scaleLinear()
@@ -149,6 +144,6 @@ tilde.test = d3.scaleLinear()
 	.range(['#7C3A10',"#2D3039"])
 	.interpolate(d3.interpolateRgb)
 
-tilde.barFill = tilde.colors.dark_greyscale
-tilde.streakFill = tilde.colors.modified
-d3.select('body').attr('style','background:'+tilde.barFill.range()[0])
+tilde.barFill = tilde.colors.winter
+tilde.streakFill = tilde.colors.autumn
+d3.selectAll('body, #tilde-chart').attr('style','background:'+tilde.barFill.range()[0])

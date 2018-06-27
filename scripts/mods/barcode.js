@@ -8,7 +8,14 @@ tilde.initView = function() {
 		.attr('height',function() {
 			return tilde.dimensions.height
 		})
-	if (tilde.gradient_view) {
+	if (tilde.all_lines) {
+		//lines
+		var counter = 0
+		tilde.current_data.forEach(function(d){
+			tilde.drawLine(d,counter)
+			counter += tilde.bar.height + tilde.bar.bottomPadding
+		})
+	} else if (tilde.gradient_view) {
 		tilde.defs = tilde.chart.append('defs')
 			.attr('id','tilde-defs')
 		tilde.slots = tilde.chart
@@ -22,9 +29,9 @@ tilde.initView = function() {
 					sr = tilde.streakFill.range(),
 					domain_array = [
 						d.min,
-						(d.mean - d.min)*.01 + d.min,
-						(d.max - d.mean)*.1 + d.mean,
-						(d.max - d.mean)*.99 + d.mean,
+						(d.mean - d.min)*.3 + d.min,
+						d.mean,
+						(d.max - d.mean)*.4 + d.mean,
 						d.max
 					]
 				d.barFill = d3.scaleLinear()
