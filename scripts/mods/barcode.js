@@ -8,16 +8,15 @@ tilde.initView = function() {
 		.attr('height',function() {
 			return tilde.dimensions.height
 		})
+	tilde.defs = tilde.chart.append('defs')
+			.attr('id','tilde-defs')
 	if (tilde.all_lines) {
-		//lines
 		var counter = 0
 		tilde.current_data.forEach(function(d){
 			tilde.drawLine(d,counter)
 			counter += tilde.bar.height + tilde.bar.bottomPadding
 		})
 	} else if (tilde.gradient_view) {
-		tilde.defs = tilde.chart.append('defs')
-			.attr('id','tilde-defs')
 		tilde.slots = tilde.chart
 			.selectAll("rect")
 			.data(tilde.current_data)
@@ -25,24 +24,7 @@ tilde.initView = function() {
 			.append("rect")
 			.attr("id",function(d,i){
 				var count = i
-				var br = tilde.barFill.range(),
-					sr = tilde.streakFill.range(),
-					domain_array = [
-						d.min,
-						(d.mean - d.min)*.3 + d.min,
-						d.mean,
-						(d.max - d.mean)*.4 + d.mean,
-						d.max
-					]
-				d.barFill = d3.scaleLinear()
-					.domain(domain_array)
-					.range(br)
-					.interpolate(d3.interpolateRgb)
-				d.streakFill = d3.scaleLinear()
-					.domain(domain_array)
-					.range(sr)
-					.interpolate(d3.interpolateRgb)
-				tilde.buildGradientDef(d,count)
+				tilde.buildGradientStrip(d,count)
 				return "tilde-slot-"+i
 			})
 			.attr('fill',function(d,i){
@@ -126,7 +108,7 @@ tilde.initView = function() {
 
 }
 
-tilde.buildGradientDef = function(data,num) {
+tilde.buildGradientStrip = function(data,num) {
 	var endpoint = {i:data.min}
 	var items = [endpoint,endpoint]
 	data.i.forEach(function(d){
@@ -135,12 +117,10 @@ tilde.buildGradientDef = function(data,num) {
 	items.push(endpoint)
 	items.push(endpoint)
 	var j = items.length-1
-	//Radial gradient with the center at one end of the circle, as if illuminated from the side
 	var this_gradient = tilde.defs
 		.append("linearGradient")
 		.attr("id", function(d){ return "lineargradient-" + num; })
 		
-	//Append the NS color stops
 	this_gradient.selectAll('stop')
 		.data(items)
 		.enter().append("stop")

@@ -6,6 +6,25 @@ tilde.setData = function() {
 		console.log("subsetting")
 		tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
 	}
+	tilde.current_data.forEach(function(d){
+		var br = tilde.barFill.range(),
+			sr = tilde.streakFill.range(),
+			domain_array = [
+				d.min,
+				(d.mean - d.min)*.3 + d.min,
+				d.mean,
+				(d.max - d.mean)*.4 + d.mean,
+				d.max
+			]
+		d.barFill = d3.scaleLinear()
+			.domain(domain_array)
+			.range(br)
+			.interpolate(d3.interpolateRgb)
+		d.streakFill = d3.scaleLinear()
+			.domain(domain_array)
+			.range(sr)
+			.interpolate(d3.interpolateRgb)
+	})
 	
 }
 tilde.sortData = {}
