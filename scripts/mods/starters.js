@@ -46,3 +46,12 @@ function shuffle(array) {
 	}
 	return array;
 }
+
+function hex(value) {
+  value = Math.max(0, Math.min(255, Math.round(value) || 0));
+  return (value < 16 ? "0" : "") + value.toString(16);
+}
+
+d3.rgb.prototype.hex = function() {
+  return "#" + hex(this.r) + hex(this.g) + hex(this.b);
+};

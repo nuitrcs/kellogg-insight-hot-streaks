@@ -15,12 +15,12 @@ tilde.maximum = {
 
 tilde.dimensions = tilde.hybrid
 //minimum maximum hybrid
-tilde.current_sorting = 'streak_middle'
+tilde.current_sorting = 'streak_length'
 //unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
 tilde.sorting_direction = false
-tilde.subset = false//3
-tilde.viewing = 0//107
-tilde.all_lines = true
+tilde.subset = false//5
+tilde.viewing = 0//1200//107
+tilde.all_lines = false
 tilde.gradient_view = true
 tilde.allow_focus = true
 tilde.dynamic_height = true
@@ -28,8 +28,8 @@ tilde.flexible_bar_height = false
 tilde.global_fill = false
 
 tilde.bar = {}
-tilde.bar.height = 2
-tilde.bar.bottomPadding = 1
+tilde.bar.height = 1
+tilde.bar.bottomPadding = 0
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
 }
@@ -144,6 +144,6 @@ tilde.test = d3.scaleLinear()
 	.range(['#7C3A10',"#2D3039"])
 	.interpolate(d3.interpolateRgb)
 
-tilde.barFill = tilde.colors.winter
+tilde.plainFill = tilde.colors.winter
 tilde.streakFill = tilde.colors.autumn
-d3.selectAll('body, #tilde-chart').attr('style','background:'+tilde.barFill.range()[0])
+d3.selectAll('body, #tilde-chart').attr('style','background:'+tilde.plainFill.range()[0])

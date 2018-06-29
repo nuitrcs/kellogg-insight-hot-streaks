@@ -7,7 +7,7 @@ tilde.setData = function() {
 		tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
 	}
 	tilde.current_data.forEach(function(d){
-		var br = tilde.barFill.range(),
+		var br = tilde.plainFill.range(),
 			sr = tilde.streakFill.range(),
 			domain_array = [
 				d.min,
@@ -16,7 +16,7 @@ tilde.setData = function() {
 				(d.max - d.mean)*.4 + d.mean,
 				d.max
 			]
-		d.barFill = d3.scaleLinear()
+		d.plainFill = d3.scaleLinear()
 			.domain(domain_array)
 			.range(br)
 			.interpolate(d3.interpolateRgb)
