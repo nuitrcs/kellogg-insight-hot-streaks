@@ -3,33 +3,61 @@ tilde.minimum = {
 	height : 900
 }
 
-tilde.hybrid = {
-	width : 1050,
-	height : 3679
-}
-
 tilde.maximum = {
 	width : 10200,
 	height : 13200
 }
 
-tilde.dimensions = tilde.hybrid
-//minimum maximum hybrid
+tilde.hybrid = {
+	width : 1050,
+	height : 3679
+}
+
+tilde.print = {
+	width : 6000,
+	height : 12000
+}
+
+tilde.viewport = {
+	width : 0,
+	height : 0
+}
+
+tilde.viewmode = 'viewport' //minimum maximum hybrid print viewport
+
+if (tilde.viewmode === 'viewport') {
+	tilde.viewport.width = $(window).width();
+	tilde.viewport.height = $(window).height()-4;
+	tilde.cut_view = true
+}
+
+tilde.dimensions = tilde[tilde.viewmode]
+
+tilde.plainScheme = 'winter'
+tilde.streakScheme = 'autumn'
+
 tilde.current_sorting = 'streak_length'
 //unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
 tilde.sorting_direction = false
 tilde.subset = false//5
 tilde.viewing = 0//1200//107
+
 tilde.all_lines = false
 tilde.gradient_view = true
-tilde.allow_focus = true
-tilde.dynamic_height = true
+
+tilde.data_height = false
 tilde.flexible_bar_height = false
+
 tilde.global_fill = false
+tilde.allow_focus = true
 
 tilde.bar = {}
-tilde.bar.height = 1
-tilde.bar.bottomPadding = 0
+tilde.bar.height = 5
+tilde.bar.bottomPadding = 2
+
+tilde.lineheight = 210
+tilde.thickbar = tilde.bar.height*10
+
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
 }
@@ -39,9 +67,9 @@ if (tilde.flexible_bar_height) {
 		tilde.bar.height -= tilde.bar.bottomPadding
 	}
 }
-
 tilde.row_height = tilde.bar.height + tilde.bar.bottomPadding
-if (tilde.dynamic_height) {
+
+if (tilde.data_height) {
 	tilde.dimensions.height = tilde.data.length*(tilde.row_height)
 }
 
@@ -55,9 +83,12 @@ tilde.heightUnits = function(num) {
 
 tilde.dimensions.chart_padding = {
 	left : tilde.widthUnits(1),
-	right : 70 + tilde.widthUnits(1),
+	right : 50 + tilde.widthUnits(1),
 	top : 105+tilde.heightUnits(8),
 	bottom : tilde.heightUnits(5)
+}
+if (tilde.all_lines) {
+	tilde.dimensions.chart_padding.top -= tilde.lineheight
 }
 
 tilde.dimensions.chartWidth = tilde.dimensions.width - tilde.dimensions.chart_padding.left - tilde.dimensions.chart_padding.right
@@ -109,11 +140,23 @@ tilde.dimensions.elements = {
 			top : tilde.widthUnits(1),
 			right : tilde.widthUnits(1)
 		}
+	},
+	focus_panel : {
+		padding : tilde.heightUnits(1)
 	}
 }
-
-tilde.plots_per_view = 1 + Math.floor(tilde.heightUnits(94)/10)
-tilde.percent_in_view = round((tilde.plots_per_view/tilde.data.length)*100,2)
+tilde.dimensions.elements.focus_panel.height =  tilde.dimensions.elements.focus_panel.padding*4 + tilde.thickbar + tilde.lineheight
+if (tilde.cut_view) {
+	if (!tilde.all_lines){
+		tilde.subset = Math.floor((tilde.dimensions.chartHeight-tilde.dimensions.elements.focus_panel.height)/tilde.row_height)
+	} else {
+		tilde.subset = Math.floor(tilde.dimensions.chartHeight/tilde.row_height)
+	}	
+}
+if (tilde.subset){
+	tilde.plots_per_view = tilde.subset
+	tilde.percent_in_view = round((tilde.plots_per_view/tilde.data.length)*100,2)
+}
 
 tilde.positions = {}
 
@@ -139,11 +182,6 @@ tilde.colors.stars = d3.scaleLinear()
 	.range(['#0a0b0d',"#1c1e20","#282b31","#FFB919","#FFFFCD"]) //0/33/66/100/white - 'brighter shift'
 	.interpolate(d3.interpolateRgb)
 
-tilde.test = d3.scaleLinear()
-	.domain([0,100])
-	.range(['#7C3A10',"#2D3039"])
-	.interpolate(d3.interpolateRgb)
-
-tilde.plainFill = tilde.colors.winter
-tilde.streakFill = tilde.colors.autumn
+tilde.plainFill = tilde.colors[tilde.plainScheme]
+tilde.streakFill = tilde.colors[tilde.streakScheme]
 d3.selectAll('body, #tilde-chart').attr('style','background:'+tilde.plainFill.range()[0])

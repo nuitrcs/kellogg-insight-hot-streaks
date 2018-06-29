@@ -16,7 +16,7 @@ tilde.drawBarcodes = function() {
 				return tilde.bar.height
 			})
 			.attr('width',function(){
-				return tilde.dimensions.width
+				return tilde.dimensions.chartWidth
 			})
 			.attr("y",function(d,i){
 				return i*(tilde.bar.height + tilde.bar.bottomPadding)

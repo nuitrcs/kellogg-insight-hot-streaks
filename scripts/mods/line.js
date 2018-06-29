@@ -16,10 +16,10 @@ tilde.drawLine = function(slice,index) {
 	items.push(endpoint)
 	items.push(endpoint)
 	var x = d3.scaleLinear()
-		.range([0, tilde.dimensions.width])
+		.range([0, tilde.dimensions.chartWidth])
 		.domain([0,items.length-1]),
 		y = d3.scaleLinear()
-			.range([50, 0])
+			.range([tilde.lineheight, 0])
 			.domain([slice.min,slice.max]);
 	var line_array = []
 	var line = d3.line()

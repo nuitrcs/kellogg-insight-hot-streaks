@@ -8,6 +8,8 @@ tilde.initView = function() {
 		.attr('height',function() {
 			return tilde.dimensions.height
 		})
+		.append('g')
+		.attr('transform','translate('+tilde.dimensions.chart_padding.left+','+tilde.dimensions.chart_padding.top+')')
 	tilde.defs = tilde.chart.append('defs')
 			.attr('id','tilde-defs')
 	if (tilde.all_lines) {
