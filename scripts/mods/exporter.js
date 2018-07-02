@@ -3,7 +3,7 @@ tilde.export = function(){
 	svgString2Image( svgString, tilde.dimensions.width,tilde.dimensions.height, 'png', save ); // passes Blob and filesize String to the callback
 
 	function save( dataBlob, filesize ){
-		saveAs( dataBlob, 'hot_streak_'+tilde.version+'_'+tilde.current_sorting+'.png' ); // FileSaver.js function
+		saveAs( dataBlob, 'hot_streak_'+tilde.version+'_'+tilde.current_sorting+'_'+tilde.plainScheme+tilde.streakScheme+'.png' ); // FileSaver.js function
 	}
 }
 

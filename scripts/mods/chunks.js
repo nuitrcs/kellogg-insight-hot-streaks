@@ -5,23 +5,6 @@ tilde.drawChunks = function() {
 		.enter()
 		.append("g")
 		.attr("id",function(d,i){
-			var br = tilde.plainFill.range(),
-				sr = tilde.streakFill.range(),
-				domain_array = [
-					d.min,
-					(d.mean - d.min)*.01 + d.min,
-					(d.max - d.mean)*.1 + d.mean,
-					(d.max - d.mean)*.99 + d.mean,
-					d.max
-				]
-			d.plainFill = d3.scaleLinear()
-				.domain(domain_array)
-				.range(br)
-				.interpolate(d3.interpolateRgb)
-			d.streakFill = d3.scaleLinear()
-				.domain(domain_array)
-				.range(sr)
-				.interpolate(d3.interpolateRgb)
 			return "tilde-slot-"+i
 		})
 		.attr("transform",function(d,i){

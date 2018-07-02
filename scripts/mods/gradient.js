@@ -1,11 +1,11 @@
 tilde.buildGradientStrip = function(data,num) {
-	var endpoint = {i:data.min}
-	var items = [endpoint,endpoint]
+	var buffer = {i:data.min}
+	var items = [buffer,buffer]
 	data.i.forEach(function(d){
 		items.push(d)
 	})
-	items.push(endpoint)
-	items.push(endpoint)
+	items.push(buffer)
+	items.push(buffer)
 	var j = items.length-1
 	var this_gradient = tilde.defs
 		.append("linearGradient")

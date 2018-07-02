@@ -3,41 +3,59 @@ tilde.drawLines = function() {
 	tilde.current_data.forEach(function(d){
 		tilde.buildGradientStrip(d,counter)
 		tilde.drawLine(d,counter)
-		counter += tilde.bar.height + tilde.bar.bottomPadding
+		counter += tilde.row_height
 	})
 }
-tilde.drawLine = function(slice,index) {
-	var endpoint = {i:slice.min},
-		items = [endpoint,endpoint];
-
+tilde.drawLine = function(slice,index,focused) {
+	var buffer = {i:slice.min},
+		items = [buffer,buffer];
+	var lineheight = tilde.lineheight
+	if (focused) {
+		lineheight = tilde.focusline
+	}
 	slice.i.forEach(function(d){
 		items.push(d)
 	})
-	items.push(endpoint)
-	items.push(endpoint)
+	items.push(buffer)
+	items.push(buffer)
+
 	var x = d3.scaleLinear()
 		.range([0, tilde.dimensions.chartWidth])
 		.domain([0,items.length-1]),
-		y = d3.scaleLinear()
-			.range([tilde.lineheight, 0])
-			.domain([slice.min,slice.max]);
-	var line_array = []
+	y = d3.scaleLinear()
+		.range([lineheight, 0])
+		.domain([slice.min,slice.max]);
 	var line = d3.line()
 		.x(function(d,i) {
-			var xpos = x(i)
-			line_array.push({x:xpos})
-			return xpos; 
+			return x(i); 
 		})
-		.y(function(d,i) { 
-			var ypos = y(d.i) + index
-			line_array[i].y = ypos
-			return ypos; 
+		.y(function(d,i) {
+			return y(d.i) + index - lineheight; 
 		})
 		.curve(d3.curveMonotoneX);
 		
 	var group = tilde.chart
 		.append('g')
 		.attr('id','line-group-'+index)
+
+	if (tilde.line_glow) {
+		var i;
+		for (i = 0; i < tilde.line_glow; i++) {
+			group.append('path')
+				.datum(items)
+				.attr('d',line)
+				.attr('fill','none')
+				.attr('stroke',function(d,i){
+					return "url(#lineargradient-" + index + ")"
+				})
+				.attr('stroke-width',function(){
+					return tilde.line_glow*(1 - (i/tilde.line_glow))
+				})
+				.attr('stroke-opacity',function(){
+					return 0.005+(0.005*i)
+				})
+		}
+	}
 		
 	group.append('path')
 		.datum(items)
@@ -46,6 +64,7 @@ tilde.drawLine = function(slice,index) {
 		.attr('stroke',function(d,i){
 			return "url(#lineargradient-" + index + ")"
 		})
+		.attr('stroke-width',tilde.stroke_width)
 }
 /*
 tilde.buildLineGradients = function(data,num) {
