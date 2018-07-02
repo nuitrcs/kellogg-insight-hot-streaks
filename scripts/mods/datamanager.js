@@ -2,11 +2,7 @@ tilde.setData = function() {
 	//if (tilde.viewing < Math.floor(tilde.top_viewable))
 	tilde.sortData[tilde.current_sorting](tilde.sorting_direction)
 	tilde.current_data = tilde.data
-	if (tilde.subset) {
-		console.log("subsetting")
-		tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
-	}
-	tilde.current_data.forEach(function(d){
+	tilde.data.forEach(function(d){
 		var br = tilde.plainFill.range(),
 			sr = tilde.streakFill.range(),
 			domain_array = [
@@ -25,8 +21,26 @@ tilde.setData = function() {
 			.range(sr)
 			.interpolate(d3.interpolateRgb)
 	})
-	
+	if (tilde.subset) {
+		console.log("subsetting")
+		tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
+	}
 }
+
+tilde.select = function(target) {
+	var direction;
+	tilde.previous = tilde.viewing
+	if (tilde.previous < target) {
+		direction = 'down'
+	} else {
+		direction = 'up'
+	}
+	tilde.viewing = target
+	tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
+	//tilde.move(direction)
+	tilde.redraw()
+}
+
 tilde.sortData = {}
 
 tilde.sortData.streak_middle = function(reverse) {

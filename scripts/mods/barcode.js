@@ -12,14 +12,26 @@ tilde.drawBarcodes = function() {
 		.attr('fill',function(d,i){
 			return "url(#lineargradient-" + i + ")"
 		})
-		.attr('height',function(){
+		.attr('height',function(d,i){
+			if (i === tilde.focusedindex && tilde.allow_focus) {
+				return tilde.thickbar
+			}
 			return tilde.bar.height
 		})
 		.attr('width',function(){
 			return tilde.dimensions.chartWidth
 		})
 		.attr("y",function(d,i){
-			return i*(tilde.bar.height + tilde.bar.bottomPadding)
+			var slot = i*(tilde.row_height)
+			if (tilde.allow_focus) {
+				if (i === tilde.focusedindex) {
+					tilde.drawLine(d,i,slot)
+					return slot + tilde.dimensions.elements.focus_panel.height - tilde.thickbar*2
+				} else if (i > tilde.focusedindex) {
+					return slot + tilde.dimensions.elements.focus_panel.height
+				}
+			}
+			return slot
 		})
 }
 

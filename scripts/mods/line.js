@@ -30,7 +30,11 @@ tilde.drawLine = function(slice,index,focused) {
 			return x(i); 
 		})
 		.y(function(d,i) {
-			return y(d.i) + index - lineheight; 
+			var adjustment = index-lineheight
+			if (focused) {
+				adjustment = focused + tilde.thickbar
+			}
+			return y(d.i) + adjustment; 
 		})
 		.curve(d3.curveMonotoneX);
 		
@@ -40,7 +44,7 @@ tilde.drawLine = function(slice,index,focused) {
 
 	if (tilde.line_glow) {
 		var i;
-		for (i = 0; i < tilde.line_glow; i++) {
+		for (i = 0; i < tilde.line_glow-tilde.stroke_width; i++) {
 			group.append('path')
 				.datum(items)
 				.attr('d',line)
@@ -51,8 +55,8 @@ tilde.drawLine = function(slice,index,focused) {
 				.attr('stroke-width',function(){
 					return tilde.line_glow*(1 - (i/tilde.line_glow))
 				})
-				.attr('stroke-opacity',function(){
-					return 0.005+(0.005*i)
+				.attr('opacity',function(){
+					return 0.01+(0.002*i)
 				})
 		}
 	}

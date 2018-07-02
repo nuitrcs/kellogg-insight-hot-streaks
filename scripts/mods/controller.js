@@ -23,8 +23,8 @@ tilde.viewport = {
 	height : 0
 }
 
-tilde.viewmode = 'print' //minimum maximum hybrid print viewport
-tilde.no_distractions = true
+tilde.viewmode = 'viewport' //minimum maximum hybrid print viewport
+tilde.no_distractions = false
 
 if (tilde.viewmode === 'viewport') {
 	tilde.viewport.width = $(window).width();
@@ -44,24 +44,24 @@ tilde.subset = false//5
 tilde.viewing = 0//1200//107
 tilde.focusedindex = 10
 
-tilde.all_lines = true
+tilde.all_lines = false
 tilde.gradient_view = true
 
 tilde.data_height = false
-tilde.flexible_bar_height = true
+tilde.flexible_bar_height = false
 
 tilde.global_fill = false
-tilde.allow_focus = false
+tilde.allow_focus = true
 
 tilde.bar = {}
-tilde.bar.height = 2
-tilde.bar.bottomPadding = 0
+tilde.bar.height = 3
+tilde.bar.bottomPadding = 2
 
 tilde.lineheight = 50
 tilde.focusline = 210
-tilde.stroke_width = 2
-tilde.line_glow = 16
-tilde.thickbar = tilde.bar.height*10
+tilde.stroke_width = 3
+tilde.line_glow = 21
+tilde.thickbar = tilde.bar.height*5
 
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
@@ -91,7 +91,7 @@ if (tilde.no_distractions) {
 		left : tilde.widthUnits(1),
 		right : 50 + tilde.widthUnits(1),
 		top : 105+tilde.heightUnits(8),
-		bottom : tilde.heightUnits(5)
+		bottom : tilde.heightUnits(1)
 	}
 }
 
