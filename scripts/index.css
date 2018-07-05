@@ -7,3 +7,30 @@ body {
 svg{
 	isolation: isolate;
 }
+.tick {
+	font: 10px Arial;
+	fill:white;
+}
+
+.track,
+.track-inset,
+.track-overlay {
+	stroke-linecap: round;
+}
+
+.track {
+	stroke: silver;
+	stroke-opacity: 0.3;
+	stroke-width: 3px;
+}
+
+.track-inset {
+	stroke: #ddd;
+	stroke-width: 1px;
+}
+
+.track-overlay {
+	pointer-events: stroke;
+	stroke-width: 50px;
+	cursor: crosshair;
+}

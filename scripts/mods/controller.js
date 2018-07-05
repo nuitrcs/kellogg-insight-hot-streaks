@@ -42,8 +42,6 @@ tilde.current_sorting = 'streak_middle'
 tilde.sorting_direction = false
 tilde.subset = false//5
 tilde.viewing = 0//1200//107
-tilde.max_top_rows = 10
-tilde.focusedindex = tilde.viewing + tilde.max_top_rows - 1
 
 tilde.all_lines = false
 tilde.gradient_view = true
@@ -129,7 +127,7 @@ tilde.dimensions.elements = {
 	},
 	arrow : {
 		width : 50,
-		height : tilde.heightUnits(21),
+		height : tilde.heightUnits(15),
 		padding : {
 			bottom : tilde.heightUnits(4)
 		}
@@ -174,6 +172,8 @@ if (tilde.cut_view) {
 if (tilde.subset){
 	tilde.plots_per_view = tilde.subset
 	tilde.percent_in_view = round((tilde.plots_per_view/tilde.data.length)*100,2)
+	tilde.max_top_rows = Math.floor(tilde.subset*.15)
+	tilde.focusedindex = tilde.viewing + tilde.max_top_rows - 1
 }
 
 tilde.positions = {}

@@ -1,42 +1,55 @@
 tilde.setData = function() {
-	//if (tilde.viewing < Math.floor(tilde.top_viewable))
 	tilde.sortData[tilde.current_sorting](tilde.sorting_direction)
 	tilde.current_data = tilde.data
-	tilde.data.forEach(function(d){
-		var br = tilde.plainFill.range(),
-			sr = tilde.streakFill.range(),
-			domain_array = [
-				d.min,
-				(d.mean - d.min)*.3 + d.min,
-				d.mean,
-				(d.max - d.mean)*.4 + d.mean,
-				d.max
-			]
-		d.plainFill = d3.scaleLinear()
-			.domain(domain_array)
-			.range(br)
-			.interpolate(d3.interpolateRgb)
-		d.streakFill = d3.scaleLinear()
-			.domain(domain_array)
-			.range(sr)
-			.interpolate(d3.interpolateRgb)
-	})
+
 	if (tilde.subset) {
-		console.log("subsetting")
 		tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
 	}
+	tilde.prepData()
+}
+
+tilde.prepData = function() {
+	var counter = tilde.viewing
+	tilde.current_data.forEach(function(d){
+		if (!d.plainFill && !tilde.global_fill) {
+			var br = tilde.plainFill.range(),
+				sr = tilde.streakFill.range(),
+				domain_array = [
+					d.min,
+					(d.mean - d.min)*.3 + d.min,
+					d.mean,
+					(d.max - d.mean)*.4 + d.mean,
+					d.max
+				]
+			d.plainFill = d3.scaleLinear()
+				.domain(domain_array)
+				.range(br)
+				.interpolate(d3.interpolateRgb)
+			d.streakFill = d3.scaleLinear()
+				.domain(domain_array)
+				.range(sr)
+				.interpolate(d3.interpolateRgb)
+		}
+		d.index = counter
+		counter++
+	})
 }
 
 tilde.select = function(target) {
-	tilde.previous = tilde.viewing
-	if (target - tilde.max_top_rows < 0) {
-		//something???
-	} else if (target - tilde.max_top_rows + tilde.plots_per_view - 1 > tilde.data.length) {
-		//something??
+	if (!tilde.subset) {
+		return
 	}
-	tilde.viewing = target
+	if (target > tilde.data.length-1) {
+		target = tilde.data.length-1
+	}
+	tilde.previous = tilde.focusedindex
+	tilde.focusedindex = target
+	tilde.viewing = target - tilde.max_top_rows + 1
+	if (tilde.viewing < 0) {
+		tilde.viewing = 0
+	}
 	tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
-	//tilde.move(direction)
+	tilde.prepData()
 	tilde.redraw()
 }
 

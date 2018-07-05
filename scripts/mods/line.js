@@ -10,7 +10,7 @@ tilde.drawLine = function(slice,index,focused) {
 	var buffer = {i:slice.min},
 		items = [buffer,buffer];
 	var lineheight = tilde.lineheight
-	if (focused) {
+	if (focused >= 0) {
 		lineheight = tilde.focusline
 	}
 	slice.i.forEach(function(d){
@@ -31,8 +31,8 @@ tilde.drawLine = function(slice,index,focused) {
 		})
 		.y(function(d,i) {
 			var adjustment = index-lineheight
-			if (focused) {
-				adjustment = focused + tilde.thickbar - 5
+			if (focused >= 0) {
+				adjustment = focused + tilde.thickbar// - 5
 			}
 			return y(d.i) + adjustment; 
 		})
@@ -41,6 +41,7 @@ tilde.drawLine = function(slice,index,focused) {
 	var group = tilde.chart
 		.append('g')
 		.attr('id','line-group-'+index)
+		.attr('class','tilde-line')
 
 	if (tilde.line_glow) {
 		var i;

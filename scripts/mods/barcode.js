@@ -13,7 +13,7 @@ tilde.drawBarcodes = function() {
 			return "url(#lineargradient-" + i + ")"
 		})
 		.attr('height',function(d,i){
-			if (i === tilde.focusedindex && tilde.allow_focus) {
+			if (d.index === tilde.focusedindex && tilde.allow_focus) {
 				return tilde.thickbar
 			}
 			return tilde.bar.height
@@ -24,14 +24,18 @@ tilde.drawBarcodes = function() {
 		.attr("y",function(d,i){
 			var slot = i*(tilde.row_height)
 			if (tilde.allow_focus) {
-				if (i === tilde.focusedindex) {
+				if (d.index === tilde.focusedindex) {
 					tilde.drawLine(d,i,slot)
 					return slot + tilde.dimensions.elements.focus_panel.height - tilde.thickbar - 5
-				} else if (i > tilde.focusedindex) {
+				} else if (d.index > tilde.focusedindex) {
 					return slot + tilde.dimensions.elements.focus_panel.height
 				}
 			}
 			return slot
+		})
+		.on("click",function(d,i){
+			tilde.select(d.index)
+			tilde.dragSlider(tilde.slider_y(d.index))
 		})
 }
 
