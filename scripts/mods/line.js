@@ -32,7 +32,7 @@ tilde.drawLine = function(slice,index,focused) {
 		.y(function(d,i) {
 			var adjustment = index-lineheight
 			if (focused) {
-				adjustment = focused + tilde.thickbar
+				adjustment = focused + tilde.thickbar - 5
 			}
 			return y(d.i) + adjustment; 
 		})
@@ -44,7 +44,7 @@ tilde.drawLine = function(slice,index,focused) {
 
 	if (tilde.line_glow) {
 		var i;
-		for (i = 0; i < tilde.line_glow-tilde.stroke_width; i++) {
+		for (i = 0; i < 3; i++) {
 			group.append('path')
 				.datum(items)
 				.attr('d',line)
@@ -53,11 +53,12 @@ tilde.drawLine = function(slice,index,focused) {
 					return "url(#lineargradient-" + index + ")"
 				})
 				.attr('stroke-width',function(){
-					return tilde.line_glow*(1 - (i/tilde.line_glow))
+					return (tilde.line_glow-tilde.stroke_width)*(1 - (i/3)) + tilde.stroke_width
 				})
 				.attr('opacity',function(){
-					return 0.01+(0.002*i)
+					return 0.08
 				})
+				//.style('mix-blend-mode','screen')
 		}
 	}
 		
@@ -69,6 +70,7 @@ tilde.drawLine = function(slice,index,focused) {
 			return "url(#lineargradient-" + index + ")"
 		})
 		.attr('stroke-width',tilde.stroke_width)
+		//.style('mix-blend-mode','screen')
 }
 /*
 tilde.buildLineGradients = function(data,num) {

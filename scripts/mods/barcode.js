@@ -26,7 +26,7 @@ tilde.drawBarcodes = function() {
 			if (tilde.allow_focus) {
 				if (i === tilde.focusedindex) {
 					tilde.drawLine(d,i,slot)
-					return slot + tilde.dimensions.elements.focus_panel.height - tilde.thickbar*2
+					return slot + tilde.dimensions.elements.focus_panel.height - tilde.thickbar - 5
 				} else if (i > tilde.focusedindex) {
 					return slot + tilde.dimensions.elements.focus_panel.height
 				}

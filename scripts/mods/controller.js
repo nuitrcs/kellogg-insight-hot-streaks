@@ -37,12 +37,13 @@ tilde.dimensions = tilde[tilde.viewmode]
 tilde.plainScheme = 'icy'
 tilde.streakScheme = 'autumn'
 
-tilde.current_sorting = 'streak_length'
+tilde.current_sorting = 'streak_middle'
 //unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
 tilde.sorting_direction = false
 tilde.subset = false//5
 tilde.viewing = 0//1200//107
-tilde.focusedindex = 10
+tilde.max_top_rows = 10
+tilde.focusedindex = tilde.viewing + tilde.max_top_rows - 1
 
 tilde.all_lines = false
 tilde.gradient_view = true
@@ -60,7 +61,7 @@ tilde.bar.bottomPadding = 2
 tilde.lineheight = 50
 tilde.focusline = 210
 tilde.stroke_width = 3
-tilde.line_glow = 21
+tilde.line_glow = 20
 tilde.thickbar = tilde.bar.height*5
 
 tilde.bar.width = function(data_length) {

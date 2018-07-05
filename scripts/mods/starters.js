@@ -55,3 +55,15 @@ function hex(value) {
 d3.rgb.prototype.hex = function() {
   return "#" + hex(this.r) + hex(this.g) + hex(this.b);
 };
+
+tilde.nullrow = {
+	id: "", 
+	n: "", 
+	c: 1, 
+	i: [{i:0}], 
+	min: 0, 
+	max : 1, 
+	mean : 1, 
+	si : 0,
+	streak_count : 1
+}

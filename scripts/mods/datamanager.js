@@ -28,12 +28,11 @@ tilde.setData = function() {
 }
 
 tilde.select = function(target) {
-	var direction;
 	tilde.previous = tilde.viewing
-	if (tilde.previous < target) {
-		direction = 'down'
-	} else {
-		direction = 'up'
+	if (target - tilde.max_top_rows < 0) {
+		//something???
+	} else if (target - tilde.max_top_rows + tilde.plots_per_view - 1 > tilde.data.length) {
+		//something??
 	}
 	tilde.viewing = target
 	tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
