@@ -44,7 +44,7 @@ tilde.subset = false//5
 tilde.viewing = 0//1200//107
 
 tilde.all_lines = false
-tilde.gradient_view = true
+tilde.gradient_view = false
 
 tilde.data_height = false
 tilde.flexible_bar_height = false

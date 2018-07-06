@@ -49,7 +49,3 @@ tilde.drawBarcodes = function() {
 			return slot
 		})
 }
-
-tilde.shiftBarcodes = function() {
-
-}

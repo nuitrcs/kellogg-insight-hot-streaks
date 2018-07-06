@@ -73,7 +73,3 @@ tilde.drawLine = function(slice,index,focused) {
 		.attr('stroke-width',tilde.stroke_width)
 		//.style('mix-blend-mode','screen')
 }
-
-tilde.shiftLines = function() {
-
-}

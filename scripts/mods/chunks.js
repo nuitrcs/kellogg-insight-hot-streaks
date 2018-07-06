@@ -7,7 +7,7 @@ tilde.drawChunks = function() {
 		.attr("id",function(d,i){
 			return "tilde-slot-"+i
 		})
-		attr('class','tilde-chunk')
+		.attr('class','tilde-chunk')
 		.attr("transform",function(d,i){
 			return "translate(0,"+i*(tilde.bar.height + tilde.bar.bottomPadding)+")"
 		})
@@ -46,8 +46,4 @@ tilde.drawChunks = function() {
 		.attr("x",function(d,i){
 			return i*d.width
 		})
-}
-
-tilde.shiftChunks = function() {
-	
 }
