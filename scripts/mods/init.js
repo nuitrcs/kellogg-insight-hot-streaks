@@ -42,4 +42,13 @@ tilde.redraw = function() {
 	tilde.purge()
 	tilde.draw()
 }
+tilde.shift = function() {
+	if (tilde.all_lines) {
+		tilde.shiftLines()
+	} else if (tilde.gradient_view) {
+		tilde.shiftBarcodes()
+	} else {
+		tilde.shiftChunks()
+	}
+}
 tilde.initView()

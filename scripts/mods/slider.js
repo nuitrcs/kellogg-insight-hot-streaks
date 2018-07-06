@@ -7,7 +7,7 @@ tilde.drawSlider = function() {
 	tilde.slider = tilde.container.append("g")
 		.attr("class", "slider")
 		.attr("transform", function(){
-			var x = tilde.dimensions.width - tilde.dimensions.elements.slider.width;
+			var x = tilde.dimensions.width - tilde.dimensions.elements.slider.width/2;
 			var y = tilde.dimensions.chart_padding.top + tilde.dimensions.elements.arrow.height
 			return "translate(" + x + "," + y + ")"
 		});
@@ -34,49 +34,187 @@ tilde.drawSlider = function() {
 
 	tilde.marker = tilde.slider.insert("rect", ".track-overlay")
 		.attr("class", "marker")
-		.attr("width", 48)
+		.attr("width", tilde.dimensions.elements.arrow.width)
 		.attr("height",2)
 		.attr("rx",1)
 		.attr("ry",1)
-		.attr("x",-24)
+		.attr("x",-tilde.dimensions.elements.arrow.width/2)
 		.attr("y",-1)
 		.style("fill","silver")
 		.style("stroke","none");
 
 	tilde.handle = tilde.slider.insert("rect", ".track-overlay")
 		.attr("class", "handle")
-		.attr("width", 48)
-		.attr("height",48)
+		.attr("width", tilde.dimensions.elements.arrow.width)
+		.attr("height",tilde.dimensions.elements.arrow.width)
 		.attr("rx",5)
 		.attr("ry",5)
-		.attr("x",-24)
-		.attr("y",-1)// - tilde.dimensions.elements.arrow.height/2
+		.attr("x",-tilde.dimensions.elements.arrow.width/2)
+		.attr("y",-1)
 		.style("fill","silver")
 		.style("opacity",.4)
-		.style("stroke","none")
-		.on("mouseenter",function(){
-			d3.select(this)
-				.style("opacity",.7)
+		.style("stroke","none");
+
+	tilde.top_arrow = tilde.container
+		.append('g')
+		.attr('id', 'tilde-top-arrow')
+		.attr("transform", function(){
+			var x = tilde.dimensions.width - tilde.dimensions.elements.slider.width;
+			var y = tilde.dimensions.chart_padding.top
+			return "translate(" + x + "," + y + ")"
 		})
-		.on("mouseexit",function(){
-			d3.select(this)
-				.style("opacity",.4)
-		});
+
+	tilde.top_arrow
+		.append('path')
+		.attr('d',function(){
+			var shape = 'M '
+			shape += tilde.dimensions.elements.arrow.width/2
+			shape += ' 0 L 0 '
+			shape += tilde.dimensions.elements.arrow.height - tilde.dimensions.elements.arrow.padding.vertical
+			shape += ' Q '
+			shape += tilde.dimensions.elements.arrow.width/2 
+			shape += ' ' 
+			shape += tilde.dimensions.elements.arrow.height/2
+			shape += ' ' 
+			shape += tilde.dimensions.elements.arrow.width
+			shape += ' '
+			shape += tilde.dimensions.elements.arrow.height - tilde.dimensions.elements.arrow.padding.vertical
+			shape += ' Z'
+			return shape
+		})
+		.classed('up',true)
+		.style("fill","silver")
+		.style("stroke",tilde.plainFill.range()[0])
+		.style('stroke-width',2)
+		.style("fill-opacity",.4)
+		.style("stroke-opacity",1)
+		.on('mouseout',tilde.outArrow)
+		.on('mouseup',tilde.releaseArrow)
+		.on('mousedown',tilde.clickArrow)
+		.on('mouseover',tilde.hoverArrow)
+
+	tilde.bottom_arrow = tilde.container
+		.append('g')
+		.attr('id', 'tilde-bottom-arrow')
+		.attr("transform", function(){
+			var x = tilde.dimensions.width - tilde.dimensions.elements.slider.width;
+			var y = tilde.dimensions.chart_padding.top + tilde.dimensions.chartHeight-tilde.dimensions.elements.arrow.height
+			return "translate(" + x + "," + y + ")"
+		})
+
+	tilde.bottom_arrow
+		.append('path')
+		.attr('d',function(){
+			var shape = 'M '
+			shape += tilde.dimensions.elements.arrow.width/2
+			shape += ' '
+			shape += tilde.dimensions.elements.arrow.height - tilde.dimensions.elements.arrow.padding.vertical
+			shape += ' L 0 0 Q '
+			shape += tilde.dimensions.elements.arrow.width/2 
+			shape += ' ' 
+			shape += tilde.dimensions.elements.arrow.height/2
+			shape += ' ' 
+			shape += tilde.dimensions.elements.arrow.width
+			shape += ' 0 Z'
+			return shape
+		})
+		.classed('down',true)
+		.style("fill","silver")
+		.style("stroke",tilde.plainFill.range()[0])
+		.style('stroke-width',2)
+		.style("fill-opacity",.4)
+		.style("stroke-opacity",1)
+		.on('mouseout',tilde.outArrow)
+		.on('mouseup',tilde.releaseArrow)
+		.on('mousedown',tilde.clickArrow)
+		.on('mouseover',tilde.hoverArrow)
 }
 tilde.dragSlider = function(y) {
 	var data_position = tilde.slider_y.invert(y)
 	var marker_position = tilde.slider_y(data_position)
-	var handle_position = marker_position - 24
+	var handle_position = marker_position - tilde.dimensions.elements.arrow.width/2
+	
 	tilde.select(round(data_position,0))
+	
 	tilde.marker.attr("y", marker_position-1)
 	if (handle_position < tilde.slider_y.range()[0]) {
 		tilde.handle.attr("y", -1)
-	} else if (handle_position + 48 > tilde.slider_y.range()[1]) {
-		tilde.handle.attr("y", tilde.slider_y.range()[1] - 49)
+	} else if (handle_position + tilde.dimensions.elements.arrow.width > tilde.slider_y.range()[1]) {
+		tilde.handle.attr("y", tilde.slider_y.range()[1] - tilde.dimensions.elements.arrow.width - 1)
 	} else {
 		tilde.handle.attr("y", handle_position)
 	}
 	tilde.tick
 		.attr("y", tilde.slider_y(data_position)-5)
 		.text(function(d) { return round((data_position/(tilde.data.length-1))*100,0) + "%"; });
+}
+
+tilde.hoverArrow = function() {
+	d3.select(this)
+		.style("fill-opacity",.6)
+		.style('stroke-width',1)
+}
+
+tilde.outArrow = function() {
+	d3.select(this)
+		.style("fill-opacity",.4)
+		.style('stroke-width',2)
+}
+
+tilde.releaseArrow = function() {
+	//clearTimeout(tilde.holdTimer)
+	clearTimeout(tilde.moveTimer)
+	/*
+	if (d3.select(this).classed('down') && tilde.focusedindex < tilde.data.length-1) {
+		tilde.focusedindex++
+		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
+	} else if (d3.select(this).classed('up') && tilde.focusedindex > 0) {
+		tilde.focusedindex--
+		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
+	}
+	*/
+	d3.select(this)
+		.style("fill-opacity",.6)
+		.style('stroke-width',1)
+}
+
+tilde.clickArrow = function() {
+	d3.select(this)
+		.style("fill-opacity",.8)
+		.style('stroke-width',3)
+	if (d3.select(this).classed('down') && tilde.focusedindex < tilde.data.length-1) {
+		/*tilde.holdTimer = setTimeout(function(){
+			console.log('held, now running')
+			clearTimeout(tilde.holdTimer)
+			tilde.moveTimer = setInterval(function(){
+				tilde.focusedindex++
+				tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
+			}, tilde.moveTime)
+		},tilde.holdTime)*/
+		tilde.increment('down')
+		tilde.moveTimer = setInterval(function(){
+			tilde.increment('down')
+		}, tilde.moveTime)
+	} else if (d3.select(this).classed('up') && tilde.focusedindex > 0) {
+		/*tilde.holdTimer = setTimeout(function(){
+			console.log('held, now running')
+			clearTimeout(tilde.holdTimer)
+			tilde.moveTimer = setInterval(function(){
+				tilde.focusedindex--
+				tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
+			}, tilde.moveTime)
+		},tilde.holdTime)*/
+		tilde.increment('up')
+		tilde.moveTimer = setInterval(function(){
+			tilde.increment('up')
+		}, tilde.moveTime)
+	}
+}
+
+tilde.increment = function(direction) {
+	if (direction === 'up') {
+		tilde.dragSlider(tilde.slider_y(tilde.focusedindex-1))
+	} else {
+		tilde.dragSlider(tilde.slider_y(tilde.focusedindex+1))
+	}
 }

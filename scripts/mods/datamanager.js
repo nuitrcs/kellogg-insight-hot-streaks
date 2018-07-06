@@ -50,8 +50,14 @@ tilde.select = function(target) {
 	}
 	tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
 	tilde.prepData()
-	tilde.redraw()
+	if (Math.abs(tilde.previous-tilde.focusedindex) >= tilde.plots_per_view) {
+		tilde.redraw()
+	} else {
+		tilde.shift()
+	}
 }
+
+
 
 tilde.sortData = {}
 

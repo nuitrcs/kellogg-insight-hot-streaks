@@ -47,3 +47,7 @@ tilde.drawChunks = function() {
 			return i*d.width
 		})
 }
+
+tilde.shiftChunks = function() {
+	
+}

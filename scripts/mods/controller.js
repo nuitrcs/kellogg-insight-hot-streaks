@@ -62,6 +62,11 @@ tilde.stroke_width = 3
 tilde.line_glow = 20
 tilde.thickbar = tilde.bar.height*5
 
+tilde.holdTimer = 0
+tilde.moveTimer = 0
+tilde.holdTime = 750
+tilde.moveTime = 100
+
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
 }
@@ -126,15 +131,17 @@ tilde.dimensions.elements = {
 		}
 	},
 	arrow : {
-		width : 50,
-		height : tilde.heightUnits(15),
+		width : tilde.dimensions.chart_padding.right - tilde.widthUnits(1)/2,
+		height : tilde.heightUnits(12),
 		padding : {
-			bottom : tilde.heightUnits(4)
+			vertical : 0,//tilde.heightUnits(1),
+			horizontal : tilde.widthUnits(1)/2
 		}
 	},
 	slider : {
-		width : 50,
-		height : tilde.heightUnits(10)
+		width : tilde.dimensions.chart_padding.right - tilde.widthUnits(1)/2,
+		height : tilde.heightUnits(10),
+		padding : 1
 	},
 	fade_box : {
 		top : {

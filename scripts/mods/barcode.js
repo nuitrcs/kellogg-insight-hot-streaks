@@ -39,23 +39,6 @@ tilde.drawBarcodes = function() {
 		})
 }
 
-tilde.drawBarcode = function(position,datum) {
-	tilde.positions['n'+position] = d3.select('#tilde-slot-'+position)
-		.selectAll('g')
-		.data([datum])
-		.enter()
-		.append('g')
-	tilde.positions['n'+position]
-		.data(datum.i)
-		.enter()
-		.append('rect')
-		.attr('width',1)
-		.attr('height',tilde.barheight)
+tilde.shiftBarcodes = function() {
+	
 }
-
-tilde.removeBarcodes = function(positions) {
-}
-
-tilde.scrollTo = function(array_position) {
-}
-
