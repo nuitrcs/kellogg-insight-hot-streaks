@@ -53,19 +53,19 @@ tilde.global_fill = false
 tilde.allow_focus = true
 
 tilde.bar = {}
-tilde.bar.height = 3
-tilde.bar.bottomPadding = 2
+tilde.bar.height = 4
+tilde.bar.bottomPadding = 1
+tilde.thickbar = tilde.bar.height*5
 
 tilde.lineheight = 50
 tilde.focusline = 210
 tilde.stroke_width = 3
 tilde.line_glow = 20
-tilde.thickbar = tilde.bar.height*5
 
 tilde.holdTimer = 0
 tilde.moveTimer = 0
-tilde.holdTime = 750
-tilde.moveTime = 100
+tilde.holdTime = 1000
+tilde.moveTime = 60
 
 tilde.bar.width = function(data_length) {
 	return tilde.dimensions.chartWidth/data_length
@@ -168,7 +168,7 @@ tilde.dimensions.elements = {
 		padding : tilde.heightUnits(1)
 	}
 }
-tilde.dimensions.elements.focus_panel.height =  tilde.dimensions.elements.focus_panel.padding*4 + tilde.thickbar + tilde.focusline
+tilde.dimensions.elements.focus_panel.height =  tilde.dimensions.elements.focus_panel.padding*2 + tilde.thickbar + tilde.focusline
 if (tilde.cut_view) {
 	if (tilde.allow_focus){
 		tilde.subset = Math.floor((tilde.dimensions.chartHeight-tilde.dimensions.elements.focus_panel.height)/tilde.row_height)

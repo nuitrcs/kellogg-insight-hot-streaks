@@ -24,10 +24,10 @@ tilde.initView = function() {
 	}
 }
 tilde.purge = function() {
-	tilde.defs.selectAll('linearGradient').remove()
-	tilde.chart.selectAll('.tilde-chunk').remove()
+	//tilde.defs.selectAll('linearGradient').remove()
+	//tilde.chart.selectAll('.tilde-chunk').remove()
 	tilde.chart.selectAll('.tilde-line').remove()
-	tilde.chart.selectAll('rect').remove()
+	//tilde.chart.selectAll('rect').remove()
 }
 tilde.draw = function() {
 	if (tilde.all_lines) {

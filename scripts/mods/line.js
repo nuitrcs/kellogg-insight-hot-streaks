@@ -32,7 +32,7 @@ tilde.drawLine = function(slice,index,focused) {
 		.y(function(d,i) {
 			var adjustment = index-lineheight
 			if (focused >= 0) {
-				adjustment = focused + tilde.thickbar// - 5
+				adjustment = focused + tilde.dimensions.elements.focus_panel.padding//- tilde.thickbar// - 5
 			}
 			return y(d.i) + adjustment; 
 		})
@@ -51,7 +51,7 @@ tilde.drawLine = function(slice,index,focused) {
 				.attr('d',line)
 				.attr('fill','none')
 				.attr('stroke',function(d,i){
-					return "url(#lineargradient-" + index + ")"
+					return "url(#lineargradient-" + slice.index + ")"
 				})
 				.attr('stroke-width',function(){
 					return (tilde.line_glow-tilde.stroke_width)*(1 - (i/3)) + tilde.stroke_width
@@ -68,12 +68,12 @@ tilde.drawLine = function(slice,index,focused) {
 		.attr('d',line)
 		.attr('fill','none')
 		.attr('stroke',function(d,i){
-			return "url(#lineargradient-" + index + ")"
+			return "url(#lineargradient-" + slice.index + ")"
 		})
 		.attr('stroke-width',tilde.stroke_width)
 		//.style('mix-blend-mode','screen')
 }
 
 tilde.shiftLines = function() {
-	
+
 }

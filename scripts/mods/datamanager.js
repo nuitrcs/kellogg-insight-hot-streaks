@@ -53,7 +53,7 @@ tilde.select = function(target) {
 	if (Math.abs(tilde.previous-tilde.focusedindex) >= tilde.plots_per_view) {
 		tilde.redraw()
 	} else {
-		tilde.shift()
+		tilde.redraw()//tilde.shift()
 	}
 }
 

@@ -162,17 +162,8 @@ tilde.outArrow = function() {
 }
 
 tilde.releaseArrow = function() {
-	//clearTimeout(tilde.holdTimer)
+	clearTimeout(tilde.holdTimer)
 	clearTimeout(tilde.moveTimer)
-	/*
-	if (d3.select(this).classed('down') && tilde.focusedindex < tilde.data.length-1) {
-		tilde.focusedindex++
-		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
-	} else if (d3.select(this).classed('up') && tilde.focusedindex > 0) {
-		tilde.focusedindex--
-		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
-	}
-	*/
 	d3.select(this)
 		.style("fill-opacity",.6)
 		.style('stroke-width',1)
@@ -183,31 +174,9 @@ tilde.clickArrow = function() {
 		.style("fill-opacity",.8)
 		.style('stroke-width',3)
 	if (d3.select(this).classed('down') && tilde.focusedindex < tilde.data.length-1) {
-		/*tilde.holdTimer = setTimeout(function(){
-			console.log('held, now running')
-			clearTimeout(tilde.holdTimer)
-			tilde.moveTimer = setInterval(function(){
-				tilde.focusedindex++
-				tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
-			}, tilde.moveTime)
-		},tilde.holdTime)*/
-		tilde.increment('down')
-		tilde.moveTimer = setInterval(function(){
-			tilde.increment('down')
-		}, tilde.moveTime)
+		tilde.manageTime('down')
 	} else if (d3.select(this).classed('up') && tilde.focusedindex > 0) {
-		/*tilde.holdTimer = setTimeout(function(){
-			console.log('held, now running')
-			clearTimeout(tilde.holdTimer)
-			tilde.moveTimer = setInterval(function(){
-				tilde.focusedindex--
-				tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
-			}, tilde.moveTime)
-		},tilde.holdTime)*/
-		tilde.increment('up')
-		tilde.moveTimer = setInterval(function(){
-			tilde.increment('up')
-		}, tilde.moveTime)
+		tilde.manageTime('up')
 	}
 }
 
@@ -217,4 +186,49 @@ tilde.increment = function(direction) {
 	} else {
 		tilde.dragSlider(tilde.slider_y(tilde.focusedindex+1))
 	}
+}
+
+tilde.manageTime = function(direction) {
+	tilde.increment(direction)
+		tilde.holdTimer = setTimeout(function(){
+			tilde.moveTimer = setInterval(function(){
+				tilde.increment(direction)
+			}, tilde.moveTime)
+			clearTimeout(tilde.holdTimer)
+			tilde.holdTimer = setTimeout(function(){
+				clearTimeout(tilde.holdTimer)
+				clearTimeout(tilde.moveTimer)
+				tilde.moveTimer = setInterval(function(){
+					tilde.increment(direction)
+				}, tilde.moveTime*.75)
+				tilde.holdTimer = setTimeout(function(){
+					clearTimeout(tilde.holdTimer)
+					clearTimeout(tilde.moveTimer)
+					tilde.moveTimer = setInterval(function(){
+						tilde.increment(direction)
+					}, tilde.moveTime*.5)
+					tilde.holdTimer = setTimeout(function(){
+						clearTimeout(tilde.holdTimer)
+						clearTimeout(tilde.moveTimer)
+						tilde.moveTimer = setInterval(function(){
+							tilde.increment(direction)
+						}, tilde.moveTime*.3)
+						tilde.holdTimer = setTimeout(function(){
+							clearTimeout(tilde.holdTimer)
+							clearTimeout(tilde.moveTimer)
+							tilde.moveTimer = setInterval(function(){
+								tilde.increment(direction)
+							}, tilde.moveTime*.2)
+							tilde.holdTimer = setTimeout(function(){
+								clearTimeout(tilde.holdTimer)
+								clearTimeout(tilde.moveTimer)
+								tilde.moveTimer = setInterval(function(){
+									tilde.increment(direction)
+								}, tilde.moveTime*.1)
+							},tilde.holdTime*1.5)
+						},tilde.holdTime*1.25)
+					},tilde.holdTime)
+				},tilde.holdTime*.75)
+			},tilde.holdTime*.5)
+		},tilde.holdTime)
 }
