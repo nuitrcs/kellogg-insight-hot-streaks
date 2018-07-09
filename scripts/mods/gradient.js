@@ -1,12 +1,16 @@
 tilde.buildGradientStrip = function(data,num) {
+	/*
 	var buffer = {i:data.min}
-	var items = [buffer,buffer]
+	var items = []//[buffer,buffer]
 	data.i.forEach(function(d){
 		items.push(d)
 	})
-	items.push(buffer)
-	items.push(buffer)
+	//items.push(buffer)
+	//items.push(buffer)
+	*/
+	var items = data.i
 	var j = items.length-1
+
 	var this_gradient = tilde.defs
 		.append("linearGradient")
 		.attr("id", function(d){ return "lineargradient-" + num; })
@@ -35,9 +39,9 @@ tilde.buildGradientStrip = function(data,num) {
 		.attr("stop-opacity", function(d,i) {
 			var low = data.mean//(data.mean - data.min)/2 + data.min
 			if (d.i === data.min) {
-				return 0.4
+				return 0.5
 			} else if (d.i < low) {
-				return d.i/low + 0.4
+				return d.i/low + 0.5
 			}
 			return 1
 		})

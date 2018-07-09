@@ -1,18 +1,24 @@
 tilde.drawChunks = function() {
 	tilde.slots = tilde.chart
 		.selectAll("g")
-		.data(tilde.current_data)
-		.enter()
+		.data(tilde.current_data, function(d){ return d.index })
+		
+	var slotsenter = tilde.slots.enter()
 		.append("g")
+		
+	var exit = tilde.slots.exit()
+	exit.each(function(d,i){
+			d3.select("#lineargradient-" + d.index).remove()
+		})
+		.remove()
+
+	slotsenter
 		.attr("id",function(d,i){
 			return "tilde-slot-"+i
 		})
 		.attr('class','tilde-chunk')
-		.attr("transform",function(d,i){
-			return "translate(0,"+i*(tilde.bar.height + tilde.bar.bottomPadding)+")"
-		})
 
-	tilde.bars = tilde.slots
+	tilde.bars = slotsenter
 		.selectAll("rect")
 		.data(function(d){
 			return d.i
@@ -36,7 +42,6 @@ tilde.drawChunks = function() {
 					fill = pd.streakFill(d.i)
 				}
 			}
-			
 			return fill
 		})
 		.attr("width",function(d,i){
@@ -45,5 +50,20 @@ tilde.drawChunks = function() {
 		})
 		.attr("x",function(d,i){
 			return i*d.width
+		})
+
+	tilde.slots.merge(slotsenter)
+		.attr("transform",function(d,i){
+			var slot = i*(tilde.row_height)
+			if (tilde.allow_focus) {
+				if (d.index === tilde.focusedindex) {
+					tilde.buildGradientStrip(d,d.index)
+					tilde.drawLine(d,i,slot)
+					slot += tilde.dimensions.elements.focus_panel.height - tilde.thickbar - 5
+				} else if (d.index > tilde.focusedindex) {
+					slot += tilde.dimensions.elements.focus_panel.height
+				}
+			}
+			return "translate(0,"+slot+")"
 		})
 }

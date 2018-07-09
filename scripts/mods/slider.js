@@ -7,7 +7,7 @@ tilde.drawSlider = function() {
 	tilde.slider = tilde.container.append("g")
 		.attr("class", "slider")
 		.attr("transform", function(){
-			var x = tilde.dimensions.width - tilde.dimensions.elements.slider.width/2;
+			var x = tilde.dimensions.chartWidth + tilde.widthUnits(1) + tilde.dimensions.elements.slider.width/2;
 			var y = tilde.dimensions.chart_padding.top + tilde.dimensions.elements.arrow.height
 			return "translate(" + x + "," + y + ")"
 		});
@@ -28,8 +28,13 @@ tilde.drawSlider = function() {
 		.attr("class", "tick")
 		.append("text")
 		.attr("y", tilde.slider_y(0)-5)
-		.attr("x",3)
+		.attr("x",4)
 		.attr("text-anchor", "start")
+		.style('font-size','10px')
+		.style('font-family',tilde.subfont)
+		.style('font-style','normal')
+		.style('font-weight',100)
+		.attr('fill','white')
 		.text(function(d) { return round(0/(tilde.data.length-1),2)*100 + "%"; });
 
 	tilde.marker = tilde.slider.insert("rect", ".track-overlay")
@@ -59,7 +64,7 @@ tilde.drawSlider = function() {
 		.append('g')
 		.attr('id', 'tilde-top-arrow')
 		.attr("transform", function(){
-			var x = tilde.dimensions.width - tilde.dimensions.elements.slider.width;
+			var x = tilde.dimensions.chartWidth + tilde.widthUnits(1)//tilde.dimensions.width - tilde.dimensions.elements.slider.width;
 			var y = tilde.dimensions.chart_padding.top
 			return "translate(" + x + "," + y + ")"
 		})
@@ -97,7 +102,7 @@ tilde.drawSlider = function() {
 		.append('g')
 		.attr('id', 'tilde-bottom-arrow')
 		.attr("transform", function(){
-			var x = tilde.dimensions.width - tilde.dimensions.elements.slider.width;
+			var x = tilde.dimensions.chartWidth + tilde.widthUnits(1)//tilde.dimensions.width - tilde.dimensions.elements.slider.width;
 			var y = tilde.dimensions.chart_padding.top + tilde.dimensions.chartHeight-tilde.dimensions.elements.arrow.height
 			return "translate(" + x + "," + y + ")"
 		})
@@ -140,7 +145,7 @@ tilde.dragSlider = function(y) {
 	if (handle_position < tilde.slider_y.range()[0]) {
 		tilde.handle.attr("y", -1)
 	} else if (handle_position + tilde.dimensions.elements.arrow.width > tilde.slider_y.range()[1]) {
-		tilde.handle.attr("y", tilde.slider_y.range()[1] - tilde.dimensions.elements.arrow.width - 1)
+		tilde.handle.attr("y", tilde.slider_y.range()[1] - tilde.dimensions.elements.arrow.width)
 	} else {
 		tilde.handle.attr("y", handle_position)
 	}

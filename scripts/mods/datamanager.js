@@ -30,6 +30,23 @@ tilde.prepData = function() {
 				.range(sr)
 				.interpolate(d3.interpolateRgb)
 		}
+		if (tilde.buffer){
+			var buffer = {i:d.min,buffer:true},
+				items = [],
+				i;
+			if (!d.i[0].buffer) {
+				for (i = 0; i < tilde.buffer; i++) {
+					items.push(buffer)
+				}
+				d.i.forEach(function(item){
+					items.push(item)
+				})
+				for (i = 0; i < tilde.buffer; i++) {
+					items.push(buffer)
+				}
+				d.i = items
+			}
+		}
 		d.index = counter
 		counter++
 	})

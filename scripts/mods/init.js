@@ -13,10 +13,11 @@ tilde.initView = function() {
 	tilde.chart = tilde.container
 		.append('g')
 		.attr('transform','translate('+tilde.dimensions.chart_padding.left+','+tilde.dimensions.chart_padding.top+')')
-	
+
 	tilde.defs = tilde.chart.append('defs')
 		.attr('id','tilde-defs')
 	if (tilde.subset) {
+		tilde.interfaceFrame()
 		tilde.drawSlider()
 		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
 	} else {
@@ -24,10 +25,12 @@ tilde.initView = function() {
 	}
 }
 tilde.purge = function() {
-	//tilde.defs.selectAll('linearGradient').remove()
-	//tilde.chart.selectAll('.tilde-chunk').remove()
+	tilde.defs.selectAll('linearGradient').remove()
+	tilde.chart.selectAll('.tilde-chunk').remove()
+	tilde.chart.selectAll('rect').remove()
+}
+tilde.reset_line = function() {
 	tilde.chart.selectAll('.tilde-line').remove()
-	//tilde.chart.selectAll('rect').remove()
 }
 tilde.draw = function() {
 	if (tilde.all_lines) {
@@ -39,7 +42,11 @@ tilde.draw = function() {
 	}
 }
 tilde.redraw = function() {
-	tilde.purge()
+	if (tilde.switched) {
+		tilde.purge()
+		tilde.switched = false
+	}	
+	tilde.reset_line()
 	tilde.draw()
 }
 tilde.shift = function() {

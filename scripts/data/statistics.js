@@ -1,5 +1,6 @@
 tilde.statistics = {
 	academics : {
+		impact_type : 'citations',
 		count : 3093,
 		min : 0,
 		max : 20210,
@@ -8,6 +9,7 @@ tilde.statistics = {
 		mean_max : 241
 	},
 	artists : {
+		impact_type : 'sale price',
 		count : 3025,
 		min : 1,
 		max : 259250000,
@@ -16,6 +18,7 @@ tilde.statistics = {
 		mean_max : 1425590
 	},
 	directors : {
+		impact_type : 'rating',
 		count : 3679,
 		min : 1,
 		max : 10,
