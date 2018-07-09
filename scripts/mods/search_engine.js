@@ -31,7 +31,7 @@ tilde.generateEngine = function() {
             ].join('\n'),
             header: [
               '<div class="search-header">',
-                "<i>&nbsp;Name of "+version+" - Year of first streak</i>",
+                "<b>&nbsp;Name of "+version+"</b><i> - Year of first streak</i>",
               '</div>'
             ].join('\n')
           }
