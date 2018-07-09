@@ -1,7 +1,11 @@
 tilde.setData = function() {
 	tilde.sortData[tilde.current_sorting](tilde.sorting_direction)
 	tilde.current_data = tilde.data
-
+	var counter = 0
+	tilde.data.forEach(function(d){
+		d.index = counter
+		counter++
+	})
 	if (tilde.subset) {
 		tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
 	}
@@ -9,7 +13,6 @@ tilde.setData = function() {
 }
 
 tilde.prepData = function() {
-	var counter = tilde.viewing
 	tilde.current_data.forEach(function(d){
 		if (!d.plainFill && !tilde.global_fill) {
 			var br = tilde.plainFill.range(),
@@ -47,8 +50,6 @@ tilde.prepData = function() {
 				d.i = items
 			}
 		}
-		d.index = counter
-		counter++
 	})
 }
 

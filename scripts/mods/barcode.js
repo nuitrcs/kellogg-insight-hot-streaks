@@ -25,7 +25,6 @@ tilde.drawBarcodes = function() {
 			return tilde.dimensions.chartWidth
 		})
 		.on("click",function(d,i){
-			tilde.select(d.index)
 			tilde.dragSlider(tilde.slider_y(d.index))
 		})
 

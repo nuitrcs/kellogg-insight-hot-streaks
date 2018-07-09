@@ -53,4 +53,9 @@ tilde.interfaceFrame = function() {
 		.on('mouseout',function(){
 			d3.select(this).style('opacity',0.4)
 		})
+	var i = tilde.font_size*1.5;
+	while (d3.select('#heading').node().getBBox().width > tilde.dimensions.chartWidth) {
+		i--
+		d3.select('#heading').style('font-size',i+'px')
+	}
 }

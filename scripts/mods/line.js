@@ -87,8 +87,6 @@ tilde.drawLine = function(slice,index,focused) {
 			.style('font-family',tilde.subfont)
 			.style('font-weight',100)
 		var i = tilde.font_size;
-		console.log(tilde.title.node().getBBox().width)
-		console.log(tilde.dimensions.chartWidth-focus.padding*3)
 		while (tilde.title.node().getBBox().width > tilde.dimensions.chartWidth*.9-focus.padding*3) {
 			i--
 			tilde.title.style('font-size',i+'px')
