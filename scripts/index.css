@@ -62,6 +62,9 @@ svg{
     left:-150px;
     opacity:.9;
 }
+.search-header {
+	text-align: center;
+}
 .tt-input,
 .tt-hint {
     width: 94%;
