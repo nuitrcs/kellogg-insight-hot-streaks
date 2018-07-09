@@ -185,9 +185,9 @@ tilde.sortData.global_peak = function(reverse) {
 		var a_peak = a.max/tilde.statistics[tilde.version].max,
 			b_peak = b.max/tilde.statistics[tilde.version].max
 		if (reverse) {
-			return b_peak - a_peak
+			return a_peak - b_peak
 		}
-		return a_peak - b_peak
+		return b_peak - a_peak
 	})
 }
 

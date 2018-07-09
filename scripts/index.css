@@ -8,7 +8,8 @@ svg{
 	isolation: isolate;
 }
 .tick,text {
-	font-family: Roboto,Arial,sans-serif;
+	font-family: Roboto Slab,Roboto,Arial,sans-serif;
+	font-weight:100;
 	-webkit-touch-callout: none; /* iOS Safari */
 	  -webkit-user-select: none; /* Safari */
 	   -khtml-user-select: none; /* Konqueror HTML */
@@ -26,6 +27,9 @@ svg{
 	      -ms-user-select: none; /* Internet Explorer/Edge */
 	          user-select: none; /* Non-prefixed version, currently
 	                                supported by Chrome and Opera */
+}
+.hidden {
+	display:none;
 }
 .icon:hover{
 	opacity:1;
@@ -53,17 +57,19 @@ svg{
 	cursor: crosshair;
 }
 .twitter-typeahead {
-    width:100%;
+    width:350px;
+    position:relative;
+    left:-150px;
 }
 .tt-input,
 .tt-hint {
     width: 94%;
-    height: 5.5vw;
-    padding: 2vw 2.5vw;
+    height: 3vh;
+    padding: 1vh 1vw;
     font-size: 90%;
-    line-height: 5.5vw;
+    line-height: 3vh;
     border: 2px solid #ccc;
-    border-radius: 1.5vw;
+    border-radius: 1vw;
     outline: none;
 }
 .tt-input {
@@ -74,29 +80,29 @@ svg{
 }
 .tt-menu {
     width: 100%;
-    margin-top: 1.5vw;
-    padding: 1.5vw 0;
+    margin-top: 1vh;
+    padding: 1vh 0;
     background-color: #fff;
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 1.5vw;
+    border-radius: 1vw;
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
     z-index: 9999;
 }
 .tt-suggestion {
-    padding: 1vw 3.5vw;
-    font-size: 70%;
-    line-height: 4vw;
+    padding: 1vh 1vw;
+    font-size: 80%;
+    line-height: 2vh;
     z-index: 9999;
 }
 .tt-suggestion.tt-cursor {
     color: #fff;
-    background-color: #4E2A84;
+    background-color: #281426;
 }
 .tt-suggestion:hover {
     cursor:pointer;
     color: #fff;
-    background-color: #988FBF;
+    background-color: #7B4B38;
 }
 .tt-suggestion p {
     margin: 0;

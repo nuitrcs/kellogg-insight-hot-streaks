@@ -62,7 +62,7 @@ tilde.build = function(){
 
 	tilde.font_family = "Roboto"//, sans-serif"
 	tilde.subfont = "Roboto Slab"
-	tilde.font_size = tilde.heightUnits(3)
+	tilde.font_size = tilde.heightUnits(3.5)
 	if (tilde.font_size < 10) {
 		tilde.font_size = 10
 	}
