@@ -17,7 +17,9 @@ tilde.generateEngine = function() {
     {
         name: 'search',
         display: function(obj){ 
-            return obj.n + ' - ' + obj.i[obj.si+tilde.buffer].y
+            var index = tilde.buffer;
+            index += obj.si
+            return obj.n + ' - ' + obj.i[index].y
         },
         source: tilde.search,
         limit: 10,

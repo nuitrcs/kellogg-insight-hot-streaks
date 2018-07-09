@@ -13,7 +13,7 @@ tilde.build = function(){
 	tilde.plainScheme = 'dark'
 	tilde.streakScheme = 'autumn'
 
-	tilde.current_sorting = 'streak_middle'
+	tilde.current_sorting = 'unsorted'
 	//unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
 	tilde.sorting_direction = false
 	tilde.subset = false//5

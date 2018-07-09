@@ -4,6 +4,7 @@ tilde.setData = function() {
 	var counter = 0
 	tilde.data.forEach(function(d){
 		d.index = counter
+		d.si = +d.si
 		counter++
 	})
 	if (tilde.subset) {
