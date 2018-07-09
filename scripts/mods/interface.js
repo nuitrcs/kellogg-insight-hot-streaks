@@ -30,7 +30,7 @@ tilde.interfaceFrame = function() {
 		.style('font-weight',400)
 	tilde.menu
 		.append('img')
-		.attr('src',"/scripts/images/search_select.png")
+		.attr('src',"scripts/images/search_select.png")
 		.attr('width','50px')
 		.attr('height','50px')
 		.style('opacity',.4)
@@ -50,7 +50,7 @@ tilde.interfaceFrame = function() {
 		})
 	tilde.menu
 		.append('img')
-		.attr('src',"/scripts/images/info_select.png")
+		.attr('src',"scripts/images/info_select.png")
 		.attr('width','40px')
 		.attr('height','40px')
 		.style('top','-10px')
