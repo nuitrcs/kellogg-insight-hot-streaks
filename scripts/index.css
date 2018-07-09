@@ -60,6 +60,7 @@ svg{
     width:350px;
     position:relative;
     left:-150px;
+    opacity:.9;
 }
 .tt-input,
 .tt-hint {
