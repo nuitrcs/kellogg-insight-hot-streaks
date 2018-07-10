@@ -107,7 +107,7 @@ tilde.drawLine = function(slice,index,focused) {
 				.attr('stroke-width',function(){
 					return (tilde.line_glow-tilde.stroke_width)*(1 - (i/4)) + tilde.stroke_width
 				})
-				.attr('opacity',function(){
+				.style('opacity',function(){
 					if (tilde.dot_focus){
 						return 0
 					}
@@ -117,7 +117,7 @@ tilde.drawLine = function(slice,index,focused) {
 		}
 	}
 
-	var path = group.append('path')
+	group.append('path')
 		.datum(items)
 		.attr('d',line)
 		.attr('fill','none')
@@ -127,38 +127,69 @@ tilde.drawLine = function(slice,index,focused) {
 		})
 		.attr('stroke-width',tilde.stroke_width)
 		.style('mix-blend-mode','screen')
-	path
-		.attr("stroke-dasharray", function(){
-			totalLength = this.getTotalLength()
-			return totalLength + " " + totalLength
-		})
-		.attr("stroke-dashoffset", function() {
-			if (tilde.dot_focus){
-				return totalLength
-			} else {
-				return 0
-			}
-		})
-		/*
-		.style('opacity',function(d,i){
+		.style('opacity',function(){
 			if (tilde.dot_focus){
 				return 0
 			}
-		})*/
+			return 1
+		})
 
 		if (tilde.dot_focus) {
 			tilde.dot_focus = false
-			d3.selectAll('.line')
-				.transition('final')
-				.duration(tilde.dot_phase*3)
-				.delay(0)
-				.attr("stroke-dashoffset", 0)
-				/*
-				.style('opacity',function(d,i){
-					if (d3.select(this).classed('glow')) {
-						return tilde.glow_intensity
-					}
+			var totalLength;
+			group.append('path')
+				.datum(items)
+				.attr('d',line)
+				.attr('fill','none')
+				.attr('class','bland')
+				.attr('stroke',function(d,i){
+					return 'grey'
+				})
+				.attr('stroke-width',tilde.stroke_width)
+				.style('isolation','isolate')
+				.style('opacity',function(){
 					return 1
-				})*/
+				})
+				.attr("stroke-dasharray", function(){
+					totalLength = this.getTotalLength()
+					return totalLength + " " + totalLength
+				})
+				.attr("stroke-dashoffset", function() {
+					console.log(totalLength)
+					return totalLength
+				})
+			d3.selectAll('.bland')
+				.transition('fourth')
+				.duration(tilde.dot_phase*3)
+				.delay(tilde.dot_phase)
+				.attr("stroke-dashoffset", 0)
+				.call(endall,function(d,i){
+					d3.selectAll('.dot')
+						.transition('fifth')
+						.duration(tilde.dot_phase)
+						.delay(tilde.dot_phase)
+						.style('opacity',0)
+						.call(endall,function(d,i){
+							d3.selectAll('.line')
+								.transition('sixth')
+								.duration(tilde.dot_phase*3)
+								.delay(tilde.dot_phase)
+								.style('opacity',function(){
+									if (d3.select(this).classed('glow')){
+										return tilde.glow_intensity
+									}
+									return 1
+								})
+							d3.selectAll('.bland')
+								.transition('sixth')
+								.duration(tilde.dot_phase*2)
+								.delay(tilde.dot_phase)
+								.style('opacity',function(){
+									return 0
+								})
+						})
+
+				})
+				
 		}
 }

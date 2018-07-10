@@ -99,7 +99,7 @@ tilde.drawDots = function(slice,index,focused) {
 		.transition('first')
 		.duration(tilde.dot_phase)
 		.delay(function(d,i){
-			return i*i/3.3 + i*5 
+			return tilde.dot_phase + i*i/3.3 + i*5 
 		})
 		.attr('cx',function(d,i){
 			return x(i)
@@ -107,9 +107,9 @@ tilde.drawDots = function(slice,index,focused) {
 		.call(endall,function(d,i){
 			tilde.dots
 				.transition()
-				.duration(tilde.dot_phase)
+				.duration(tilde.dot_phase*2)
 				.delay(function(d,i){
-					return i*20
+					return tilde.dot_phase + i*20
 				})
 				.attr('cy',function(d,i){
 					var adjustment = index-lineheight

@@ -91,14 +91,14 @@ tilde.sortData.streak_middle = function(reverse) {
 		var b_last = 0
 		var index = 0
 		a.i.forEach(function(d){
-			if (d.y || d.t) {
+			if (d.t) {
 				a_last = index
 			}
 			index++
 		})
 		index = 0
 		b.i.forEach(function(d){
-			if (d.y || d.t) {
+			if (d.t) {
 				b_last = index
 			}
 			index++

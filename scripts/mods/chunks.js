@@ -32,13 +32,13 @@ tilde.drawChunks = function() {
 			var fill;
 			if (tilde.global_fill) {
 				fill = tilde.plainFill(d.i)
-				if (d.y || d.t) {
+				if (d.t) {
 					fill = tilde.streakFill(d.i)
 				}
 			} else {
 				var pd = d3.select(this.parentNode).data()[0]
 				fill = pd.plainFill(d.i)
-				if (d.y || d.t) {
+				if (d.t) {
 					fill = pd.streakFill(d.i)
 				}
 			}

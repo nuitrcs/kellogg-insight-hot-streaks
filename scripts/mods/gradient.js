@@ -25,12 +25,12 @@ tilde.buildGradientStrip = function(data,num) {
 			var fill = ''
 			if (tilde.global_fill) {
 				fill = tilde.plainFill(d.i)
-				if (d.y || d.t) {
+				if (d.t) {
 					fill = tilde.streakFill(d.i)
 				}
 			} else {
 				fill = data.plainFill(d.i)
-				if (d.y || d.t) {
+				if (d.t) {
 					fill = data.streakFill(d.i)
 				}
 			}

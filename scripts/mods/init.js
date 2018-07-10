@@ -20,6 +20,7 @@ tilde.initView = function() {
 		tilde.interfaceFrame()
 		tilde.drawSlider()
 		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
+		//tilde.dragSlider(tilde.slider_y(1572))
 	} else {
 		tilde.draw()
 	}

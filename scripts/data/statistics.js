@@ -1,38 +1,32 @@
 tilde.statistics = {
-	scientists : {
-		impact_type : 'citations',
-		count : 3093,
-		min : 0,
-		max : 20210,
-		mean : 29.89,
-		mean_min : .2,
-		mean_max : 241
+	"scientists":{
+		"impact_type":"citations",
+		"count":20039,
+		"min":0,
+		"max":20210,
+		"mean":27.492067869069444,
+		"mean_min":0.26638055791207144,
+		"mean_max":213.81116822196716,
+		"total_items":1051672
 	},
-	artists : {
-		impact_type : 'sale price',
-		count : 3025,
-		min : 1,
-		max : 259250000,
-		mean : 114009,
-		mean_min : 366,
-		mean_max : 1425590
+	"artists":{
+		"impact_type":"sale price",
+		"count":3024,
+		"min":1,
+		"max":259250000,
+		"mean":114009.08783316179,
+		"mean_min":365.7635582010582,
+		"mean_max":1426061.1967592593,
+		"total_items":569318
 	},
-	directors : {
-		impact_type : 'rating',
-		count : 3679,
-		min : 1,
-		max : 10,
-		mean : 6.67,
-		mean_min : 4.33,
-		mean_max : 8.38
-	},
-	complete : {
-		impact_type : 'impact',
-		count : 9797,
-		min : 0,
-		max : 259250000,
-		mean : 24854,
-		mean_min : 38,
-		mean_max : 43921
+	"directors":{
+		"impact_type":"rating",
+		"count":3678,
+		"min":1,
+		"max":10,
+		"mean":6.671023519792105,
+		"mean_min":4.339369222403482,
+		"mean_max":8.381810766721024,
+		"total_items":124746
 	}
 }
