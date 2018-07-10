@@ -32,14 +32,22 @@ svg{
 	display:none;
 }
 .icon:hover{
-	opacity:1;
+	cursor:pointer;
 }
 .track,
 .track-inset,
 .track-overlay {
 	stroke-linecap: round;
 }
-
+.info-item {
+	font-family: Roboto;
+	font-weight:100;
+	color:white;
+	padding: .5vh .5vw;
+}
+#info_dropdown {
+	border-radius: .5vw;
+}
 .track {
 	stroke: silver;
 	stroke-opacity: 0.3;
@@ -56,6 +64,14 @@ svg{
 	stroke-width: 50px;
 	cursor: crosshair;
 }
+.tt-input,
+.tt-hint,
+.tt-menu,
+.twitter-typeahead,
+.typeahead {
+	background:black !important;
+	color:white !important;
+}
 .twitter-typeahead {
     width:100%;
 }
@@ -64,7 +80,7 @@ svg{
 }
 .tt-input,
 .tt-hint {
-    width: 94%;
+    width: 97.5%;
     height: 2.5vh;
     padding: .5vh .5vw;
     font-size: 90%;
@@ -87,7 +103,7 @@ svg{
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: .5vw;
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 3px 6px rgba(0,0,0,.2);
     z-index: 9999;
 }
 .tt-suggestion {

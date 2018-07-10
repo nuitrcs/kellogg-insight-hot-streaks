@@ -42,6 +42,7 @@ tilde.interfaceFrame = function() {
 			d3.select(this).style('opacity',0.4)
 		})
 		.on('click',function(){
+			d3.select('#info_dropdown').classed('hidden',true)
 			d3.select('#search_dropdown')
 				.classed('hidden',function(){
 					return !d3.select(this).classed('hidden')
@@ -63,16 +64,24 @@ tilde.interfaceFrame = function() {
 		.on('mouseout',function(){
 			d3.select(this).style('opacity',0.4)
 		})
+		.on('click',function(){
+			d3.select('#search_dropdown').classed('hidden',true)
+			d3.select('#info_dropdown')
+				.classed('hidden',function(){
+					return !d3.select(this).classed('hidden')
+				})
+			$('.typeahead').focus()
+		})
 
 	tilde.menu
 		.append('div')
 		.attr('id','search_dropdown')
-		.attr('class','hidden')
+		.attr('class','hidden dropdown')
 		.style('width',function(){
 			return tilde.dimensions.width/2 + 'px'
 		})
 		.style('left',function(){
-			return -tilde.dimensions.width/4 + 25 + 'px'
+			return -tilde.dimensions.width/4 + 45 + 'px'
 		})
 		.style('position','relative')
 		.style('opacity',.9)
@@ -82,7 +91,46 @@ tilde.interfaceFrame = function() {
 			return "Search for an individual's career..."
 		})
 		.attr('class','typeahead')
-		
+
+	tilde.info = tilde.menu
+		.append('div')
+		.attr('id','info_dropdown')
+		.attr('class','hidden dropdown')
+		.style('width',function(){
+			return tilde.dimensions.width/4 + 'px'
+		})
+		.style('left',function(){
+			return -tilde.dimensions.width/8 + 45 + 'px'
+		})
+		.style('position','relative')
+		.style('opacity',.95)
+		.style('background','black')
+	tilde.info	
+		.append('div')
+		.attr('class','info-item')
+		.html(function(){
+			return 'About this Visual'
+		})
+	tilde.info	
+		.append('div')
+		.attr('class','info-item')
+		.html(function(){
+			return 'Data and Paper'
+		})
+	tilde.info	
+		.append('div')
+		.attr('class','info-item')
+		.html(function(){
+			return 'Credit and Citation'
+		})
+	tilde.info	
+		.append('div')
+		.attr('class','info-item')
+		.html(function(){
+			return 'Options'
+		})
+
+
 
 	var i = tilde.font_size*1.5;
 	while (d3.select('#heading').node().getBBox().width > tilde.dimensions.chartWidth) {
