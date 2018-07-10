@@ -47,6 +47,7 @@ tilde.interfaceFrame = function() {
 				.classed('hidden',function(){
 					return !d3.select(this).classed('hidden')
 				})
+			tilde.info_focus.classed('hidden',true)
 			$('.typeahead').focus()
 		})
 	tilde.menu
@@ -70,6 +71,7 @@ tilde.interfaceFrame = function() {
 				.classed('hidden',function(){
 					return !d3.select(this).classed('hidden')
 				})
+			tilde.info_focus.classed('hidden',true)
 			$('.typeahead').focus()
 		})
 
@@ -102,35 +104,60 @@ tilde.interfaceFrame = function() {
 		.style('left',function(){
 			return -tilde.dimensions.width/8 + 45 + 'px'
 		})
+		.style('text-align','center')
 		.style('position','relative')
 		.style('opacity',.95)
 		.style('background','black')
-	tilde.info	
+	var items = [
+		{t:'About this Visual',i:'Do professionals experience periods of heightened performance during their lifetime? How does this affect their careers?<br><br>This visualization was created to explore these "hot streak" features across the careers of thousands of individuals.<br>A suplemental piece for <a href="">Kellogg Insight<a>'},
+		{t:'Data and Paper',i:'<a href="https://lu-liu.github.io/hotstreaks/">Available here</a>'},
+		{t:'Credit and Citation',i:'<b>Science</b>: Lu Liu, Roberta Sinatra, C. Lee Giles, Chaoming Song, & Dashun Wang<br><br><b>DOI</b>:<a href="http://dx.doi.org/10.1038/s41586-018-0315-8">10.1038/s41586-018-0315-8</a><br><br><b>Visualization</b>: <a href="https://twitter.com/Frankly_Data">Frank Elavsky</a>, <a href="https://www.it.northwestern.edu/research/about/rcs-staff.html#Frank%20Elavsky">Research Computing, Northwestern University</a>'},
+		{t:'Options',i:'things'}
+	]
+	tilde.info
+		.selectAll('div')
+		.data(items)
+		.enter()
 		.append('div')
 		.attr('class','info-item')
-		.html(function(){
-			return 'About this Visual'
+		.html(function(d){
+			return d.t
 		})
-	tilde.info	
+		.on('click',function(d,i){
+			var my_height = -this.offsetHeight*3.8+this.offsetHeight*i
+			tilde.info_focus
+				.html(d.i)
+				.style('top',my_height+'px')
+				.classed('hidden',function(){
+					if (tilde.info_focus.classed('showing-'+i)) {
+						return !tilde.info_focus.classed('hidden')
+					}
+					return false
+				})
+				.classed('showing-0',false)
+				.classed('showing-1',false)
+				.classed('showing-2',false)
+				.classed('showing-3',false)
+				.classed('showing-'+i,true)
+		})
+		
+	tilde.info_focus = tilde.menu
 		.append('div')
-		.attr('class','info-item')
-		.html(function(){
-			return 'Data and Paper'
+		.attr('id','info_focus')
+		.attr('class','hidden')
+		.style('width',function(){
+			return tilde.dimensions.width/4 + 'px'
 		})
-	tilde.info	
-		.append('div')
-		.attr('class','info-item')
-		.html(function(){
-			return 'Credit and Citation'
+		.style('left',function(){
+			return +tilde.dimensions.width/8 + 45 + 'px'
 		})
-	tilde.info	
-		.append('div')
-		.attr('class','info-item')
-		.html(function(){
-			return 'Options'
-		})
-
-
+		.style('text-align','left')
+		.style('position','relative')
+		.style('background','black')
+		.style('color','white')
+		.style('font-family',tilde.subfont)
+		.style('font-weight',100)
+		.style('font-size','80%')
 
 	var i = tilde.font_size*1.5;
 	while (d3.select('#heading').node().getBBox().width > tilde.dimensions.chartWidth) {

@@ -45,6 +45,19 @@ svg{
 	color:white;
 	padding: .5vh .5vw;
 }
+.info-focus {
+	position:relative;
+}
+a:link {
+	color:#fff789;
+}
+a:visited {
+	color:#a6a1a5;
+}
+.info-item:hover {
+	font-weight:400;
+	cursor:pointer;
+}
 #info_dropdown {
 	border-radius: .5vw;
 }
