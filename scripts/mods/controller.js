@@ -18,7 +18,7 @@ tilde.build = function(){
 	tilde.sorting_direction = false
 	tilde.subset = false
 	tilde.viewing = 0
-	tilde.buffer = 2
+	tilde.buffer = 0
 	tilde.scale = "scaleLinear"
 	tilde.log_adjustment = .99
 
@@ -41,6 +41,15 @@ tilde.build = function(){
 	tilde.stroke_width = 3
 	tilde.line_glow = 20
 	tilde.glow_intensity = 0.07
+
+	tilde.dot_focus = false
+
+	tilde.dot_radius = 6
+	tilde.dot_stroke = 'none'
+	tilde.dot_stroke_width = 1
+	tilde.dot_fill = 'grey'
+	tilde.dot_opacity = 0.8
+	tilde.dot_phase = 1000
 
 	if (tilde.scale === 'scaleLog') {
 		tilde.glow_intensity = tilde.glow_intensity*2

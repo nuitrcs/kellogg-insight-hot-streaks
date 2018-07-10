@@ -38,7 +38,7 @@ tilde.drawLine = function(slice,index,focused) {
 		.attr('id','line-group-'+index)
 		.attr('class','tilde-line')
 
-	if (focused >= 0) {
+	if (focused >= 0 && !tilde.dot_focus) {
 		tilde.title = group
 			.append('text')
 			.attr('id','title')
@@ -100,6 +100,7 @@ tilde.drawLine = function(slice,index,focused) {
 				.datum(items)
 				.attr('d',line)
 				.attr('fill','none')
+				.attr('class','glow line')
 				.attr('stroke',function(d,i){
 					return "url(#lineargradient-" + slice.index + ")"
 				})
@@ -107,18 +108,57 @@ tilde.drawLine = function(slice,index,focused) {
 					return (tilde.line_glow-tilde.stroke_width)*(1 - (i/4)) + tilde.stroke_width
 				})
 				.attr('opacity',function(){
+					if (tilde.dot_focus){
+						return 0
+					}
 					return tilde.glow_intensity
 				})
 				.style('mix-blend-mode','screen')
 		}
 	}
-	group.append('path')
+
+	var path = group.append('path')
 		.datum(items)
 		.attr('d',line)
 		.attr('fill','none')
+		.attr('class','line')
 		.attr('stroke',function(d,i){
 			return "url(#lineargradient-" + slice.index + ")"
 		})
 		.attr('stroke-width',tilde.stroke_width)
 		.style('mix-blend-mode','screen')
+	path
+		.attr("stroke-dasharray", function(){
+			totalLength = this.getTotalLength()
+			return totalLength + " " + totalLength
+		})
+		.attr("stroke-dashoffset", function() {
+			if (tilde.dot_focus){
+				return totalLength
+			} else {
+				return 0
+			}
+		})
+		/*
+		.style('opacity',function(d,i){
+			if (tilde.dot_focus){
+				return 0
+			}
+		})*/
+
+		if (tilde.dot_focus) {
+			tilde.dot_focus = false
+			d3.selectAll('.line')
+				.transition('final')
+				.duration(tilde.dot_phase*3)
+				.delay(0)
+				.attr("stroke-dashoffset", 0)
+				/*
+				.style('opacity',function(d,i){
+					if (d3.select(this).classed('glow')) {
+						return tilde.glow_intensity
+					}
+					return 1
+				})*/
+		}
 }
