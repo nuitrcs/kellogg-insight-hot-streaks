@@ -5,6 +5,12 @@ tilde.setData = function() {
 	tilde.data.forEach(function(d){
 		d.index = counter
 		d.si = +d.si
+		if (tilde.scale === "scaleLog") {
+			d.min += tilde.log_adjustment
+			d.i.forEach(function(i){
+				i.i += tilde.log_adjustment
+			})
+		}
 		counter++
 	})
 	if (tilde.subset) {
@@ -25,11 +31,11 @@ tilde.prepData = function() {
 					(d.max - d.mean)*.4 + d.mean,
 					d.max
 				]
-			d.plainFill = d3.scaleLinear()
+			d.plainFill = d3[tilde.scale]()
 				.domain(domain_array)
 				.range(br)
 				.interpolate(d3.interpolateRgb)
-			d.streakFill = d3.scaleLinear()
+			d.streakFill = d3[tilde.scale]()
 				.domain(domain_array)
 				.range(sr)
 				.interpolate(d3.interpolateRgb)
@@ -76,8 +82,6 @@ tilde.select = function(target) {
 	}
 }
 
-
-
 tilde.sortData = {}
 
 tilde.sortData.streak_middle = function(reverse) {
@@ -120,6 +124,19 @@ tilde.sortData.streak_length = function(reverse) {
 	tilde.data.sort(function(a,b) {
 		var b_length = b.streak_count/b.c,
 			a_length = a.streak_count/a.c
+		if (reverse) {
+			return b_length - a_length
+		}
+		return a_length - b_length
+	})
+}
+
+tilde.sortData.time_to_first_streak = function(reverse) {
+	tilde.data.sort(function(a,b) {
+		a.si = +a.si
+		b.si = +b.si
+		var b_length = b.si/b.c,
+			a_length = a.si/a.c
 		if (reverse) {
 			return b_length - a_length
 		}

@@ -17,7 +17,7 @@ tilde.drawLine = function(slice,index,focused) {
 	var x = d3.scaleLinear()
 		.range([0,tilde.dimensions.chartWidth])
 		.domain([0,items.length-1]),
-	y = d3.scaleLinear()
+	y = d3[tilde.scale]()
 		.range([lineheight, 0])
 		.domain([slice.min,slice.max]);
 	var line = d3.line()

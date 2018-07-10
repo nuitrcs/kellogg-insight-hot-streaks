@@ -1,5 +1,5 @@
 tilde.statistics = {
-	academics : {
+	scientists : {
 		impact_type : 'citations',
 		count : 3093,
 		min : 0,
@@ -25,5 +25,14 @@ tilde.statistics = {
 		mean : 6.67,
 		mean_min : 4.33,
 		mean_max : 8.38
+	},
+	complete : {
+		impact_type : 'impact',
+		count : 9797,
+		min : 0,
+		max : 259250000,
+		mean : 24854,
+		mean_min : 38,
+		mean_max : 43921
 	}
 }

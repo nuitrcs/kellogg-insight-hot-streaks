@@ -14,11 +14,13 @@ tilde.build = function(){
 	tilde.streakScheme = 'autumn'
 
 	tilde.current_sorting = 'streak_middle'
-	//unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
+	//unsorted streak_middle streak_length time_to_first_peak career_length global_peak time_to_first_streak time_to_peak_by_streak_length
 	tilde.sorting_direction = false
-	tilde.subset = false//5
-	tilde.viewing = 0//1200//107
+	tilde.subset = false
+	tilde.viewing = 0
 	tilde.buffer = 2
+	tilde.scale = "scaleLinear"
+	tilde.log_adjustment = .99
 
 	tilde.all_lines = false
 	tilde.gradient_view = true
@@ -38,7 +40,11 @@ tilde.build = function(){
 	tilde.focusline = 210
 	tilde.stroke_width = 3
 	tilde.line_glow = 20
-	tilde.glow_intensity = 0.06
+	tilde.glow_intensity = 0.07
+
+	if (tilde.scale === 'scaleLog') {
+		tilde.glow_intensity = tilde.glow_intensity*2
+	}
 
 	tilde.holdTimer = 0
 	tilde.moveTimer = 0
@@ -172,6 +178,31 @@ tilde.build = function(){
 
 	tilde.positions = {}
 
+	tilde.colors = {}
+
+	// streak:
+	tilde.colors.autumn = d3[tilde.scale]()
+		.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+		.range(['#1C1422',"#281426","#453830","#d05c11","#fff789"]) //0/33/66/100/white - 'brighter shift'
+		.interpolate(d3.interpolateRgb)
+	// non-streak:
+	tilde.colors.dark = d3[tilde.scale]()
+		.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+		.range(['#0a0b0d',"#1c1e20","#282b31","#3b434a","#a6a1a5"]) //0/0/33/66/100 - 'darker shift'
+		.interpolate(d3.interpolateRgb)
+
+	// optional streak scheme
+	tilde.colors.stars = d3[tilde.scale]()
+		.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+		.range(['#0a0b0d',"#1c1e20","#282b31","#FFB919","#FFFFCD"]) //0/33/66/100/white - 'brighter shift'
+		.interpolate(d3.interpolateRgb)
+
+	//optional non-streak scheme
+	tilde.colors.icy = d3[tilde.scale]()
+		.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
+		.range(['#0E0F12',"#1D2027","#1F282E","#283C41","#8FA8AA"]) //0/0/33/66/100 - 'darker shift'
+		.interpolate(d3.interpolateRgb)
+
 	tilde.plainFill = tilde.colors[tilde.plainScheme]
 	tilde.streakFill = tilde.colors[tilde.streakScheme]
 	d3.selectAll('body').attr('style','background:'+tilde.plainFill.range()[0])
@@ -208,30 +239,5 @@ tilde.handle = {
 	width : 50,
 	height : 900
 }
-
-tilde.colors = {}
-
-// streak:
-tilde.colors.autumn = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#1C1422',"#281426","#453830","#d05c11","#fff789"]) //0/33/66/100/white - 'brighter shift'
-	.interpolate(d3.interpolateRgb)
-// non-streak:
-tilde.colors.dark = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#0a0b0d',"#1c1e20","#282b31","#3b434a","#a6a1a5"]) //0/0/33/66/100 - 'darker shift'
-	.interpolate(d3.interpolateRgb)
-
-// optional streak scheme
-tilde.colors.stars = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#0a0b0d',"#1c1e20","#282b31","#FFB919","#FFFFCD"]) //0/33/66/100/white - 'brighter shift'
-	.interpolate(d3.interpolateRgb)
-
-//optional non-streak scheme
-tilde.colors.icy = d3.scaleLinear()
-	.domain([tilde.stats.min,tilde.stats.mean_min,tilde.stats.mean,tilde.stats.mean_max,tilde.stats.max])
-	.range(['#0E0F12',"#1D2027","#1F282E","#283C41","#8FA8AA"]) //0/0/33/66/100 - 'darker shift'
-	.interpolate(d3.interpolateRgb)
 
 tilde.build()

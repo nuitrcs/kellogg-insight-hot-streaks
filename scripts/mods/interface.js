@@ -4,12 +4,18 @@ tilde.interfaceFrame = function() {
 		.attr('id','heading')
 		.html(function(){
 			var out = 'Quantifying Hot Streaks in the Careers of '
-			if (tilde.version.slice(0,1) === 'a') {
-				out += 'A'
-			} else {
+			if (tilde.version.slice(0,1) === 'd') {
 				out += 'D'
+				out += tilde.version.slice(1)
+			} else if (tilde.version.slice(0,1) === 's') {
+				out += 'S'
+				out += tilde.version.slice(1)
+			} else if (tilde.version.slice(0,1) === 'a') {
+				out += 'A'
+				out += tilde.version.slice(1)
+			} else {
+				out += 'Artists, Directors, and Scientists'
 			}
-			out += tilde.version.slice(1)
 			return out
 		})
 		.attr('x',tilde.dimensions.width/2)
