@@ -3,6 +3,11 @@ tilde.generateEngine = function() {
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('n'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         identify: function(obj){ return obj.n; },
+        sorter: function(a,b) {
+            var aindex = +a.i[tilde.buffer + a.si].y,
+                bindex = +b.i[tilde.buffer + b.si].y
+            return bindex - aindex
+        },
         local: tilde.data
     });
 

@@ -107,7 +107,7 @@ tilde.drawLine = function(slice,index,focused) {
 					return (tilde.line_glow-tilde.stroke_width)*(1 - (i/4)) + tilde.stroke_width
 				})
 				.attr('opacity',function(){
-					return 0.07
+					return tilde.glow_intensity
 				})
 				.style('mix-blend-mode','screen')
 		}

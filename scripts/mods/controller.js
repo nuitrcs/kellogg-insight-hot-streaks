@@ -13,7 +13,7 @@ tilde.build = function(){
 	tilde.plainScheme = 'dark'
 	tilde.streakScheme = 'autumn'
 
-	tilde.current_sorting = 'unsorted'
+	tilde.current_sorting = 'streak_middle'
 	//unsorted streak_middle streak_length time_to_first_peak time_to_peak_by_streak_length career_length global_peak
 	tilde.sorting_direction = false
 	tilde.subset = false//5
@@ -38,6 +38,7 @@ tilde.build = function(){
 	tilde.focusline = 210
 	tilde.stroke_width = 3
 	tilde.line_glow = 20
+	tilde.glow_intensity = 0.06
 
 	tilde.holdTimer = 0
 	tilde.moveTimer = 0
@@ -65,6 +66,8 @@ tilde.build = function(){
 	tilde.font_size = tilde.heightUnits(3.5)
 	if (tilde.font_size < 10) {
 		tilde.font_size = 10
+	} else if (tilde.font_size > 35) {
+		tilde.font_size = 35
 	}
 
 	if (tilde.no_distractions) {

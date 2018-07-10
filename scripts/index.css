@@ -57,10 +57,7 @@ svg{
 	cursor: crosshair;
 }
 .twitter-typeahead {
-    width:350px;
-    position:relative;
-    left:-150px;
-    opacity:.9;
+    width:100%;
 }
 .search-header {
 	text-align: center;
@@ -68,12 +65,12 @@ svg{
 .tt-input,
 .tt-hint {
     width: 94%;
-    height: 3vh;
-    padding: 1vh 1vw;
+    height: 2.5vh;
+    padding: .5vh .5vw;
     font-size: 90%;
-    line-height: 3vh;
+    line-height: 2.5vh;
     border: 2px solid #ccc;
-    border-radius: 1vw;
+    border-radius: .5vw;
     outline: none;
 }
 .tt-input {
@@ -85,18 +82,18 @@ svg{
 .tt-menu {
     width: 100%;
     margin-top: 1vh;
-    padding: 1vh 0;
+    padding: .5vh 0;
     background-color: #fff;
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 1vw;
+    border-radius: .5vw;
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
     z-index: 9999;
 }
 .tt-suggestion {
-    padding: 1vh 1vw;
+    padding: .5vh .5vw;
     font-size: 80%;
-    line-height: 2vh;
+    line-height: 1.8vh;
     z-index: 9999;
 }
 .tt-suggestion.tt-cursor {

@@ -68,12 +68,22 @@ tilde.interfaceFrame = function() {
 		.append('div')
 		.attr('id','search_dropdown')
 		.attr('class','hidden')
+		.style('width',function(){
+			return tilde.dimensions.width/2 + 'px'
+		})
+		.style('left',function(){
+			return -tilde.dimensions.width/4 + 25 + 'px'
+		})
+		.style('position','relative')
+		.style('opacity',.9)
 		.append('input')
-		.attr('class','typeahead')
 		.attr('type','text')
 		.attr('placeholder',function(){
 			return "Search for an individual's career..."
 		})
+		.attr('class','typeahead')
+		
+
 	var i = tilde.font_size*1.5;
 	while (d3.select('#heading').node().getBBox().width > tilde.dimensions.chartWidth) {
 		i--
