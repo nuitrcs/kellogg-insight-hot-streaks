@@ -5,6 +5,7 @@ tilde.setData = function() {
 	tilde.data.forEach(function(d){
 		d.index = counter
 		d.si = +d.si
+		d.r = +d.r
 		if (tilde.scale === "scaleLog") {
 			d.min += tilde.log_adjustment
 			d.i.forEach(function(i){
@@ -216,6 +217,17 @@ tilde.sortData.career_length = function(reverse) {
 			return b.c - a.c
 		}
 		return a.c - b.c
+	})
+}
+
+tilde.sortData.model_fit = function(reverse) {
+	tilde.data.sort(function(a,b) {
+		a.r = +a.r
+		b.r = +b.r
+		if (reverse) {
+			return a.r - b.r
+		}
+		return b.r - a.r
 	})
 }
 

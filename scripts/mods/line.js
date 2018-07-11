@@ -159,20 +159,21 @@ tilde.drawLine = function(slice,index,focused) {
 				})
 			d3.selectAll('.bland')
 				.transition('fourth')
-				.duration(tilde.dot_phase*3)
-				.delay(tilde.dot_phase)
+				.ease(d3.easeSin)
+				.duration(tilde.dot_phase)
+				.delay(0)
 				.attr("stroke-dashoffset", 0)
 				.call(endall,function(d,i){
 					d3.selectAll('.dot')
 						.transition('fifth')
-						.duration(tilde.dot_phase)
-						.delay(tilde.dot_phase)
+						.duration(tilde.dot_phase/2)
+						.delay(tilde.dot_phase/2)
 						.style('opacity',0)
 						.call(endall,function(d,i){
 							d3.selectAll('.line')
 								.transition('sixth')
-								.duration(tilde.dot_phase*3)
-								.delay(tilde.dot_phase)
+								.duration(tilde.dot_phase)
+								.delay(tilde.dot_phase/2)
 								.style('opacity',function(){
 									if (d3.select(this).classed('glow')){
 										return tilde.glow_intensity
@@ -181,8 +182,8 @@ tilde.drawLine = function(slice,index,focused) {
 								})
 							d3.selectAll('.bland')
 								.transition('sixth')
-								.duration(tilde.dot_phase*2)
-								.delay(tilde.dot_phase)
+								.duration(tilde.dot_phase*.75)
+								.delay(tilde.dot_phase/4)
 								.style('opacity',function(){
 									return 0
 								})

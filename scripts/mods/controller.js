@@ -14,11 +14,11 @@ tilde.build = function(){
 	tilde.streakScheme = 'autumn'
 
 	tilde.current_sorting = 'streak_middle'
-	//unsorted streak_middle streak_length time_to_first_peak career_length global_peak time_to_first_streak time_to_peak_by_streak_length
+	//unsorted model_fit streak_middle streak_length time_to_first_peak career_length global_peak time_to_first_streak time_to_peak_by_streak_length
 	tilde.sorting_direction = false
 	tilde.subset = false
 	tilde.viewing = 0
-	tilde.buffer = 2
+	tilde.buffer = 0
 	tilde.scale = "scaleLinear"
 	tilde.log_adjustment = .99
 
@@ -32,12 +32,12 @@ tilde.build = function(){
 	tilde.allow_focus = true
 
 	tilde.bar = {}
-	tilde.bar.height = 1
+	tilde.bar.height = 3
 	tilde.bar.bottomPadding = 0
-	tilde.thickbar = 5//tilde.bar.height*5
+	tilde.thickbar = 0//tilde.bar.height*5
 
 	tilde.lineheight = 50
-	tilde.focusline = 210
+	tilde.focusline = 310
 	tilde.stroke_width = 3
 	tilde.line_glow = 20
 	tilde.glow_intensity = 0.07
@@ -49,7 +49,7 @@ tilde.build = function(){
 	tilde.dot_stroke_width = 1
 	tilde.dot_fill = 'grey'
 	tilde.dot_opacity = 0.8
-	tilde.dot_phase = 1000
+	tilde.dot_phase = 6000
 
 	if (tilde.scale === 'scaleLog') {
 		tilde.glow_intensity = tilde.glow_intensity*2
@@ -94,7 +94,7 @@ tilde.build = function(){
 		}
 	} else {
 		tilde.dimensions.chart_padding = {
-			left : tilde.widthUnits(1),
+			left : tilde.widthUnits(4),
 			right : 50 + tilde.widthUnits(2),
 			top : tilde.font_size*2 + 50 + tilde.heightUnits(2),
 			bottom : tilde.font_size*1.5 + tilde.heightUnits(2)
@@ -166,8 +166,8 @@ tilde.build = function(){
 			}
 		},
 		focus_panel : {
-			title_margin : tilde.font_size*2,
-			padding : tilde.heightUnits(1)
+			title_margin : tilde.font_size*3,
+			padding : tilde.heightUnits(9)
 		}
 	}
 	tilde.dimensions.elements.focus_panel.height =  tilde.dimensions.elements.focus_panel.title_margin + tilde.dimensions.elements.focus_panel.padding*2 + tilde.thickbar + tilde.focusline

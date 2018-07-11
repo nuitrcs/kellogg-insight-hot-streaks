@@ -3,6 +3,7 @@ body {
 	padding:0;
 	background: #0a0b0d;
 	isolation: isolate;
+	overflow:hidden;
 }
 svg{
 	isolation: isolate;
@@ -45,8 +46,24 @@ svg{
 	color:white;
 	padding: .5vh .5vw;
 }
+#sorting{
+	position:absolute;
+	top:0;
+	left:95px;
+	font-family: Roboto;
+	font-weight:100;
+	font-size:60%;
+	color:white;
+	opacity:0.7;
+}
+#sorting:hover {
+	cursor:pointer;
+}
 .info-focus {
 	position:relative;
+}
+.slider {
+	display:none;
 }
 a:link {
 	color:#fff789;
@@ -80,7 +97,6 @@ a:visited {
 .tt-input,
 .tt-hint,
 .tt-menu,
-.twitter-typeahead,
 .typeahead {
 	background:black !important;
 	color:white !important;

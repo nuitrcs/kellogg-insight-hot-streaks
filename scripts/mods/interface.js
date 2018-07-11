@@ -78,7 +78,7 @@ tilde.interfaceFrame = function() {
 					return !d3.select(this).classed('hidden')
 				})
 			tilde.info_focus.classed('hidden',true)
-			$('.typeahead').focus()
+			$('.typeahead').blur()
 		})
 
 	tilde.menu
@@ -114,37 +114,54 @@ tilde.interfaceFrame = function() {
 		.style('position','relative')
 		.style('opacity',.95)
 		.style('background','black')
-	var items = [
-		{t:'About this Visual',i:'Do professionals experience periods of heightened performance during their lifetime? How does this affect their careers?<br><br>This visualization was created to explore these "hot streak" features across the careers of thousands of individuals.<br>A suplemental piece for <a href="">Kellogg Insight<a>'},
-		{t:'Data and Paper',i:'<a href="https://lu-liu.github.io/hotstreaks/">Available here</a>'},
-		{t:'Credit and Citation',i:'<b>Science</b>: Lu Liu, Yang Wang, Roberta Sinatra, C. Lee Giles, Chaoming Song, & Dashun Wang<br><br><b>Visualization</b>: <a href="https://twitter.com/Frankly_Data">Frank Elavsky</a>, <a href="https://www.it.northwestern.edu/research/about/rcs-staff.html#Frank%20Elavsky">Research Computing, Northwestern University</a>'},//<br><br><b>DOI</b>: <a href="http://dx.doi.org/10.1038/s41586-018-0315-8">10.1038/s41586-018-0315-8</a>
-		{t:'Options',i:'things'}
-	]
+	
 	tilde.info
 		.selectAll('div')
-		.data(items)
+		.data(tilde.info_text)
 		.enter()
 		.append('div')
 		.attr('class','info-item')
 		.html(function(d){
 			return d.t
 		})
+		.attr('id',function(d,i){
+			return 'info-'+i
+		})
 		.on('click',function(d,i){
+			var my_height = -this.offsetHeight*3.8+this.offsetHeight*i
+			var me = this
+			tilde.info_focus
+				.html(d.i)
+				.style('top',my_height+'px')
+				.classed('hidden',function(){
+					if (tilde.watching === me.id) {
+						tilde.watching = false
+						return true
+					}
+					tilde.watching = me.id
+					return false
+				})
+		})
+		.on('mouseover',function(d,i){
+			tilde.watching = this.id
 			var my_height = -this.offsetHeight*3.8+this.offsetHeight*i
 			tilde.info_focus
 				.html(d.i)
 				.style('top',my_height+'px')
 				.classed('hidden',function(){
-					if (tilde.info_focus.classed('showing-'+i)) {
-						return !tilde.info_focus.classed('hidden')
-					}
 					return false
 				})
-				.classed('showing-0',false)
-				.classed('showing-1',false)
-				.classed('showing-2',false)
-				.classed('showing-3',false)
-				.classed('showing-'+i,true)
+		})
+		.on('mouseout',function(d,i){
+			tilde.watching = false
+			setTimeout(function(){
+				if (!tilde.watching) {
+					tilde.info_focus
+						.classed('hidden',function(){
+							return true
+						})
+				}
+			},500)
 		})
 		
 	tilde.info_focus = tilde.menu
@@ -164,6 +181,57 @@ tilde.interfaceFrame = function() {
 		.style('font-family',tilde.subfont)
 		.style('font-weight',100)
 		.style('font-size','80%')
+		.on('mouseover',function(){
+			tilde.watching = true
+		})
+		.on('mouseout',function(){
+			tilde.watching = false
+		})
+
+	tilde.menu.append('div')
+		.attr('id','sorting')
+		.html('<b>Sorted by</b>: '+tilde.sorting_text[tilde.current_sorting].t)
+		.style('width',function(){
+			return tilde.dimensions.width/4 + 'px'
+		})
+		.on('click',function(d,i){
+			var my_height = 0//-this.offsetHeight - tilde.font_size*.6
+			d3.select('#info_dropdown').classed('hidden',true)
+			d3.select('#search_dropdown').classed('hidden',true)
+			$('.typeahead').blur()
+			var me = this
+			tilde.info_focus
+				.html(tilde.sorting_text[tilde.current_sorting].i)
+				.style('top',my_height+'px')
+				.classed('hidden',function(){
+					if (tilde.watching === me.id) {
+						tilde.watching = false
+						return true
+					}
+					tilde.watching = me.id
+					return false
+				})
+		})
+		.on('mouseover',function(d,i){
+			d3.select('#info_dropdown').classed('hidden',true)
+			d3.select('#search_dropdown').classed('hidden',true)
+			$('.typeahead').blur()
+			tilde.watching = this.id
+			var my_height = 0//-this.offsetHeight - tilde.font_size*.6
+			tilde.info_focus
+				.html(tilde.sorting_text[tilde.current_sorting].i)
+				.style('top',my_height+'px')
+				.classed('hidden',function(){
+					return false
+				})
+		})
+		.on('mouseout',function(d,i){
+			tilde.watching = false
+			tilde.info_focus
+				.classed('hidden',function(){
+					return true
+				})
+		})
 
 	var i = tilde.font_size*1.5;
 	while (d3.select('#heading').node().getBBox().width > tilde.dimensions.chartWidth) {
