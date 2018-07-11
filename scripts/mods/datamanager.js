@@ -73,6 +73,7 @@ tilde.select = function(target) {
 	if (tilde.viewing < 0) {
 		tilde.viewing = 0
 	}
+	console.log(tilde.data[tilde.focusedindex])
 	tilde.current_data = tilde.data.slice(tilde.viewing,tilde.viewing+tilde.subset)
 	tilde.prepData()
 	if (Math.abs(tilde.previous-tilde.focusedindex) >= tilde.plots_per_view) {

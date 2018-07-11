@@ -155,7 +155,6 @@ tilde.drawLine = function(slice,index,focused) {
 					return totalLength + " " + totalLength
 				})
 				.attr("stroke-dashoffset", function() {
-					console.log(totalLength)
 					return totalLength
 				})
 			d3.selectAll('.bland')

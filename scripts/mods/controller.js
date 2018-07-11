@@ -32,9 +32,9 @@ tilde.build = function(){
 	tilde.allow_focus = true
 
 	tilde.bar = {}
-	tilde.bar.height = 3
+	tilde.bar.height = 1
 	tilde.bar.bottomPadding = 0
-	tilde.thickbar = tilde.bar.height*5
+	tilde.thickbar = 5//tilde.bar.height*5
 
 	tilde.lineheight = 50
 	tilde.focusline = 210
@@ -42,7 +42,7 @@ tilde.build = function(){
 	tilde.line_glow = 20
 	tilde.glow_intensity = 0.07
 
-	tilde.dot_focus = false
+	tilde.dot_focus = true
 
 	tilde.dot_radius = 6
 	tilde.dot_stroke = 'none'
