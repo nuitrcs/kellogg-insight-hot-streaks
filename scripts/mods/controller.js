@@ -18,7 +18,7 @@ tilde.build = function(){
 	tilde.sorting_direction = false
 	tilde.subset = false
 	tilde.viewing = 0
-	tilde.buffer = 0
+	tilde.buffer = 1
 	tilde.scale = "scaleLinear"
 	tilde.log_adjustment = .99
 
@@ -34,22 +34,22 @@ tilde.build = function(){
 	tilde.bar = {}
 	tilde.bar.height = 3
 	tilde.bar.bottomPadding = 0
-	tilde.thickbar = 0//tilde.bar.height*5
+	tilde.thickbar = tilde.bar.height*5
 
 	tilde.lineheight = 50
-	tilde.focusline = 310
+	tilde.focusline = 210
 	tilde.stroke_width = 3
 	tilde.line_glow = 20
 	tilde.glow_intensity = 0.07
 
-	tilde.dot_focus = true
+	tilde.dot_focus = false
 
 	tilde.dot_radius = 6
 	tilde.dot_stroke = 'none'
 	tilde.dot_stroke_width = 1
 	tilde.dot_fill = 'grey'
 	tilde.dot_opacity = 0.8
-	tilde.dot_phase = 6000
+	tilde.dot_phase = 5000
 
 	if (tilde.scale === 'scaleLog') {
 		tilde.glow_intensity = tilde.glow_intensity*2
@@ -94,12 +94,21 @@ tilde.build = function(){
 		}
 	} else {
 		tilde.dimensions.chart_padding = {
+			left : tilde.widthUnits(1),
+			right : 50 + tilde.widthUnits(1),
+			top : tilde.font_size*2 + 50 + tilde.heightUnits(2),
+			bottom : tilde.font_size*1.5 + tilde.heightUnits(2)
+		}
+	}
+
+	/* Use this for explainer:
+		tilde.dimensions.chart_padding = {
 			left : tilde.widthUnits(4),
 			right : 50 + tilde.widthUnits(2),
 			top : tilde.font_size*2 + 50 + tilde.heightUnits(2),
 			bottom : tilde.font_size*1.5 + tilde.heightUnits(2)
 		}
-	}
+	*/
 
 	if (tilde.all_lines) {
 		tilde.dimensions.chart_padding.top += tilde.lineheight
@@ -167,7 +176,7 @@ tilde.build = function(){
 		},
 		focus_panel : {
 			title_margin : tilde.font_size*3,
-			padding : tilde.heightUnits(9)
+			padding : tilde.heightUnits(1)//tilde.heightUnits(9)
 		}
 	}
 	tilde.dimensions.elements.focus_panel.height =  tilde.dimensions.elements.focus_panel.title_margin + tilde.dimensions.elements.focus_panel.padding*2 + tilde.thickbar + tilde.focusline
@@ -247,6 +256,11 @@ tilde.viewport = {
 tilde.handle = {
 	width : 50,
 	height : 900
+}
+
+tilde.explainer = {
+	width : 400,
+	height : 720
 }
 
 tilde.build()

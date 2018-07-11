@@ -31,7 +31,7 @@ tilde.generateEngine = function() {
         templates: {
             empty: [
               '<div class="empty-message">',
-                "No results, try something else...",
+                "Can't find someone? See the ? button for exclusions+limitations.",
               '</div>'
             ].join('\n'),
             header: [

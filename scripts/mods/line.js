@@ -193,3 +193,89 @@ tilde.drawLine = function(slice,index,focused) {
 				
 		}
 }
+
+tilde.squashLine = function(slice,index,focused) {
+	var items = slice.i
+	var lineheight = tilde.lineheight
+	if (focused >= 0) {
+		var focus = tilde.dimensions.elements.focus_panel
+		lineheight = tilde.focusline
+	}
+	var x = d3.scaleLinear()
+		.range([0,tilde.dimensions.chartWidth])
+		.domain([0,items.length-1]),
+	y = d3[tilde.scale]()
+		.range([lineheight+tilde.stroke_width/2, 0])
+		.domain([slice.min,slice.max]);
+
+	var line = d3.line()
+		.x(function(d,i) {
+			return x(i); 
+		})
+		.y(function(d,i) {
+			var adjustment = index-lineheight
+			if (focused >= 0) {
+				adjustment = focused + focus.padding + focus.title_margin
+			}
+			return y(slice.min) + adjustment; 
+		})
+		.curve(d3.curveMonotoneX);
+
+	d3.select('#tilde-slot-'+slice.index)
+		.transition('1')
+		.duration(tilde.dot_phase*.05)
+		.delay(tilde.dot_phase*1.45)
+		.style('opacity',.1)
+
+	d3.selectAll('.line')
+		.style('mix-blend-mode','normal')
+		.transition('sixth')
+		.duration(tilde.dot_phase)
+		.delay(tilde.dot_phase/2)
+		.attr('d',line)
+		.style('opacity',function(d,i){
+			if (d3.select(this).classed('glow')){
+				return 0
+			}
+			return 1
+		})
+		.call(endall,function(){
+			d3.selectAll('.line')
+				.transition('last')
+				.duration(0)
+				.delay(250)
+				.style('opacity',0)
+			var size = d3.selectAll('.tilde-slot').size()
+			d3.select('#tilde-slot-'+slice.index)
+				.transition('2')
+				.duration(0)
+				.style('opacity',1)
+				.call(endall,function(){
+					d3.selectAll('.tilde-slot')
+						.attr('y',function(d,i){
+							var slot = i*(tilde.row_height)
+							return slot + tilde.focusline + focus.padding + focus.title_margin
+						})
+					d3.selectAll('.tilde-slot')
+						.transition('1')
+						.duration(function(d,i){
+							return tilde.dot_phase/3
+						})
+						.delay(function(d,i){
+							return i*50 + tilde.dot_phase/10
+						})
+						.style('opacity',function(d,i){
+							if (d.use){
+								return 1
+							}
+							return 0
+						})
+						.attr('y',function(d,i){
+							var slot = i*2
+							return slot + focus.padding + focus.title_margin
+						})
+						.attr('height',2)
+					
+				})
+		})
+}

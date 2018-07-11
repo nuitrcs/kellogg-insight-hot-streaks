@@ -62,9 +62,9 @@ svg{
 .info-focus {
 	position:relative;
 }
-.slider {
+/*.slider, .up, .down {
 	display:none;
-}
+}*/
 a:link {
 	color:#fff789;
 }
@@ -77,6 +77,9 @@ a:visited {
 }
 #info_dropdown {
 	border-radius: .5vw;
+}
+#info_focus {
+	padding:.5vh;
 }
 .track {
 	stroke: silver;
@@ -126,7 +129,7 @@ a:visited {
 }
 .tt-menu {
     width: 100%;
-    margin-top: 1vh;
+    margin-top: .5vh;
     padding: .5vh 0;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -152,4 +155,9 @@ a:visited {
 }
 .tt-suggestion p {
     margin: 0;
+}
+.empty-message {
+	font-size: 80%;
+	font-family: Roboto Slab;
+	font-weight:100;
 }

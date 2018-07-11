@@ -64,7 +64,7 @@ tilde.drawSlider = function() {
 		.append('g')
 		.attr('id', 'tilde-top-arrow')
 		.attr("transform", function(){
-			var x = tilde.dimensions.chartWidth + tilde.widthUnits(1)//tilde.dimensions.width - tilde.dimensions.elements.slider.width;
+			var x = tilde.dimensions.chartWidth + tilde.widthUnits(1)
 			var y = tilde.dimensions.chart_padding.top
 			return "translate(" + x + "," + y + ")"
 		})
@@ -102,7 +102,7 @@ tilde.drawSlider = function() {
 		.append('g')
 		.attr('id', 'tilde-bottom-arrow')
 		.attr("transform", function(){
-			var x = tilde.dimensions.chartWidth + tilde.widthUnits(1)//tilde.dimensions.width - tilde.dimensions.elements.slider.width;
+			var x = tilde.dimensions.chartWidth + tilde.widthUnits(1)
 			var y = tilde.dimensions.chart_padding.top + tilde.dimensions.chartHeight-tilde.dimensions.elements.arrow.height
 			return "translate(" + x + "," + y + ")"
 		})
