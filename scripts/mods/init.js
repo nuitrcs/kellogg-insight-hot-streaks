@@ -19,8 +19,8 @@ tilde.initView = function() {
 	if (tilde.subset) {
 		tilde.interfaceFrame()
 		tilde.drawSlider()
-		//tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
-		tilde.dragSlider(tilde.slider_y(2104))
+		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
+		//tilde.dragSlider(tilde.slider_y(2104))
 	} else {
 		tilde.draw()
 	}
