@@ -62,9 +62,30 @@ svg{
 .info-focus {
 	position:relative;
 }
-/*.slider, .up, .down {
+.s_image {
+	position:absolute;
+	width:400px;
+	height:720px;
+	display: block;
+    left:760px;
+    top:390px;
+}
+.l_image {
+	position:absolute;
+	width:1400px;
+	height:720px;
+	display: block;
+    left:260px;
+    top:390px;
+}
+.img_wrapper {
+	position:absolute;
+	top:0;
+	left:0;
+}
+.slider, .up, .down {
 	display:none;
-}*/
+}
 a:link {
 	color:#fff789;
 }

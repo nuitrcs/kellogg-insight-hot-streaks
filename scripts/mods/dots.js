@@ -29,7 +29,7 @@ tilde.drawDots = function(slice,index,focused) {
 		.style('font-style','normal')
 		.style('font-weight',400)
 		.style('text-anchor', 'middle')
-		.html('Each of these dots is a movie by director Kathryn Bigelow.')
+		.html('Each of these dots is a film by director Kathryn Bigelow.')
 		.style('opacity',0)
 	tilde.hotbox = {
 		streakFill :slice.streakFill,
@@ -63,8 +63,8 @@ tilde.drawDots = function(slice,index,focused) {
 	hot_scheme
 		.append('text')
 		.attr('x',tilde.dimensions.chartWidth*.30)
-		.attr('y',focused + focus.padding*2 + tilde.font_size)
-		.style('font-size','100%')
+		.attr('y',focused + focus.padding*9 + tilde.font_size*1.2)
+		.style('font-size',tilde.font_size)
 		.style('text-anchor','end')
 		.style('font-family',tilde.font_family)
 		.style('font-weight',100)
@@ -74,9 +74,9 @@ tilde.drawDots = function(slice,index,focused) {
 	hot_scheme
 		.append('rect')
 		.attr('x',tilde.dimensions.chartWidth*.31)
-		.attr('y',focused + focus.padding*1.5 + tilde.font_size*.8)
-		.attr('width',tilde.font_size*.8)
-		.attr('height',focus.padding)
+		.attr('y',focused + focus.padding*4.5 + tilde.font_size)
+		.attr('width',tilde.font_size*.7)
+		.attr('height',focus.padding*9)
 		.attr('fill',function(d,i){
 			return "url(#lineargradient-hot)"
 		})
@@ -90,8 +90,8 @@ tilde.drawDots = function(slice,index,focused) {
 	not_scheme
 		.append('text')
 		.attr('x',tilde.dimensions.chartWidth*.75)
-		.attr('y',focused + focus.padding*2 + tilde.font_size)
-		.style('font-size','100%')
+		.attr('y',focused + focus.padding*9 + tilde.font_size*1.2)
+		.style('font-size',tilde.font_size)
 		.style('text-anchor','end')
 		.style('font-family',tilde.font_family)
 		.style('font-weight',100)
@@ -101,9 +101,9 @@ tilde.drawDots = function(slice,index,focused) {
 	not_scheme
 		.append('rect')
 		.attr('x',tilde.dimensions.chartWidth*.76)
-		.attr('y',focused + focus.padding*1.5 + tilde.font_size*.8)
-		.attr('width',tilde.font_size*.8)
-		.attr('height',focus.padding)
+		.attr('y',focused + focus.padding*4.5 + tilde.font_size)
+		.attr('width',tilde.font_size*.7)
+		.attr('height',focus.padding*9)
 		.attr('fill',function(d,i){
 			return "url(#lineargradient-not)"
 		})
@@ -115,25 +115,25 @@ tilde.drawDots = function(slice,index,focused) {
 		.style('opacity',1)
 		.call(endall,function(d,i){
 			tilde.dot_title
-				.html('Her whole career is spread evenly over the x axis.')
+				.html('Her whole career is spread evenly over the x axis, from her first film to her latest.')
 				.transition('2')
 				.duration(tilde.dot_phase)
 				.style('opacity',1)
 				.call(endall,function(){
 					tilde.dot_title
-						.html('And each movie is raised along the y axis, according to its rating.')
+						.html('And each film is raised along the y axis, according to its rating.')
 						.transition('3')
 						.duration(tilde.dot_phase)
 						.style('opacity',1)
 						.call(endall,function(){
 							tilde.dot_title
-								.html("A line connects these works to show Bigelow's career trend.")
+								.html("A line connects these works to show Bigelow's total career as a single geometry.")
 								.transition('3')
 								.duration(tilde.dot_phase)
 								.style('opacity',1)
 								.call(endall,function(){
 									tilde.dot_title
-										.html('The model suggests that some works occur in a hot streak, but some do not.')
+										.html('Our research model suggests that some works occur in a hot streak, while others do not.')
 										.transition('3')
 										.duration(tilde.dot_phase)
 										.style('opacity',1)
@@ -173,13 +173,13 @@ tilde.drawDots = function(slice,index,focused) {
 																		.duration(tilde.dot_phase)
 																		.style('opacity',0)
 																	tilde.dot_title
-																		.html("The line height and colors are scaled relative to the individual's")
+																		.html("Both the line height and colors are scaled relative to the individual's career highs and lows,")
 																		.transition('3')
 																		.duration(tilde.dot_phase)
 																		.style('opacity',1)
 																		.call(endall,function(){
 																			tilde.dot_title
-																				.html("career (not all), because the streak-effect is determined per-career.")
+																				.html("because the streak-effect is determined per-career, not globally (or compared to others).")
 																				.transition('3')
 																				.duration(tilde.dot_phase)
 																				.style('opacity',1)
@@ -192,13 +192,13 @@ tilde.drawDots = function(slice,index,focused) {
 																					.call(endall,function(){
 																						tilde.squashLine(slice,index,focused)
 																						tilde.dot_title
-																							.html('To do this, we squash the line (but keep the color encoding) to make room.')
+																							.html('To do this, we need room. So we will squash the line but keep the color encoding.')
 																							.transition('3')
 																							.duration(tilde.dot_phase)
 																							.style('opacity',1)
 																							.call(endall,function(){
 																								tilde.dot_title
-																									.html('This packs a lot of meaning into a single pixel of height.')
+																									.html('This packs a lot of meaning into a single pixel of height!')
 																									.transition('3')
 																									.duration(tilde.dot_phase)
 																									.style('opacity',1)	
@@ -222,71 +222,145 @@ tilde.drawDots = function(slice,index,focused) {
 																															.style('opacity',1)	
 																															.call(endall,function(){
 																																tilde.dot_title
-																																	.html("Even with each line at 1 pixel high, we don't have enough room for it all.")
+																																	.html("Even with each career at 1 pixel high, we don't have enough room for it all in this video.")
 																																	.transition('3')
 																																	.duration(tilde.dot_phase)
 																																	.style('opacity',1)
 																																	.call(endall,function(){
-																																		tilde.dot_title
-																																			.html('Here is all the data for directors at once, sorted from early to late streaks.')
+																																		d3.select('#directors_0')
 																																			.transition('3')
 																																			.duration(tilde.dot_phase)
+																																			.delay(tilde.dot_phase/2)
+																																			.style('opacity',1)
+																																		d3.selectAll('.tilde-slot')
+																																			.transition('3')
+																																			.duration(tilde.dot_phase/2)
+																																			.style('opacity',0)
+																																		tilde.dot_title
+																																			.html('So here is all the data for directors at once, sorted from early to late streaks, in a tiny image.')
+																																			.transition('3')
+																																			.duration(tilde.dot_phase)
+																																			.delay(tilde.dot_phase/2)
 																																			.style('opacity',1)
 																																			.call(endall,function(){
-																																				tilde.dot_title
-																																					.html("(The middle-point of the streak was used to sort by, not the start or finish.)")
+																																				d3.select('#directors_0')
+																																					.transition('3')
+																																					.duration(tilde.dot_phase/2)
+																																					.delay(tilde.dot_phase/2)
+																																					.style('opacity',0)
+																																				d3.select('#directors_1')
 																																					.transition('3')
 																																					.duration(tilde.dot_phase)
+																																					.delay(tilde.dot_phase/2)
+																																					.style('opacity',1)
+																																				tilde.dot_title
+																																					.html("The middle-point of the streak was used to sort, not the start or finish. (This moves longer streaks to the middle.)")
+																																					.transition('3')
+																																					.duration(tilde.dot_phase)
+																																					.delay(tilde.dot_phase/2)
 																																					.style('opacity',1)
 																																					.call(endall,function(){
-																																						tilde.dot_title
-																																							.html("You might call something like this 'visual prospecting.'")
+																																						d3.select('#directors_1')
+																																							.transition('3')
+																																							.duration(tilde.dot_phase/2)
+																																							.delay(tilde.dot_phase/2)
+																																							.style('opacity',0)
+																																						d3.select('#directors_2')
 																																							.transition('3')
 																																							.duration(tilde.dot_phase)
+																																							.delay(tilde.dot_phase/2)
+																																							.style('opacity',1)
+																																						tilde.dot_title
+																																							.html("I call this method of exploring large patterns 'visual prospecting.'")
+																																							.transition('3')
+																																							.duration(tilde.dot_phase)
+																																							.delay(tilde.dot_phase/2)
 																																							.style('opacity',1)	
 																																							.call(endall,function(){
-																																								tilde.dot_title
-																																									.html("Prospecting with complex data often won't reveal immediate visual answers,")
+																																								d3.select('#directors_2')
+																																									.transition('3')
+																																									.duration(tilde.dot_phase/2)
+																																									.delay(tilde.dot_phase/2)
+																																									.style('opacity',0)
+																																								d3.select('#directors_3')
 																																									.transition('3')
 																																									.duration(tilde.dot_phase)
+																																									.delay(tilde.dot_phase/2)
+																																									.style('opacity',1)
+																																								tilde.dot_title
+																																									.html("Prospecting visualizations with complex data often won't reveal immediate visual answers,")
+																																									.transition('3')
+																																									.duration(tilde.dot_phase)
+																																									.delay(tilde.dot_phase/2)
 																																									.style('opacity',1)	
 																																									.call(endall,function(){
-																																										tilde.dot_title
-																																											.html("but the 'shapes' of the data at a high level should provoke investigation.")
+																																										d3.select('#directors_3')
+																																											.transition('3')
+																																											.duration(tilde.dot_phase/2)
+																																											.delay(tilde.dot_phase/2)
+																																											.style('opacity',0)
+																																										d3.select('#directors_4')
 																																											.transition('3')
 																																											.duration(tilde.dot_phase)
+																																											.delay(tilde.dot_phase/2)
+																																											.style('opacity',1)
+																																										tilde.dot_title
+																																											.html("but the 'shapes' of the data at a high level should provoke investigation and digging deeper.")
+																																											.transition('3')
+																																											.duration(tilde.dot_phase)
+																																											.delay(tilde.dot_phase/2)
 																																											.style('opacity',1)	
 																																											.call(endall,function(){
+																																												d3.select('#directors_4')
+																																													.transition('3')
+																																													.duration(tilde.dot_phase/2)
+																																													.delay(tilde.dot_phase/2)
+																																													.style('opacity',0)
+																																												d3.select('#explainer')
+																																													.transition('3')
+																																													.duration(tilde.dot_phase)
+																																													.delay(tilde.dot_phase/2)
+																																													.style('opacity',1)
 																																												tilde.dot_title
 																																													.html("Even if you aren't a scientist, visual prospecting can still be fun.")
 																																													.transition('3')
 																																													.duration(tilde.dot_phase)
+																																													.delay(tilde.dot_phase/2)
 																																													.style('opacity',1)	
 																																													.call(endall,function(){
-																																														tilde.dot_title
-																																															.html("Feel free to try the dataviz tool that accompanies this research.")
+																																														d3.select('#explainer')
 																																															.transition('3')
 																																															.duration(tilde.dot_phase)
+																																															.delay(tilde.dot_phase/2)
+																																															.style('opacity',0)/*
+																																														d3.selectAll('.tilde-slot')
+																																															.transition('3')
+																																															.duration(tilde.dot_phase)
+																																															.style('opacity',function(d,i){
+																																																if (d.use) {
+																																																	return 1
+																																																}
+																																																return 0
+																																															})*/
+																																														tilde.dot_title
+																																															.html("Feel free to try the dataviz interactive that accompanies this research.")
+																																															.transition('3')
+																																															.duration(tilde.dot_phase)
+																																															.delay(tilde.dot_phase*.5)
 																																															.style('opacity',1)	
 																																															.call(endall,function(){
 																																																tilde.dot_title
-																																																	.html("You can search for people you know and manipulate the visualization.")
+																																																	.html("You can search for people you've heard of and go prospecting!")
 																																																	.transition('3')
 																																																	.duration(tilde.dot_phase)
 																																																	.style('opacity',1)	
 																																																	.call(endall,function(){
-																																																		tilde.dot_title
-																																																			.html("While this does not.")
+																																																		d3.select('#last')
 																																																			.transition('3')
 																																																			.duration(tilde.dot_phase)
-																																																			.style('opacity',1)	
-																																																			.call(endall,function(){
-																																																				tilde.dot_title
-																																																					.html("Frank Elavsky | Research Computing | Northwestern University")
-																																																					.transition('3')
-																																																					.duration(tilde.dot_phase)
-																																																					.style('opacity',1)	
-																																																			})
+																																																			.style('opacity',1)
+																																																		tilde.dot_title
+																																																			.html("Frank Elavsky | Research Computing | Northwestern University")
 																																																	})
 																																															})
 																																													})

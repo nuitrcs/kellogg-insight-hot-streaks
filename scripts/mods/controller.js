@@ -1,6 +1,6 @@
 tilde.build = function(){
-	tilde.viewmode = 'explainer' //minimum maximum hybrid print viewport
-	tilde.no_distractions = true
+	tilde.viewmode = 'viewport' //minimum maximum hybrid print viewport
+	tilde.no_distractions = false
 
 	if (tilde.viewmode === 'viewport') {
 		tilde.viewport.width = $(window).width();
@@ -18,7 +18,7 @@ tilde.build = function(){
 	tilde.sorting_direction = false
 	tilde.subset = false
 	tilde.viewing = 0
-	tilde.buffer = 1
+	tilde.buffer = 0
 	tilde.scale = "scaleLinear"
 	tilde.log_adjustment = .99
 
@@ -26,23 +26,23 @@ tilde.build = function(){
 	tilde.gradient_view = true
 
 	tilde.data_height = false
-	tilde.flexible_bar_height = true
+	tilde.flexible_bar_height = false
 
 	tilde.global_fill = false
-	tilde.allow_focus = false
+	tilde.allow_focus = true
 
 	tilde.bar = {}
 	tilde.bar.height = 3
 	tilde.bar.bottomPadding = 0
-	tilde.thickbar = tilde.bar.height*5
+	tilde.thickbar = 3//tilde.bar.height*5
 
 	tilde.lineheight = 50
-	tilde.focusline = 210
+	tilde.focusline = 410
 	tilde.stroke_width = 3
 	tilde.line_glow = 20
 	tilde.glow_intensity = 0.07
 
-	tilde.dot_focus = false
+	tilde.dot_focus = true
 
 	tilde.dot_radius = 6
 	tilde.dot_stroke = 'none'
@@ -94,17 +94,18 @@ tilde.build = function(){
 		}
 	} else {
 		tilde.dimensions.chart_padding = {
-			left : tilde.widthUnits(1),
-			right : 50 + tilde.widthUnits(1),
+			left : tilde.widthUnits(4),
+			right : tilde.widthUnits(4),
 			top : tilde.font_size*2 + 50 + tilde.heightUnits(2),
 			bottom : tilde.font_size*1.5 + tilde.heightUnits(2)
 		}
+		
 	}
 
 	/* Use this for explainer:
 		tilde.dimensions.chart_padding = {
-			left : tilde.widthUnits(4),
-			right : 50 + tilde.widthUnits(2),
+			left : tilde.widthUnits(1),
+			right : 50 + tilde.widthUnits(1),
 			top : tilde.font_size*2 + 50 + tilde.heightUnits(2),
 			bottom : tilde.font_size*1.5 + tilde.heightUnits(2)
 		}
