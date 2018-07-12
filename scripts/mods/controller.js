@@ -1,6 +1,6 @@
 tilde.build = function(){
-	tilde.viewmode = 'viewport' //minimum maximum hybrid print viewport
-	tilde.no_distractions = false
+	tilde.viewmode = 'explainer' //minimum maximum hybrid print viewport
+	tilde.no_distractions = true
 
 	if (tilde.viewmode === 'viewport') {
 		tilde.viewport.width = $(window).width();
@@ -26,10 +26,10 @@ tilde.build = function(){
 	tilde.gradient_view = true
 
 	tilde.data_height = false
-	tilde.flexible_bar_height = false
+	tilde.flexible_bar_height = true
 
 	tilde.global_fill = false
-	tilde.allow_focus = true
+	tilde.allow_focus = false
 
 	tilde.bar = {}
 	tilde.bar.height = 3

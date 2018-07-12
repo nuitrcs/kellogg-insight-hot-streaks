@@ -149,7 +149,7 @@ tilde.drawDots = function(slice,index,focused) {
 														.duration(tilde.dot_phase)
 														.style('opacity',1)
 													tilde.dot_title
-														.html('A work during a hot streak is visualized on this color scale:')
+														.html('Works during a hot streak are visualized on this color scale:')
 														.transition('3')
 														.duration(tilde.dot_phase)
 														.style('opacity',1)
@@ -159,7 +159,7 @@ tilde.drawDots = function(slice,index,focused) {
 																.duration(tilde.dot_phase)
 																.style('opacity',1)
 															tilde.dot_title
-																.html('While a work not during a streak is shown with this scale:')
+																.html('While works not during a streak are shown with this scale:')
 																.transition('3')
 																.duration(tilde.dot_phase)
 																.style('opacity',1)
@@ -173,123 +173,137 @@ tilde.drawDots = function(slice,index,focused) {
 																		.duration(tilde.dot_phase)
 																		.style('opacity',0)
 																	tilde.dot_title
-																		.html('But this is a visualization of just one career. What about thousands?')
+																		.html("The line height and colors are scaled relative to the individual's")
 																		.transition('3')
 																		.duration(tilde.dot_phase)
 																		.style('opacity',1)
 																		.call(endall,function(){
-																			tilde.squashLine(slice,index,focused)
 																			tilde.dot_title
-																				.html('First, we squash the line (but keep the color encoding).')
+																				.html("career (not all), because the streak-effect is determined per-career.")
 																				.transition('3')
 																				.duration(tilde.dot_phase)
 																				.style('opacity',1)
-																				.call(endall,function(){
-																					tilde.dot_title
-																						.html('This packs a lot of meaning into a single pixel of height.')
-																						.transition('3')
-																						.duration(tilde.dot_phase)
-																						.style('opacity',1)	
-																						.call(endall,function(){
-																							tilde.dot_title
-																								.html('Now we stack other careers, ordered based on a sorting algorithm.')
-																								.transition('3')
-																								.duration(tilde.dot_phase)
-																								.style('opacity',1)	
-																								.call(endall,function(){
-																									tilde.dot_title
-																										.html('And we keep stacking until the data runs out...')
-																										.transition('3')
-																										.duration(tilde.dot_phase)
-																										.style('opacity',1)
-																										.call(endall,function(){
-																											tilde.dot_title
-																												.html("(With all our data, this would take a while to show.)")
-																												.transition('3')
-																												.duration(tilde.dot_phase)
-																												.style('opacity',1)	
-																												.call(endall,function(){
-																													tilde.dot_title
-																														.html("Even with each line at 1 pixel high, we don't have enough room for it all.")
-																														.transition('3')
-																														.duration(tilde.dot_phase)
-																														.style('opacity',1)
-																														.call(endall,function(){
-																															tilde.dot_title
-																																.html('Here is all the data for directors at once, sorted from early to late streaks.')
-																																.transition('3')
-																																.duration(tilde.dot_phase)
-																																.style('opacity',1)
-																																.call(endall,function(){
-																																	tilde.dot_title
-																																		.html("(The middle-point of the streak was used here, not the start or finish.)")
-																																		.transition('3')
-																																		.duration(tilde.dot_phase)
-																																		.style('opacity',1)
-																																		.call(endall,function(){
-																																			tilde.dot_title
-																																				.html("You might call something like this 'visual prospecting.'")
-																																				.transition('3')
-																																				.duration(tilde.dot_phase)
-																																				.style('opacity',1)	
-																																				.call(endall,function(){
-																																					tilde.dot_title
-																																						.html("Prospecting with complex data often won't reveal immediate visual answers,")
-																																						.transition('3')
-																																						.duration(tilde.dot_phase)
-																																						.style('opacity',1)	
-																																						.call(endall,function(){
-																																							tilde.dot_title
-																																								.html("but the 'shapes' of the data at a high level should provoke investigation.")
-																																								.transition('3')
-																																								.duration(tilde.dot_phase)
-																																								.style('opacity',1)	
-																																								.call(endall,function(){
-																																									tilde.dot_title
-																																										.html("Even if you aren't a scientist, visual prospecting can still be fun.")
-																																										.transition('3')
-																																										.duration(tilde.dot_phase)
-																																										.style('opacity',1)	
-																																										.call(endall,function(){
-																																											tilde.dot_title
-																																												.html("Feel free to try the dataviz tool that accompanies this research.")
-																																												.transition('3')
-																																												.duration(tilde.dot_phase)
-																																												.style('opacity',1)	
-																																												.call(endall,function(){
-																																													tilde.dot_title
-																																														.html("You can search for people you know and manipulate the visualization.")
-																																														.transition('3')
-																																														.duration(tilde.dot_phase)
-																																														.style('opacity',1)	
-																																														.call(endall,function(){
-																																															tilde.dot_title
-																																																.html("While this does not.")
-																																																.transition('3')
-																																																.duration(tilde.dot_phase)
-																																																.style('opacity',1)	
-																																																.call(endall,function(){
-																																																	tilde.dot_title
-																																																		.html("Frank Elavsky | Research Computing | Northwestern University")
-																																																		.transition('3')
-																																																		.duration(tilde.dot_phase)
-																																																		.style('opacity',1)	
-																																																})
-																																														})
-																																												})
-																																										})
-																																								})
-																																						})
-																																				})
-																																		})
-																																})
-																														})
-																												})
-																										})
-																								})
+																			.call(endall,function(){	
+																				tilde.dot_title
+																					.html('So this is just one career. What if we want to see trends across thousands?')
+																					.transition('3')
+																					.duration(tilde.dot_phase)
+																					.style('opacity',1)
+																					.call(endall,function(){
+																						tilde.squashLine(slice,index,focused)
+																						tilde.dot_title
+																							.html('To do this, we squash the line (but keep the color encoding) to make room.')
+																							.transition('3')
+																							.duration(tilde.dot_phase)
+																							.style('opacity',1)
+																							.call(endall,function(){
+																								tilde.dot_title
+																									.html('This packs a lot of meaning into a single pixel of height.')
+																									.transition('3')
+																									.duration(tilde.dot_phase)
+																									.style('opacity',1)	
+																									.call(endall,function(){
+																										tilde.dot_title
+																											.html('Now we stack other careers, ordered based on a sorting algorithm.')
+																											.transition('3')
+																											.duration(tilde.dot_phase)
+																											.style('opacity',1)	
+																											.call(endall,function(){
+																												tilde.dot_title
+																													.html('And we keep stacking until the data runs out...')
+																													.transition('3')
+																													.duration(tilde.dot_phase)
+																													.style('opacity',1)
+																													.call(endall,function(){
+																														tilde.dot_title
+																															.html("(With all our data, this would take a while to show.)")
+																															.transition('3')
+																															.duration(tilde.dot_phase)
+																															.style('opacity',1)	
+																															.call(endall,function(){
+																																tilde.dot_title
+																																	.html("Even with each line at 1 pixel high, we don't have enough room for it all.")
+																																	.transition('3')
+																																	.duration(tilde.dot_phase)
+																																	.style('opacity',1)
+																																	.call(endall,function(){
+																																		tilde.dot_title
+																																			.html('Here is all the data for directors at once, sorted from early to late streaks.')
+																																			.transition('3')
+																																			.duration(tilde.dot_phase)
+																																			.style('opacity',1)
+																																			.call(endall,function(){
+																																				tilde.dot_title
+																																					.html("(The middle-point of the streak was used to sort by, not the start or finish.)")
+																																					.transition('3')
+																																					.duration(tilde.dot_phase)
+																																					.style('opacity',1)
+																																					.call(endall,function(){
+																																						tilde.dot_title
+																																							.html("You might call something like this 'visual prospecting.'")
+																																							.transition('3')
+																																							.duration(tilde.dot_phase)
+																																							.style('opacity',1)	
+																																							.call(endall,function(){
+																																								tilde.dot_title
+																																									.html("Prospecting with complex data often won't reveal immediate visual answers,")
+																																									.transition('3')
+																																									.duration(tilde.dot_phase)
+																																									.style('opacity',1)	
+																																									.call(endall,function(){
+																																										tilde.dot_title
+																																											.html("but the 'shapes' of the data at a high level should provoke investigation.")
+																																											.transition('3')
+																																											.duration(tilde.dot_phase)
+																																											.style('opacity',1)	
+																																											.call(endall,function(){
+																																												tilde.dot_title
+																																													.html("Even if you aren't a scientist, visual prospecting can still be fun.")
+																																													.transition('3')
+																																													.duration(tilde.dot_phase)
+																																													.style('opacity',1)	
+																																													.call(endall,function(){
+																																														tilde.dot_title
+																																															.html("Feel free to try the dataviz tool that accompanies this research.")
+																																															.transition('3')
+																																															.duration(tilde.dot_phase)
+																																															.style('opacity',1)	
+																																															.call(endall,function(){
+																																																tilde.dot_title
+																																																	.html("You can search for people you know and manipulate the visualization.")
+																																																	.transition('3')
+																																																	.duration(tilde.dot_phase)
+																																																	.style('opacity',1)	
+																																																	.call(endall,function(){
+																																																		tilde.dot_title
+																																																			.html("While this does not.")
+																																																			.transition('3')
+																																																			.duration(tilde.dot_phase)
+																																																			.style('opacity',1)	
+																																																			.call(endall,function(){
+																																																				tilde.dot_title
+																																																					.html("Frank Elavsky | Research Computing | Northwestern University")
+																																																					.transition('3')
+																																																					.duration(tilde.dot_phase)
+																																																					.style('opacity',1)	
+																																																			})
+																																																	})
+																																															})
+																																													})
+																																											})
+																																									})
+																																							})
+																																					})
+																																			})
+																																	})
+																															})
+																													})
+																											})
 
-																						})
-																				})
+																									})
+																							})
+																					})
+																			})
 																		})
 																})
 														})
