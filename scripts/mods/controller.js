@@ -97,7 +97,7 @@ tilde.build = function(){
 			left : tilde.widthUnits(1),
 			right : 50 + tilde.widthUnits(1),
 			top : tilde.font_size*2 + 50 + tilde.heightUnits(2),
-			bottom : tilde.font_size*1.5 + tilde.heightUnits(2)
+			bottom : tilde.heightUnits(1)
 		}
 	}
 
