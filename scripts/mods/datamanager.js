@@ -1,9 +1,7 @@
 tilde.setData = function() {
-	tilde.sortData[tilde.current_sorting](tilde.sorting_direction)
 	tilde.current_data = tilde.data
-	var counter = 0
+	
 	tilde.data.forEach(function(d){
-		d.index = counter
 		d.si = +d.si
 		d.r = +d.r
 		if (tilde.scale === "scaleLog") {
@@ -12,6 +10,28 @@ tilde.setData = function() {
 				i.i += tilde.log_adjustment
 			})
 		}
+		var streaking = 0
+		d.start_year = +d.i[0].y 
+		d.end_year = +d.i[d.i.length-1].y
+		d.streak_years = 0
+		d.i.forEach(function(item){
+			if (item.t) {
+				if (!streaking){
+					streaking = +item.y
+				} else {
+					var years = +item.y - streaking
+					streaking = +item.y
+					d.streak_years += years
+				}
+			} else {
+				streaking = 0
+			}
+		})
+	})
+	tilde.sortData[tilde.current_sorting](tilde.sorting_direction)
+	var counter = 0
+	tilde.data.forEach(function(d){
+		d.index = counter
 		counter++
 	})
 	if (tilde.subset) {
@@ -43,27 +63,12 @@ tilde.prepData = function() {
 		}	
 		if (!d.i[0].buffer) {
 			var buffer = {i:d.min,buffer:true},
-				streaking = 0,
 				items = [],
 				i;
-			d.start_year = +d.i[0].y 
-			d.end_year = +d.i[d.i.length-1].y
-			d.streak_years = 0
 			for (i = 0; i < tilde.buffer; i++) {
 				items.push(buffer)
 			}
 			d.i.forEach(function(item){
-				if (item.t) {
-					if (!streaking){
-						streaking = +item.y
-					} else {
-						var years = +item.y - streaking
-						streaking = +item.y
-						d.streak_years += years
-					}
-				} else {
-					streaking = 0
-				}
 				items.push(item)
 			})
 			for (i = 0; i < tilde.buffer; i++) {
@@ -92,7 +97,7 @@ tilde.select = function(target) {
 	if (Math.abs(tilde.previous-tilde.focusedindex) >= tilde.plots_per_view) {
 		tilde.redraw()
 	} else {
-		tilde.redraw()//tilde.shift()
+		tilde.redraw()
 	}
 }
 
@@ -136,6 +141,23 @@ tilde.sortData.shuffled = function() {
 
 tilde.sortData.streak_length = function(reverse) {
 	tilde.data.sort(function(a,b) {
+		var b_length = b.end_year - b.start_year,
+			a_length = a.end_year - a.start_year
+		if (b_length !== 0) {
+			b_length = b.streak_years/b_length
+		}
+		if (a_length !== 0) {
+			a_length = a.streak_years/a_length
+		}
+		if (reverse) {
+			return b_length - a_length
+		}
+		return a_length - b_length
+	})
+}
+
+tilde.sortData.streak_length_works = function(reverse) {
+	tilde.data.sort(function(a,b) {
 		var b_length = b.streak_count/b.c,
 			a_length = a.streak_count/a.c
 		if (reverse) {
@@ -159,6 +181,40 @@ tilde.sortData.time_to_first_streak = function(reverse) {
 }
 
 tilde.sortData.time_to_first_peak = function(reverse) {
+	tilde.data.sort(function(a,b) {
+		var a_peak = 0,
+			b_peak = 0,
+			b_length = b.end_year - b.start_year,
+			a_length = a.end_year - a.start_year,
+			j = a.i.length,
+			index;
+		for (index = 0; index < j; index++) {
+			if (a.i[index].i === a.max) {
+				a_peak = index
+				break
+			}
+		}
+		j = b.i.length
+		for (index = 0; index < j; index++) {
+			if (b.i[index].i === b.max) {
+				b_peak = index
+				break
+			}
+		}
+		if (b_length !== 0) {
+			b_length = (+b.i[b_peak].y-b.start_year)/b_length
+		}
+		if (a_length !== 0) {
+			a_length = (+a.i[a_peak].y-a.start_year)/a_length
+		}
+		if (reverse) {
+			return b_length - a_length
+		}
+		return a_length - b_length
+	})
+}
+
+tilde.sortData.time_to_first_peak_works = function(reverse) {
 	tilde.data.sort(function(a,b) {
 		var a_peak = 0,
 			b_peak = 0,

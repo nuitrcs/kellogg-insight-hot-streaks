@@ -122,7 +122,7 @@ tilde.drawLine = function(slice,index,focused) {
 				if (portion < 1) {
 					portion = ''
 				} else if (slice.streak_years < 1) {
-					portion = ' (Less than ' + round(1/portion*100,1) + '%)'
+					portion = ''
 				} else {
 					portion = ' (' + round(slice.streak_years/portion*100,1) + '%)'
 				}
@@ -207,16 +207,44 @@ tilde.drawLine = function(slice,index,focused) {
 				}
 				return 1
 			})
+		var a_title = annotation
+			.append('tspan')
+			.style('font-weight',400)
 			.html(function(){
-				var title = "<tspan style='font-weight:400'>"+items[slice.annotate].t+"</tspan>"
+				return items[slice.annotate].t
+			})
+		annotation
+			.append('tspan')
+			.html(function(){
 				var year = " (" + items[slice.annotate].y + "), "
 				var value = items[slice.annotate].i
 				if (tilde.version === 'artists') {
 					value = "$"+abbreviateNumber(value) + " USD"
 				}
 				var impact = tilde.statistics[tilde.version].impact_type + ': ' + value
-				return title+year+impact
+				return year + impact
 			})
+		var remove = 3;
+		var full_text = items[slice.annotate].t
+		var reduced = items[slice.annotate].t
+		function checkAnnotationSize() {
+			var size = annotation.node().getBBox().width
+			var location = x(slice.annotate)
+			var room = location;
+			if (x(slice.annotate) <= tilde.dimensions.chartWidth/2) {
+				room = tilde.dimensions.chartWidth - location
+			}
+			room = room*.95
+			if (room > size) {
+				return true
+			}
+			return false
+		}
+		while (checkAnnotationSize() === false) {
+			reduced = reduced.slice(0,reduced.length-1-remove)
+			a_title.html(reduced+'...')
+			remove++
+		}
 		shadebox
 			.attr('x',function(){
 				if (x(slice.annotate) <= tilde.dimensions.chartWidth/2) {

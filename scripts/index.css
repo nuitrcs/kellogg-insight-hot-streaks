@@ -46,6 +46,15 @@ svg{
 	color:white;
 	padding: .5vh .5vw;
 }
+.reloader {
+	color:#fff789;
+}
+.reloader:hover,.reloader:active {
+	color:white;
+	font-weight: 400;
+	background: #1C1422;
+	cursor: pointer;
+}
 #loading {
 	position:absolute;
 	font-family: Roboto Slab,Roboto,Arial,sans-serif;

@@ -25,7 +25,10 @@ tilde.drawBarcodes = function() {
 			return tilde.dimensions.chartWidth
 		})
 		.on("click",function(d,i){
-			tilde.dragSlider(tilde.slider_y(d.index))
+			if (tilde.cut_view) {
+				tilde.dragSlider(tilde.slider_y(d.index))
+			}
+			return false
 		})
 
 	tilde.slots.merge(slotsenter)

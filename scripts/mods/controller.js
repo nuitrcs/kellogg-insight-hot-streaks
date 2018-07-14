@@ -1,11 +1,48 @@
 tilde.build = function(){
-	tilde.viewmode = 'viewport' //minimum maximum hybrid print viewport
-	tilde.no_distractions = false
+	tilde.bar = {}
+	
+	if (tilde.settings === 'default' || !tilde.settings) {
+		tilde.viewmode = 'viewport'
+		tilde.cut_view = true
+		tilde.no_distractions = false
+		tilde.data_height = false
+		tilde.flexible_bar_height = false
+		tilde.allow_focus = true
+		tilde.bar.height = 3
+		tilde.bar.bottomPadding = 0
+		tilde.thickbar = tilde.bar.height*5
+	} else if (tilde.settings === 'cramped') {
+		tilde.viewmode = 'viewport'
+		tilde.no_distractions = true
+		tilde.data_height = false
+		tilde.flexible_bar_height = true
+		tilde.allow_focus = false
+		tilde.bar.height = 0
+		tilde.bar.bottomPadding = 0
+		tilde.thickbar = 0
+	} else if (tilde.settings === 'massive') {
+		d3.select('body').style('overflow','auto')
+		tilde.viewmode = 'maximum'
+		tilde.no_distractions = true
+		tilde.data_height = true
+		tilde.flexible_bar_height = false
+		tilde.allow_focus = false
+		tilde.bar.height = 1
+		tilde.bar.bottomPadding = 0
+		tilde.thickbar = 1
+	}
 
+	if (!tilde.chosen_sorting) {
+		tilde.current_sorting = 'streak_middle'
+	} else {
+		tilde.current_sorting = tilde.chosen_sorting
+	}
+	
 	if (tilde.viewmode === 'viewport') {
 		tilde.viewport.width = $(window).width();
 		tilde.viewport.height = $(window).height()-4;
-		tilde.cut_view = true
+	} else if (tilde.viewmode === 'maximum') {
+		tilde.maximum.width = $(window).width();
 	}
 
 	tilde.dimensions = tilde[tilde.viewmode]
@@ -13,7 +50,6 @@ tilde.build = function(){
 	tilde.plainScheme = 'dark'
 	tilde.streakScheme = 'autumn'
 
-	tilde.current_sorting = 'streak_middle'
 	//unsorted model_fit streak_middle streak_length time_to_first_peak career_length global_peak time_to_first_streak time_to_peak_by_streak_length
 	tilde.sorting_direction = false
 	tilde.subset = false
@@ -25,16 +61,7 @@ tilde.build = function(){
 	tilde.all_lines = false
 	tilde.gradient_view = true
 
-	tilde.data_height = false
-	tilde.flexible_bar_height = false
-
 	tilde.global_fill = false
-	tilde.allow_focus = true
-
-	tilde.bar = {}
-	tilde.bar.height = 3
-	tilde.bar.bottomPadding = 0
-	tilde.thickbar = tilde.bar.height*5
 
 	tilde.lineheight = 50
 	tilde.focusline = 210
@@ -65,7 +92,7 @@ tilde.build = function(){
 	}
 
 	if (tilde.data_height) {
-		tilde.dimensions.height = tilde.data.length*(tilde.row_height)
+		tilde.dimensions.height = tilde.data.length*(tilde.bar.height+tilde.bar.bottomPadding)
 	}
 
 	tilde.widthUnits = function(num) {
@@ -223,7 +250,6 @@ tilde.build = function(){
 
 	tilde.plainFill = tilde.colors[tilde.plainScheme]
 	tilde.streakFill = tilde.colors[tilde.streakScheme]
-	d3.selectAll('body').attr('style','background:'+tilde.plainFill.range()[0])
 }
 
 tilde.stats = tilde.statistics[tilde.version]

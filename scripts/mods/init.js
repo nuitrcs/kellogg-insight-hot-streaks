@@ -21,7 +21,6 @@ tilde.initView = function() {
 		tilde.interfaceFrame()
 		tilde.drawSlider()
 		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
-		//tilde.dragSlider(tilde.slider_y(2104))
 	} else {
 		tilde.draw()
 	}
@@ -65,14 +64,25 @@ tilde.createPage = function() {
 	tilde.setData()
 	tilde.initView()
 }
-tilde.parseLoading = function(request) {
-	var data = request
-	if (!data) {
-		data = $.query.get('dataset')
+tilde.set = function(type,target) {
+	var query = $.query.set(type,target)
+	location.search = query
+}
+tilde.parseLoading = function() {
+	var dataset = $.query.get('dataset')
+	if (!dataset) {
+		dataset = 'directors'
 	}
-	if (!data) {
-		data = 'directors'
+	var viewmode = $.query.get('viewmode')
+	if (!viewmode) {
+		viewmode = 'default'
 	}
-	$.getScript("scripts/data/"+data+".js",tilde.createPage)
+	var sorting = $.query.get('sorting')
+	if (!sorting) {
+		sorting = 'streak_middle'
+	}
+	tilde.settings = viewmode
+	tilde.chosen_sorting = sorting
+	$.getScript("scripts/data/"+dataset+".js",tilde.createPage)
 }
 tilde.parseLoading()

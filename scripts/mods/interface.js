@@ -163,7 +163,7 @@ tilde.interfaceFrame = function() {
 				}
 			},500)
 		})
-		
+	d3.select('#show_'+tilde.version).attr('style','font-weight:400')
 	tilde.info_focus = tilde.menu
 		.append('div')
 		.attr('id','info_focus')
