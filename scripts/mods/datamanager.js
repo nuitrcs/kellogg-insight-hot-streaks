@@ -40,23 +40,36 @@ tilde.prepData = function() {
 				.domain(domain_array)
 				.range(sr)
 				.interpolate(d3.interpolateRgb)
-		}
-		if (tilde.buffer){
+		}	
+		if (!d.i[0].buffer) {
 			var buffer = {i:d.min,buffer:true},
+				streaking = 0,
 				items = [],
 				i;
-			if (!d.i[0].buffer) {
-				for (i = 0; i < tilde.buffer; i++) {
-					items.push(buffer)
-				}
-				d.i.forEach(function(item){
-					items.push(item)
-				})
-				for (i = 0; i < tilde.buffer; i++) {
-					items.push(buffer)
-				}
-				d.i = items
+			d.start_year = +d.i[0].y 
+			d.end_year = +d.i[d.i.length-1].y
+			d.streak_years = 0
+			for (i = 0; i < tilde.buffer; i++) {
+				items.push(buffer)
 			}
+			d.i.forEach(function(item){
+				if (item.t) {
+					if (!streaking){
+						streaking = +item.y
+					} else {
+						var years = +item.y - streaking
+						streaking = +item.y
+						d.streak_years += years
+					}
+				} else {
+					streaking = 0
+				}
+				items.push(item)
+			})
+			for (i = 0; i < tilde.buffer; i++) {
+				items.push(buffer)
+			}
+			d.i = items
 		}
 	})
 }
@@ -229,5 +242,3 @@ tilde.sortData.model_fit = function(reverse) {
 		return b.r - a.r
 	})
 }
-
-tilde.setData()

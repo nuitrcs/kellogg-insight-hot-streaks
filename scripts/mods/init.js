@@ -1,4 +1,5 @@
 tilde.initView = function() {
+	d3.select('#loading').remove()
 	tilde.container = d3.select("#tilde-container")
 		.append("svg")
 		.attr("id","tilde-chart")
@@ -59,4 +60,19 @@ tilde.shift = function() {
 		tilde.shiftChunks()
 	}
 }
-tilde.initView()
+tilde.createPage = function() {
+	tilde.build()
+	tilde.setData()
+	tilde.initView()
+}
+tilde.parseLoading = function(request) {
+	var data = request
+	if (!data) {
+		data = $.query.get('dataset')
+	}
+	if (!data) {
+		data = 'directors'
+	}
+	$.getScript("scripts/data/"+data+".js",tilde.createPage)
+}
+tilde.parseLoading()

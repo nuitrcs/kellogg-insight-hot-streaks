@@ -130,9 +130,11 @@ tilde.drawSlider = function() {
 		.style("fill-opacity",.4)
 		.style("stroke-opacity",1)
 		.on('mouseout',tilde.outArrow)
-		.on('mouseup',tilde.releaseArrow)
+		//.on('mouseup',tilde.releaseArrow)
 		.on('mousedown',tilde.clickArrow)
 		.on('mouseover',tilde.hoverArrow)
+	d3.select(window)
+		.on('mouseup',tilde.releaseArrow)
 }
 tilde.dragSlider = function(y) {
 	var data_position = tilde.slider_y.invert(y)
@@ -169,9 +171,12 @@ tilde.outArrow = function() {
 tilde.releaseArrow = function() {
 	clearTimeout(tilde.holdTimer)
 	clearTimeout(tilde.moveTimer)
-	d3.select(this)
-		.style("fill-opacity",.6)
-		.style('stroke-width',1)
+	if (!(this == window)) {
+		d3.select(this)
+			.style("fill-opacity",.6)
+			.style('stroke-width',1)
+	}
+	
 }
 
 tilde.clickArrow = function() {

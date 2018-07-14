@@ -12,8 +12,27 @@ tilde.drawLine = function(slice,index,focused) {
 	if (focused >= 0) {
 		var focus = tilde.dimensions.elements.focus_panel
 		lineheight = tilde.focusline
-	}
+	
+		if (!slice.annotate) {
+			slice.annotate = +slice.si
+			slice.worst = false
+			var streakmax = 0,
+				count = 0,
+				worst = Infinity;
 
+			items.forEach(function(d){
+				if (d.t && d.i > streakmax) {
+					streakmax = d.i
+					slice.annotate = count
+				}
+				if (!d.buffer && d.i <= worst) {
+					worst = d.i
+					slice.worst = count
+				}
+				count++
+			})
+		}
+	}
 	var x = d3.scaleLinear()
 		.range([0,tilde.dimensions.chartWidth])
 		.domain([0,items.length-1]),
@@ -54,14 +73,23 @@ tilde.drawLine = function(slice,index,focused) {
 		tilde.title
 			.append('tspan')
 			.html(function(){
-				return ', Career-best ' + tilde.statistics[tilde.version].impact_type + ': '
+				return ', Career length: ' 
 			})
 			.style('font-family',tilde.subfont)
 			.style('font-weight',100)
 		tilde.title
 			.append('tspan')
 			.html(function(){
-				return slice.max
+				var career = slice.end_year - slice.start_year
+				if (career < 1) {
+					console.log('i am short')
+					career = 'Less than one year'
+				} else if (career === 1) {
+					career = '1 year'
+				} else {
+					career += ' years'
+				}
+				return career//round(slice.streak_count/slice.c*100,1)
 			})
 			.style('font-family',tilde.font_family)
 			.style('font-weight',400)
@@ -75,17 +103,34 @@ tilde.drawLine = function(slice,index,focused) {
 		tilde.title
 			.append('tspan')
 			.html(function(){
-				return round(slice.streak_count/slice.c*100,1)
+				var streak = slice.streak_years
+				if (streak < 1) {
+					streak = 'Less than one year'
+				} else if (streak === 1) {
+					streak += ' year'
+				} else {
+					streak += ' years'
+				}
+				return streak//round(slice.streak_count/slice.c*100,1)
 			})
 			.style('font-family',tilde.font_family)
 			.style('font-weight',400)
 		tilde.title
 			.append('tspan')
 			.html(function(){
-				return '% of career'
+				var portion = slice.end_year - slice.start_year
+				if (portion < 1) {
+					portion = ''
+				} else if (slice.streak_years < 1) {
+					portion = ' (Less than ' + round(1/portion*100,1) + '%)'
+				} else {
+					portion = ' (' + round(slice.streak_years/portion*100,1) + '%)'
+				}
+				return portion//round(slice.streak_count/slice.c*100,1) 
 			})
 			.style('font-family',tilde.subfont)
 			.style('font-weight',100)
+		
 		var i = tilde.font_size;
 		while (tilde.title.node().getBBox().width > tilde.dimensions.chartWidth*.9-focus.padding*3) {
 			i--
@@ -116,7 +161,6 @@ tilde.drawLine = function(slice,index,focused) {
 				.style('mix-blend-mode','screen')
 		}
 	}
-
 	group.append('path')
 		.datum(items)
 		.attr('d',line)
@@ -133,6 +177,121 @@ tilde.drawLine = function(slice,index,focused) {
 			}
 			return 1
 		})
+	if (slice.annotate) {
+		var shadebox = group.append('rect')
+			.attr('id','shadebox')
+			.attr('fill',tilde.plainFill.range()[0])
+			.style('opacity',.5)
+		var annotation = group.append('text')
+			.attr('id','annotation')
+			.attr('x',function(){
+				return x(slice.annotate)
+			})
+			.attr('y',function(){
+				return y(items[slice.annotate].i) + focused + focus.padding + focus.title_margin - tilde.line_glow/2
+			})
+			.attr('fill','white')
+			.style('font-size',tilde.font_size*.75 + 'px')
+			.style('font-family',tilde.font_family)
+			.style('font-style','normal')
+			.style('font-weight',100)
+			.style('text-anchor', function(){
+				if (x(slice.annotate) <= tilde.dimensions.chartWidth/2) {
+					return 'start'
+				}
+				return 'end'
+			})
+			.style('opacity',function(){
+				if (tilde.dot_focus){
+					return 0
+				}
+				return 1
+			})
+			.html(function(){
+				var title = "<tspan style='font-weight:400'>"+items[slice.annotate].t+"</tspan>"
+				var year = " (" + items[slice.annotate].y + "), "
+				var value = items[slice.annotate].i
+				if (tilde.version === 'artists') {
+					value = "$"+abbreviateNumber(value) + " USD"
+				}
+				var impact = tilde.statistics[tilde.version].impact_type + ': ' + value
+				return title+year+impact
+			})
+		shadebox
+			.attr('x',function(){
+				if (x(slice.annotate) <= tilde.dimensions.chartWidth/2) {
+					return x(slice.annotate)
+				}
+				return x(slice.annotate) - annotation.node().getBBox().width
+			})
+			.attr('y',function(){
+				return y(items[slice.annotate].i) + focused + focus.padding + focus.title_margin - tilde.line_glow/2 - (tilde.font_size*.75)*.85
+			})
+			.attr('width',function() {
+				return annotation.node().getBBox().width
+			})
+			.attr('height',function() {
+				return tilde.font_size*.75
+			})
+		var shadebox_min = group.append('rect')
+			.attr('id','shadebox')
+			.attr('fill',tilde.plainFill.range()[0])
+			.style('opacity',.5)
+		var annotation_min = group.append('text')
+			.attr('id','annotation')
+			.attr('x',function(){
+				var change = tilde.line_glow/2
+				if (x(slice.worst) > tilde.dimensions.chartWidth/2) {
+					change = -tilde.line_glow/2
+				}
+				return x(slice.worst) + change
+			})
+			.attr('y',function(){
+				return y(items[slice.worst].i) + focused + focus.padding + focus.title_margin - tilde.line_glow/2
+			})
+			.attr('fill','white')
+			.style('font-size',tilde.font_size*.75 + 'px')
+			.style('font-family',tilde.font_family)
+			.style('font-style','normal')
+			.style('font-weight',100)
+			.style('text-anchor', function(){
+				if (x(slice.worst) <= tilde.dimensions.chartWidth/2) {
+					return 'start'
+				}
+				return 'end'
+			})
+			.style('opacity',function(){
+				if (tilde.dot_focus){
+					return 0
+				}
+				return 1
+			})
+			.html(function(){
+				var title = "Worst " + tilde.statistics[tilde.version].impact_type + ': '
+				var value = items[slice.worst].i
+				if (tilde.version === 'artists') {
+					value = "$"+abbreviateNumber(value) + " USD"
+				}
+				return title+value
+			})
+		shadebox_min
+			.attr('x',function(){
+				if (x(slice.worst) <= tilde.dimensions.chartWidth/2) {
+					return x(slice.worst) + tilde.line_glow/2
+				}
+				return x(slice.worst) - annotation_min.node().getBBox().width - tilde.line_glow/2
+			})
+			.attr('y',function(){
+				return y(items[slice.worst].i) + focused + focus.padding + focus.title_margin - tilde.line_glow/2 - (tilde.font_size*.75)*.85
+			})
+			.attr('width',function() {
+				return annotation_min.node().getBBox().width
+			})
+			.attr('height',function() {
+				return tilde.font_size*.75
+			})
+
+	}
 
 		if (tilde.dot_focus) {
 			tilde.dot_focus = false

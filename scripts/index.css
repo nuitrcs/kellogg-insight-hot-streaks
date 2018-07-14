@@ -46,6 +46,16 @@ svg{
 	color:white;
 	padding: .5vh .5vw;
 }
+#loading {
+	position:absolute;
+	font-family: Roboto Slab,Roboto,Arial,sans-serif;
+	font-weight:100;
+	color: white;
+	font-size:5vh;
+	top:35vh;
+	text-align:center;
+	width:100%;
+}
 #sorting{
 	position:absolute;
 	top:0;
