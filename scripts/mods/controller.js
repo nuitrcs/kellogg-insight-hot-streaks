@@ -55,6 +55,15 @@ tilde.build = function(){
 	tilde.subset = false
 	tilde.viewing = 0
 	tilde.buffer = 1
+	/*
+	if (tilde.version === 'artists') {
+		tilde.scale = "scaleLog"
+		tilde.displayscale = 'Log Scale'
+	} else {
+		tilde.scale = "scaleLinear"
+		tilde.displayscale = 'Linear Scale'
+	}
+	*/
 	tilde.scale = "scaleLinear"
 	tilde.log_adjustment = .99
 
@@ -114,10 +123,10 @@ tilde.build = function(){
 
 	if (tilde.no_distractions) {
 		tilde.dimensions.chart_padding = {
-			left : tilde.widthUnits(1),
-			right : tilde.widthUnits(1),
-			top : tilde.heightUnits(1),
-			bottom : tilde.heightUnits(1)
+			left : 5,//tilde.widthUnits(1),
+			right : 5,//tilde.widthUnits(1),
+			top : 5,//tilde.heightUnits(1),
+			bottom : 5//tilde.heightUnits(1)
 		}
 	} else {
 		tilde.dimensions.chart_padding = {

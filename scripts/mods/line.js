@@ -82,7 +82,6 @@ tilde.drawLine = function(slice,index,focused) {
 			.html(function(){
 				var career = slice.end_year - slice.start_year
 				if (career < 1) {
-					console.log('i am short')
 					career = 'Less than one year'
 				} else if (career === 1) {
 					career = '1 year'
@@ -96,7 +95,14 @@ tilde.drawLine = function(slice,index,focused) {
 		tilde.title
 			.append('tspan')
 			.html(function(){
-				return ', Streak length: ' 
+				var career = slice.end_year - slice.start_year
+				if (career < 1) {
+					career = '('+slice.start_year+')'
+				} else {
+
+				}
+				career = ' ('+slice.start_year + '-' + slice.end_year+')'
+				return career + ', Streak length: ' 
 			})
 			.style('font-family',tilde.subfont)
 			.style('font-weight',100)
@@ -219,7 +225,7 @@ tilde.drawLine = function(slice,index,focused) {
 				var year = " (" + items[slice.annotate].y + "), "
 				var value = items[slice.annotate].i
 				if (tilde.version === 'artists') {
-					value = "$"+abbreviateNumber(value) + " USD"
+					value = "$"+abbreviateNumber(round(value,0)) + " USD"
 				}
 				var impact = tilde.statistics[tilde.version].impact_type + ': ' + value
 				return year + impact
@@ -298,8 +304,9 @@ tilde.drawLine = function(slice,index,focused) {
 				var title = "Worst " + tilde.statistics[tilde.version].impact_type + ': '
 				var value = items[slice.worst].i
 				if (tilde.version === 'artists') {
-					value = "$"+abbreviateNumber(value) + " USD"
+					value = "$"+abbreviateNumber(round(value,0)) + " USD"
 				}
+				console.log(items[slice.worst].i)
 				return title+value
 			})
 		shadebox_min
