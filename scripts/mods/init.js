@@ -17,8 +17,8 @@ tilde.initView = function() {
 
 	tilde.defs = tilde.chart.append('defs')
 		.attr('id','tilde-defs')
+	tilde.interfaceFrame()
 	if (tilde.subset) {
-		tilde.interfaceFrame()
 		tilde.drawSlider()
 		tilde.dragSlider(tilde.slider_y(tilde.focusedindex))
 	} else {

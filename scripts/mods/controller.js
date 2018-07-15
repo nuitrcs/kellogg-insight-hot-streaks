@@ -121,12 +121,16 @@ tilde.build = function(){
 		tilde.font_size = 35
 	}
 
+	if (tilde.data_height) {
+		tilde.dimensions.height += tilde.font_size*2 + 50 + tilde.heightUnits(2)
+	}
+
 	if (tilde.no_distractions) {
 		tilde.dimensions.chart_padding = {
-			left : 5,//tilde.widthUnits(1),
-			right : 5,//tilde.widthUnits(1),
-			top : 5,//tilde.heightUnits(1),
-			bottom : 5//tilde.heightUnits(1)
+			left : 5,
+			right : 5,
+			top : tilde.font_size*2 + 50 + tilde.heightUnits(2),
+			bottom : 5
 		}
 	} else {
 		tilde.dimensions.chart_padding = {
