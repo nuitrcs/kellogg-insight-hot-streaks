@@ -124,8 +124,8 @@ tilde.build = function(){
 
 	if (tilde.font_size < 12) {
 		tilde.font_size = 12
-	} else if (tilde.font_size > 35) {
-		tilde.font_size = 35
+	} else if (tilde.font_size > 51) {
+		tilde.font_size = 51
 	}
 
 	if (tilde.data_height) {

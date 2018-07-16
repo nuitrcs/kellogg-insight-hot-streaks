@@ -1,4 +1,8 @@
 tilde.interfaceFrame = function() {	
+	var menu_widths = tilde.dimensions.width;
+	if (menu_widths > 1920) {
+		menu_widths = 1920
+	}
 	tilde.container
 		.append('text')
 		.attr('id','heading')
@@ -51,7 +55,7 @@ tilde.interfaceFrame = function() {
 	tilde.menu = d3.select("#tilde-container")
 		.append('div')
 		.attr('id','menu')
-		.style('width',tilde.dimensions.width/3 + 'px')
+		.style('width',menu_widths/3 + 'px')
 		.style('top',tilde.heightUnits(2)+tilde.font_size*1.5+ 'px')
 		.style('left',(tilde.dimensions.width-90)/2+'px')
 		.style('font-size',tilde.font_size + 'px')
@@ -141,10 +145,10 @@ tilde.interfaceFrame = function() {
 		.attr('id','options_dropdown')
 		.attr('class','hidden dropdown')
 		.style('width',function(){
-			return tilde.dimensions.width/2 + 'px'
+			return menu_widths/2 + 'px'
 		})
 		.style('left',function(){
-			return -tilde.dimensions.width/4 + 60 + 'px'
+			return -menu_widths/4 + 60 + 'px'
 		})
 		.style('text-align','center')
 		.style('position','relative')
@@ -176,10 +180,10 @@ tilde.interfaceFrame = function() {
 		.attr('id','search_dropdown')
 		.attr('class','hidden dropdown')
 		.style('width',function(){
-			return tilde.dimensions.width/2 + 'px'
+			return menu_widths/2 + 'px'
 		})
 		.style('left',function(){
-			return -tilde.dimensions.width/4 + 60 + 'px'
+			return -menu_widths/4 + 60 + 'px'
 		})
 		.style('position','relative')
 		.style('opacity',.95)
@@ -195,10 +199,10 @@ tilde.interfaceFrame = function() {
 		.attr('id','info_dropdown')
 		.attr('class','hidden dropdown')
 		.style('width',function(){
-			return tilde.dimensions.width/4 + 'px'
+			return menu_widths/4 + 'px'
 		})
 		.style('left',function(){
-			return -tilde.dimensions.width/8 + 60 + 'px'
+			return -menu_widths/8 + 60 + 'px'
 		})
 		.style('text-align','center')
 		.style('position','relative')
@@ -263,10 +267,10 @@ tilde.interfaceFrame = function() {
 		.attr('id','info_focus')
 		.attr('class','hidden')
 		.style('width',function(){
-			return tilde.dimensions.width/4 + 'px'
+			return menu_widths/4 + 'px'
 		})
 		.style('left',function(){
-			return +tilde.dimensions.width/8 + 60 + 'px'
+			return +menu_widths/8 + 60 + 'px'
 		})
 		.style('text-align','left')
 		.style('position','relative')
@@ -285,9 +289,6 @@ tilde.interfaceFrame = function() {
 	tilde.menu.append('div')
 		.attr('id','sorting')
 		.html('<b>Sorted by</b>: '+tilde.sorting_text[tilde.current_sorting].t)
-		.style('width',function(){
-			return tilde.dimensions.width/4 + 'px'
-		})
 		.on('click',function(d,i){
 			var my_height = 0//-this.offsetHeight - tilde.font_size*.6
 			d3.selectAll('#info_dropdown,#search_dropdown,#quick_dropdown,#options_dropdown').classed('hidden',true)
@@ -366,11 +367,11 @@ tilde.interfaceFrame = function() {
 		.attr('id','quick_dropdown')
 		.attr('class','hidden dropdown')
 		.style('top',tilde.heightUnits(1) + tilde.font_size*1.5 + 5 + 'px')
-		.style('right',function(){
-			return 20+ 'px'
-		})
 		.style('width',function(){
-			return tilde.dimensions.width/4 + 'px'
+			return menu_widths/4 + 'px'
+		})
+		.style('left',function(){
+			return tilde.dimensions.width/2 + d3.select('#heading').node().getBBox().width/2  - menu_widths/8 + 'px'
 		})
 		.style('font-size',tilde.font_size + 'px')
 		.style('font-family',tilde.font_family)

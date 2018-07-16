@@ -165,10 +165,8 @@ a:visited {
 .tt-input,
 .tt-hint {
     width: 97.5%;
-    height: 2.5vh;
     padding: .5vh .5vw;
     font-size: 90%;
-    line-height: 2.5vh;
     border: 2px solid rgba(255, 255, 255, 0.7);
     border-radius: .5vw;
     outline: none;
@@ -193,7 +191,6 @@ a:visited {
 .tt-suggestion {
     padding: .5vh .5vw;
     font-size: 80%;
-    line-height: 1.8vh;
     z-index: 9999;
 }
 .tt-suggestion.tt-cursor {
