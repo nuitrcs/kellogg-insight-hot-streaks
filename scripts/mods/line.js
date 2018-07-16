@@ -301,13 +301,15 @@ tilde.drawLine = function(slice,index,focused) {
 				return 1
 			})
 			.html(function(){
-				var title = "Worst " + tilde.statistics[tilde.version].impact_type + ': '
-				var value = items[slice.worst].i
 				if (tilde.version === 'artists') {
-					value = "$"+abbreviateNumber(round(value,0)) + " USD"
+					return "Lowest sale price: $"+abbreviateNumber(round(items[slice.worst].i,0)) + " USD"
 				}
-				console.log(items[slice.worst].i)
-				return title+value
+				if (tilde.version === 'directors') {
+					return "Lowest rating: " + items[slice.worst].i + " out of 10"
+				}
+				if (tilde.version === 'scientists') {
+					return "Fewest citations: " + items[slice.worst].i
+				}
 			})
 		shadebox_min
 			.attr('x',function(){

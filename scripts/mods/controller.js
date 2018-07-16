@@ -2,6 +2,7 @@ tilde.build = function(){
 	tilde.bar = {}
 	
 	if (tilde.settings === 'default' || !tilde.settings) {
+		tilde.settings === 'default'
 		tilde.viewmode = 'viewport'
 		tilde.cut_view = true
 		tilde.no_distractions = false
@@ -114,7 +115,13 @@ tilde.build = function(){
 
 	tilde.font_family = "Roboto"//, sans-serif"
 	tilde.subfont = "Roboto Slab"
-	tilde.font_size = (tilde.heightUnits(3.5) + tilde.widthUnits(3.5))/2
+	
+	if (tilde.dimensions.height > tilde.dimensions.width*1.4) {
+		tilde.font_size = tilde.widthUnits(3.5)
+	} else {
+		tilde.font_size = (tilde.heightUnits(3.5) + tilde.widthUnits(3.5))/2
+	}
+
 	if (tilde.font_size < 12) {
 		tilde.font_size = 12
 	} else if (tilde.font_size > 35) {
