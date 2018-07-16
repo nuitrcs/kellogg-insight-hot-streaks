@@ -12,7 +12,7 @@ tilde.build = function(){
 		tilde.bar.height = 3
 		tilde.bar.bottomPadding = 0
 		tilde.thickbar = tilde.bar.height*5
-	} else if (tilde.settings === 'cramped') {
+	} else if (tilde.settings === 'cramped' || tilde.settings === 'print') {
 		tilde.viewmode = 'viewport'
 		tilde.no_distractions = true
 		tilde.data_height = false
@@ -39,10 +39,13 @@ tilde.build = function(){
 		tilde.current_sorting = tilde.chosen_sorting
 	}
 	
-	if (tilde.viewmode === 'viewport') {
+	if (tilde.settings === 'print') {
+		d3.select('body').style('overflow','auto')
+		tilde.viewmode = 'print'
+	} else if (tilde.viewmode === 'viewport') {
 		tilde.viewport.width = $(window).width();
 		tilde.viewport.height = $(window).height()-4;
-	} else if (tilde.viewmode === 'maximum') {
+	}else if (tilde.viewmode === 'maximum') {
 		tilde.maximum.width = $(window).width();
 	}
 
@@ -290,8 +293,8 @@ tilde.hybrid = {
 }
 
 tilde.print = {
-	width : 6000,
-	height : 12000
+	width : 1128.6057,
+	height : 4514.4230
 }
 
 tilde.viewport = {
