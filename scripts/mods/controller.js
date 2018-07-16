@@ -293,8 +293,8 @@ tilde.hybrid = {
 }
 
 tilde.print = {
-	width : 1128.6057,
-	height : 4514.4230
+	width : 1128.6057,//4695
+	height : 4514.4230//18780
 }
 
 tilde.viewport = {
