@@ -1,4 +1,5 @@
 body {
+	font-family: Roboto Slab,Roboto,Arial,sans-serif;
 	margin:0;
 	padding:0;
 	background: #0a0b0d;
@@ -84,6 +85,20 @@ svg{
 	font-size:75%;
 	color:white;
 	opacity:0.7;
+}
+.tooltip {
+	font-family: Roboto Slab,Roboto,Arial,sans-serif;
+    position: absolute;
+    display: none;
+    font-size: 75%;
+    height: auto;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+    color:white;
+    border: none;
+    padding: 2px;
+    text-align: center;
+    z-index: 9999;
+    max-width: 35vw;
 }
 #sorting:hover {
 	cursor:pointer;

@@ -457,3 +457,16 @@ tilde.removeInterface = function() {
 	tilde.bonus.remove()
 	tilde.quick_dropdown.remove()
 }
+tilde.tooltip = d3.select("body").append("div").attr("class", "tooltip");
+tilde.moveTooltip = function(d) {
+	tilde.tooltip
+		.html("<b>"+d.n+'</b>'+' ('+d.start_year+'-'+d.end_year+')')
+		.style("display", "inline-block")
+
+	var w = tilde.tooltip.node().offsetWidth/2,
+		h = tilde.tooltip.node().offsetHeight*1.1;
+
+	tilde.tooltip
+		.style("left", d3.event.pageX - w + "px")
+		.style("top", d3.event.pageY - h + "px");
+}

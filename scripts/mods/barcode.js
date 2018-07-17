@@ -30,6 +30,19 @@ tilde.drawBarcodes = function() {
 			}
 			return false
 		})
+		.on('mousemove',function(d){
+			if (tilde.cut_view) {
+				tilde.moveTooltip(d)
+			}
+			return false
+		})
+		.on('mouseout',function(){
+			if (tilde.cut_view) {
+				tilde.tooltip
+					.style("display", "none");
+			}
+			return false
+		})
 
 	tilde.slots.merge(slotsenter)
 		.attr('height',function(d,i){
