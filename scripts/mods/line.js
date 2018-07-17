@@ -164,7 +164,7 @@ tilde.drawLine = function(slice,index,focused) {
 					}
 					return tilde.glow_intensity
 				})
-				.style('mix-blend-mode','screen')
+				.style('mix-blend-mode',tilde.line_blending)
 		}
 	}
 	group.append('path')
@@ -176,7 +176,7 @@ tilde.drawLine = function(slice,index,focused) {
 			return "url(#lineargradient-" + slice.index + ")"
 		})
 		.attr('stroke-width',tilde.stroke_width)
-		.style('mix-blend-mode','screen')
+		.style('mix-blend-mode',tilde.line_blending)
 		.style('opacity',function(){
 			if (tilde.dot_focus){
 				return 0

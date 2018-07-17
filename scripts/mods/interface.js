@@ -61,6 +61,33 @@ tilde.interfaceFrame = function() {
 		.style('font-size',tilde.font_size + 'px')
 		.style('font-family',tilde.font_family)
 		.style('font-weight',400)
+	
+	tilde.menu
+		.append('a')
+		.style('top','5px')
+		.style('left','-50px')
+		.style('position','absolute')
+		.attr('href',function(){
+			return location.href
+		})
+		.attr('target','_blank')
+		.attr('title','View Fullscreen')
+		.append('img')
+		.attr('src',"scripts/images/fullscreen.png")
+		.attr('width','30px')
+		.attr('height','30px')
+		.style('opacity',.2)
+		.attr('class','icon')
+		.on('mouseover',function(){
+			d3.select(this).style('opacity',1)
+		})
+		.on('mouseout',function(){
+			d3.select(this).style('opacity',0.2)
+		})
+		.on('click',function(){
+			d3.select(this).style('opacity',1)
+		})
+
 	tilde.menu
 		.append('img')
 		.attr('src',"scripts/images/options.png")
@@ -78,6 +105,7 @@ tilde.interfaceFrame = function() {
 			d3.select(this).style('opacity',0.4)
 		})
 		.on('click',function(){
+			d3.select(this).style('opacity',1)
 			d3.selectAll('#search_dropdown,#info_dropdown,#quick_dropdown').classed('hidden',true)
 			d3.select('#options_dropdown')
 				.classed('hidden',function(){
@@ -102,6 +130,7 @@ tilde.interfaceFrame = function() {
 				d3.select(this).style('opacity',0.4)
 			})
 			.on('click',function(){
+				d3.select(this).style('opacity',1)
 				d3.selectAll('#info_dropdown, #options_dropdown,#quick_dropdown').classed('hidden',true)
 				d3.select('#search_dropdown')
 					.classed('hidden',function(){
@@ -131,6 +160,7 @@ tilde.interfaceFrame = function() {
 			d3.select(this).style('opacity',0.4)
 		})
 		.on('click',function(){
+			d3.select(this).style('opacity',1)
 			d3.selectAll('#search_dropdown, #options_dropdown, #quick_dropdown').classed('hidden',true)
 			d3.select('#info_dropdown')
 				.classed('hidden',function(){
@@ -336,7 +366,7 @@ tilde.interfaceFrame = function() {
 		.attr('id','bonus_menu')
 		.style('top',tilde.heightUnits(1) + tilde.font_size*.75 - 10 + 'px')
 		.style('left',function(){
-			return tilde.dimensions.width/2 + d3.select('#heading').node().getBBox().width/2 + 5 + 'px'
+			return tilde.dimensions.width/2 + d3.select('#heading').node().getBBox().width/2 + 15 + 'px'
 		})
 		.append('img')
 		.attr('id','bonus')

@@ -79,6 +79,7 @@ tilde.build = function(){
 	tilde.lineheight = 50
 	tilde.focusline = 210
 	tilde.stroke_width = 3
+	tilde.line_blending = 'screen'
 	tilde.line_glow = 20
 	tilde.glow_intensity = 0.07
 
