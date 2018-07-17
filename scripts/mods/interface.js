@@ -55,7 +55,7 @@ tilde.interfaceFrame = function() {
 	tilde.menu = d3.select("#tilde-container")
 		.append('div')
 		.attr('id','menu')
-		.style('width',menu_widths/3 + 'px')
+		.style('width',menu_widths/2 + 'px')
 		.style('top',tilde.heightUnits(2)+tilde.font_size*1.5+ 'px')
 		.style('left',(tilde.dimensions.width-90)/2+'px')
 		.style('font-size',tilde.font_size + 'px')
@@ -368,6 +368,7 @@ tilde.interfaceFrame = function() {
 		.style('left',function(){
 			return tilde.dimensions.width/2 + d3.select('#heading').node().getBBox().width/2 + 15 + 'px'
 		})
+	tilde.bonus
 		.append('img')
 		.attr('id','bonus')
 		.style('position','absolute')
@@ -401,7 +402,7 @@ tilde.interfaceFrame = function() {
 			return menu_widths/4 + 'px'
 		})
 		.style('left',function(){
-			return tilde.dimensions.width/2 + d3.select('#heading').node().getBBox().width/2  - menu_widths/8 + 'px'
+			return tilde.dimensions.width/2 + d3.select('#heading').node().getBBox().width/2  - menu_widths/6 + 'px'
 		})
 		.style('font-size',tilde.font_size + 'px')
 		.style('font-family',tilde.font_family)
