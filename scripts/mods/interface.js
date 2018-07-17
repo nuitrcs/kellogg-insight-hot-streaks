@@ -71,7 +71,7 @@ tilde.interfaceFrame = function() {
 			return location.href
 		})
 		.attr('target','_blank')
-		.attr('title','View Fullscreen')
+		.attr('title','Full View in New Tab')
 		.append('img')
 		.attr('src',"scripts/images/fullscreen.png")
 		.attr('width','30px')
@@ -449,4 +449,10 @@ tilde.interfaceFrame = function() {
 	})
 
 	tilde.generateEngine()
+}
+
+tilde.removeInterface = function() {
+	tilde.menu.remove()
+	tilde.bonus.remove()
+	tilde.quick_dropdown.remove()
 }

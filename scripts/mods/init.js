@@ -25,6 +25,7 @@ tilde.initView = function() {
 		tilde.draw()
 	}
 }
+
 tilde.purge = function() {
 	tilde.defs.selectAll('linearGradient').remove()
 	tilde.chart.selectAll('.tilde-chunk').remove()
@@ -63,6 +64,7 @@ tilde.createPage = function() {
 	tilde.build()
 	tilde.setData()
 	tilde.initView()
+	tilde.assignResize()
 }
 tilde.set = function(type,target) {
 	var query = $.query.set(type,target)
