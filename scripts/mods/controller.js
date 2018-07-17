@@ -305,7 +305,7 @@ tilde.viewport = {
 
 tilde.handle = {
 	width : 50,
-	height : 900
+	height : 1080
 }
 
 tilde.explainer = {
