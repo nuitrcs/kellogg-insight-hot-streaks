@@ -462,6 +462,7 @@ tilde.moveTooltip = function(d) {
 	tilde.tooltip
 		.html("<b>"+d.n+'</b>'+' ('+d.start_year+'-'+d.end_year+')')
 		.style("display", "inline-block")
+		.style('font-size',tilde.font_size*.65+'px')
 
 	var w = tilde.tooltip.node().offsetWidth/2,
 		h = tilde.tooltip.node().offsetHeight*1.1;
