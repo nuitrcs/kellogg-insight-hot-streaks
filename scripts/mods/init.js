@@ -83,8 +83,18 @@ tilde.parseLoading = function() {
 	if (!sorting) {
 		sorting = 'streak_middle'
 	}
+	var x_spread = $.query.get('x_spread')
+	if (!x_spread) {
+		x_spread = 'by_works'
+	}
+	var y_scale = $.query.get('y_scale')
+	if (!y_scale) {
+		y_scale = 'Linear'
+	}
 	tilde.settings = viewmode
 	tilde.chosen_sorting = sorting
+	tilde.x_spread = x_spread
+	tilde.y_scale = 'scale'+y_scale
 	$.getScript("scripts/data/"+dataset+".js",tilde.createPage)
 }
 tilde.parseLoading()

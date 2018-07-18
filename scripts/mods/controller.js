@@ -68,7 +68,7 @@ tilde.build = function(){
 		tilde.displayscale = 'Linear Scale'
 	}
 	*/
-	tilde.scale = "scaleLinear"
+	tilde.scale = tilde.y_scale
 	tilde.log_adjustment = .99
 
 	tilde.all_lines = false
@@ -93,7 +93,7 @@ tilde.build = function(){
 	tilde.dot_phase = 5000
 
 	if (tilde.scale === 'scaleLog') {
-		tilde.glow_intensity = tilde.glow_intensity*2
+		//tilde.glow_intensity = tilde.glow_intensity*2
 	}
 
 	tilde.holdTimer = 0

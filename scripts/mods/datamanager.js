@@ -5,10 +5,14 @@ tilde.setData = function() {
 		d.si = +d.si
 		d.r = +d.r
 		if (tilde.scale === "scaleLog") {
-			d.min += tilde.log_adjustment
 			d.i.forEach(function(i){
-				i.i += tilde.log_adjustment
+				if (i.i === 0) {
+					i.i += tilde.log_adjustment
+				}
 			})
+			if (d.min === 0){
+				d.min += tilde.log_adjustment
+			}
 		}
 		var streaking = 0
 		d.start_year = +d.i[0].y 

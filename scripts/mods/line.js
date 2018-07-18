@@ -301,14 +301,18 @@ tilde.drawLine = function(slice,index,focused) {
 				return 1
 			})
 			.html(function(){
+				var worst = items[slice.worst].i
+				if (tilde.scale === 'scaleLog' && worst < 1){
+					worst = 0
+				}
 				if (tilde.version === 'artists') {
-					return "Lowest sale price: $"+abbreviateNumber(round(items[slice.worst].i,0)) + " USD"
+					return "Lowest sale price: $"+abbreviateNumber(round(worst,0)) + " USD"
 				}
 				if (tilde.version === 'directors') {
-					return "Lowest rating: " + items[slice.worst].i + " out of 10"
+					return "Lowest rating: " + round(worst,1) + " out of 10"
 				}
 				if (tilde.version === 'scientists') {
-					return "Fewest citations: " + items[slice.worst].i
+					return "Fewest citations: " + round(worst,0)
 				}
 			})
 		shadebox_min

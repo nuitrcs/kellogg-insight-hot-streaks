@@ -184,6 +184,8 @@ tilde.interfaceFrame = function() {
 		.style('position','relative')
 		.style('opacity',.95)
 		.style('background','#262626')
+		.style('max-height',tilde.dimensions.chartHeight*.9+'px')
+		.style('overflow','auto')
 		.style('border','1px solid rgba(255, 255, 255, 0.5)')
 
 	tilde.options_dropdown
@@ -291,6 +293,7 @@ tilde.interfaceFrame = function() {
 	d3.select('#show_'+tilde.version).classed('selected-option',true)
 	d3.select('#display_'+tilde.settings).classed('selected-option',true)
 	d3.select('#sorting_'+tilde.chosen_sorting).classed('selected-option',true)
+	d3.select('#'+tilde.y_scale).classed('selected-option',true)
 	
 	tilde.info_focus = tilde.menu
 		.append('div')
