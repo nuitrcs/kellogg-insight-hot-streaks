@@ -58,7 +58,7 @@ tilde.build = function(){
 	tilde.sorting_direction = false
 	tilde.subset = false
 	tilde.viewing = 0
-	tilde.buffer = 0
+	tilde.buffer = 1
 	/*
 	if (tilde.version === 'artists') {
 		tilde.scale = "scaleLog"
