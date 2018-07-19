@@ -4,21 +4,21 @@ tilde.setData = function() {
 	tilde.data.forEach(function(d){
 		d.si = +d.si
 		d.r = +d.r
-		if (tilde.scale === "scaleLog") {
-			d.i.forEach(function(i){
-				if (i.i === 0) {
-					i.i += tilde.log_adjustment
-				}
-			})
-			if (d.min === 0){
-				d.min += tilde.log_adjustment
-			}
-		}
 		var streaking = 0
 		d.start_year = +d.i[0].y 
 		d.end_year = +d.i[d.i.length-1].y
 		d.streak_years = 0
+		d.years = {}
 		d.i.forEach(function(item){
+			if (item.y) {
+				item.y = +item.y
+				if (d.years[item.y]) {
+					d.years[item.y]++
+				} else {
+					d.years[item.y] = 1
+				}
+				item.p = d.years[item.y]
+			}
 			if (item.t) {
 				if (!streaking){
 					streaking = +item.y
@@ -30,7 +30,43 @@ tilde.setData = function() {
 			} else {
 				streaking = 0
 			}
+			if (item.i === 0 && tilde.scale === "scaleLog") {
+				item.i += tilde.log_adjustment
+			}
 		})
+		if (d.min === 0 && tilde.scale === "scaleLog") {
+			d.min += tilde.log_adjustment
+		}
+		var missing_years = {}
+		if (tilde.x_spread === 'by_year') {
+			var j = d.end_year - d.start_year, i;
+			for (i = 0; i <= j; i++) {
+				if (!d.years[d.start_year+i]) {
+					d.years[d.start_year+i] = 0
+					missing_years[d.start_year+i] = true
+				}
+			}
+			var new_array = []
+			d.i.forEach(function(item){
+				new_array.push(item)
+				var next_year = +item.y+1
+				if (missing_years[next_year]) {
+					var consecutive = true
+					while (consecutive) {
+						var new_item = {i:d.min,y:next_year,empty_year:true}
+						new_array.push(new_item)
+						next_year++
+						if (!missing_years[next_year]) {
+							consecutive = false
+						}
+					}
+				}
+			})
+			if (d.i.length !== new_array.length) {
+				d.i = new_array
+			}
+			
+		}
 	})
 	tilde.sortData[tilde.current_sorting](tilde.sorting_direction)
 	var counter = 0
@@ -66,7 +102,7 @@ tilde.prepData = function() {
 				.interpolate(d3.interpolateRgb)
 		}	
 		if (!d.i[0].buffer) {
-			var buffer = {i:d.min,buffer:true},
+			var buffer = {i:d.min,buffer:true,empty_year:true,y:d.start_year-1},
 				items = [],
 				i;
 			for (i = 0; i < tilde.buffer; i++) {
@@ -75,8 +111,9 @@ tilde.prepData = function() {
 			d.i.forEach(function(item){
 				items.push(item)
 			})
+			var end_buffer = {i:d.min,buffer:true,empty_year:true,y:d.end_year+1}
 			for (i = 0; i < tilde.buffer; i++) {
-				items.push(buffer)
+				items.push(end_buffer)
 			}
 			d.i = items
 		}

@@ -36,11 +36,22 @@ tilde.drawLine = function(slice,index,focused) {
 	var x = d3.scaleLinear()
 		.range([0,tilde.dimensions.chartWidth])
 		.domain([0,items.length-1]),
-	y = d3[tilde.scale]()
-		.range([lineheight, 0])
-		.domain([slice.min,slice.max]);
+		year_x = d3.scaleLinear()
+			.range([0,tilde.dimensions.chartWidth])
+			.domain([slice.start_year,slice.end_year]),
+		y = d3[tilde.scale]()
+			.range([lineheight, 0])
+			.domain([slice.min,slice.max]);
 	var line = d3.line()
 		.x(function(d,i) {
+			if (tilde.x_spread === 'by_year') {
+				console.log(d)
+				var bin_size = tilde.dimensions.chartWidth/Object.keys(slice.years).length
+				if (!d.p) {
+					return year_x(d.y) + bin_size
+				}
+				return bin_size*(d.p/slice.years[d.y]) + year_x(d.y)
+			}
 			return x(i); 
 		})
 		.y(function(d,i) {

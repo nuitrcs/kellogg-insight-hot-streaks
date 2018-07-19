@@ -37,11 +37,13 @@ tilde.buildGradientStrip = function(data,num,rotate) {
 		})
 		.attr("stop-opacity", function(d,i) {
 			var low = data.mean
-			if (d.i === data.min) {
-				return 0.5
+			if (d.empty_year) {
+				return 0
+			} else if (d.i === data.min) {
+				return 0.6
 			} else if (d.i < low) {
-				return d.i/low + 0.5
-			}
+				return d.i/low + 0.6
+			} 
 			return 1
 		})
 }

@@ -58,7 +58,7 @@ tilde.build = function(){
 	tilde.sorting_direction = false
 	tilde.subset = false
 	tilde.viewing = 0
-	tilde.buffer = 1
+	tilde.buffer = 0
 	/*
 	if (tilde.version === 'artists') {
 		tilde.scale = "scaleLog"
@@ -81,7 +81,7 @@ tilde.build = function(){
 	tilde.stroke_width = 3
 	tilde.line_blending = 'screen'
 	tilde.line_glow = 20
-	tilde.glow_intensity = 0.07
+	tilde.glow_intensity = 0.06
 
 	tilde.dot_focus = false
 
