@@ -311,7 +311,7 @@ tilde.interfaceFrame = function() {
 		.style('color','white')
 		.style('font-family',tilde.subfont)
 		.style('font-weight',100)
-		.style('font-size','80%')
+		.style('font-size','75%')
 		.on('mouseover',function(){
 			tilde.watching = true
 		})
