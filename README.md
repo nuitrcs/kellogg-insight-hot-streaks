@@ -1,2 +1,2 @@
-# kellogg_insight_automation
+# kellogg-insight-hot-streaks
 [current development embargoed]
